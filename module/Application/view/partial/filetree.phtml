@@ -1,0 +1,35 @@
+
+<?php
+if(is_array($this->file))
+{
+	?>
+	<li class="pft-directory"><a href=""><?php echo $this->key;?></a>
+
+		<ul>
+			<?php
+			foreach ($this->file as $child_key => $child_file) 
+			{
+				echo $this->partial(
+					'partial/filetree.phtml',
+					array(
+						'file' => $child_file, 
+						'key' => $child_key,
+						)
+					); 
+			}
+			?>
+		</ul>
+	</li>
+	<?php
+} 
+else 
+{
+	$ext = "ext-" . substr($this->file, strrpos($this->file, ".") + 1); 
+					// $link = str_replace("[link]", "$directory/" . urlencode($this->file), $return_link);
+	$link = "";
+	?>
+
+	<li class="pft-file  <?php echo strtolower($ext) ;?> "><a href="#"><?php echo $this->file ;?></a></li>
+	<?php
+}
+?>

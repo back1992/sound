@@ -1,0 +1,48 @@
+<?php
+$form = $this->form;
+$form->prepare();
+// echo $this->form()->openTag($form); 
+?>
+<tr>
+	<td>
+	<?php echo 'No.'.$this->i;?>
+	</td>
+	<td>
+		<?php echo  $this->formMonthSelect($form->get('monthyear'));?>
+	</td>
+	<td>
+		<?php echo $this->formSelect($form->get('state'));?>
+	</td>
+	<td>
+		<?php echo $this->formSelect($form->get('city'));?>
+	</td>
+	<td>
+		<?php echo $this->formRow($form->get('title'));?>
+	</td>
+	<td>
+		<?php //$this->formRow($form->get('audioname'));?>
+		<?php echo 'audioname';?>
+	</td>
+	<td >
+		<?php //echo ceil($this->formSelect($form->get('length')) /1024).' KB';?>
+		<?php echo 'audioname length';?>
+	</td>
+	<td>
+		<a href="#" class="btn btn-default" role="button"> 
+			Fetch
+		</a>
+		<a href="#" class="btn btn-success" role="button"> 
+			Edit
+		</a>
+		<a href="#" class="btn btn-info" role="button"> 
+			Splt
+		</a>
+		<a href="#" class="btn btn-warning" role="button"> 
+			Delete
+		</a>
+	</td>
+</tr>
+<?php
+// echo $this->formSubmit($form->get('submit')->setValue('Update')); 
+// echo $this->form()->closeTag(); 
+?>

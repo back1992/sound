@@ -1,0 +1,19 @@
+<div id = "dir" class="col-md-6">
+<?php 
+$this->
+headLink()->appendStylesheet($this->basePath('./js/phpFileTree/styles/default/default.css')); 
+$this->headScript()->appendFile($this->basePath('./js/dandan/filelist.js'))
+?>
+<h4 style=" color: rgb(130, 165, 175)">
+	Current Directory content:
+</h4>
+	<ul class="php-file-tree">
+		<?php
+	foreach ($this->
+		files as $key => $file) {
+		echo $this->partial('partial/filetree.phtml', array(
+			'file' => $file, 'key' => $key)); 
+	}
+	?>
+	</ul>
+</div>

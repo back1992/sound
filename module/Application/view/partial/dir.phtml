@@ -1,0 +1,11 @@
+    <h4 >Current Directory is :       <span class="text-info">" <?php echo $this->dir; ?> "</span></h4>
+    <div id = "dir" class="col-md-7">
+        <ul class="php-file-tree">
+            <?php
+            foreach ($this->files as $key => $file) {
+                echo $this->partial('partial/filetree.phtml', array(
+                    'file' => $file, 'key' => $key)); 
+            }
+            ?>
+        </ul>
+    </div>
