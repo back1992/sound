@@ -1,1 +1,13 @@
-Action "index", controller "Audio", module "Audio".
+
+<audio src="<?php echo $this->basePath('./audiodata/shandong.ogg'); ?> ">
+您的浏览器不支持 audio 标签。
+</audio>
+<audio src="<?php echo $this->basePath('./audiodata/shandong.mp3'); ?> ">
+您的浏览器不支持 audio 标签。
+</audio>
+
+<audio controls>
+  <source src=" http://quiz.local/audiodata/shandong.mp3" type="audio/mpeg">
+  <source src=" http://quiz.local/audiodata/shandong.ogg" type="audio/ogg">
+  Your browser does not support this audio format.
+</audio>

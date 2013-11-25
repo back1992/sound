@@ -1,0 +1,39 @@
+<?php // module/Album/view/audio/audio/index.phtml:
+$title = 'Fetch Audio From DB';
+$this->headTitle($title);
+?>
+<h3><?php echo $this->escapeHtml($title); ?></h3>
+<?php if(count($flashMessages)) : ?>
+	<ul>
+		<?php foreach ($flashMessages as $msg) : ?>
+			<li><em><?php echo $msg; ?></em></li>
+		<?php endforeach; ?>
+	</ul>
+<?php endif; ?>
+<div class="row">
+	<div class="col-md-6">
+		<?php
+		echo $this->
+		partial('partial/filelist.phtml', array(
+			'files' => $this->files,
+			'dir' => $this->dir
+			)); 
+			?>
+		</div>
+		<div class="col-md-6">
+			<?php
+			$form->prepare();
+			echo $this->form()->openTag($form); 
+			echo $this->formRow($form->get('title')); 
+			echo $this->formRow($form->get('audiofiledir'));
+			echo $this->formRow($form->get('audioname'));
+			echo $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-primary')->setValue('Splt'));
+			?>
+
+<span class="help-block">Splt this  audio by silence?</span>
+			<a href="<?php echo $this->url('audio',  array('action' => 'audioindb'));?>" class="btn btn-default" role="button"> 
+				List All
+			</a>
+			<span class="help-block">list Audio file in MongoDB?</span>
+		</div>
+	</div>

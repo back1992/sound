@@ -1,0 +1,53 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+$title = 'My Blogs';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<div id="contentarea">
+	<div id="innercontentarea">
+		<?php if(count($flashMessages)) : ?>
+			<ul>
+				<?php foreach ($flashMessages as $msg) : ?>
+					<li><?php echo $msg; ?></li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+		<table class="table table-striped table-hover table-bordered">
+			<thead>
+				<tr class="success">
+					<th width="*">No</th>
+					<th width="*">Date</th>
+					<th width="*">State</th>
+					<th width="*">City</th>
+					<th width="*">Title</th>
+					<th width="*">Filename</th>
+					<th width="*">Size</th>
+					<th width="*">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				for ($i=0; $i < count($this->form); $i++) { 
+					echo $this->partial('partial/audio/update.phtml', array(
+						'form' => $this->form[$i],
+						'i' => $i));
+					}
+					?>
+				</tbody>
+			</table>
+			<p>
+				<a href="<?php echo $this->url('audio',  array('action' => 'upload'));?>"  class="btn btn-default" role="button"> 
+					Upload another?
+				</a>
+			</p>	
+			<p>
+				<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"  class="btn btn-danger" role="button"> 
+					Delete All
+				</a>
+			</p>
+		</div>
+
+
+	</div>
+

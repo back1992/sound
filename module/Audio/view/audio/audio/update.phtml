@@ -1,0 +1,26 @@
+<?php // module/Album/view/audio/audio/index.phtml:
+$title = 'My Audio files';
+$this->headTitle($title);
+echo  $this->escapeHtml($title);
+$this->headScript()->appendFile($this->basePath('js/cityselect/jquery.cityselect.js'));
+$form->prepare();
+echo $this->form()->openTag($form); 
+echo $this->formRow($form->get('title')); 
+echo $this->formrow($form->get('audioname')); 
+echo $this->formRow($form->get('tag')); 
+		// echo $this->formlabel($form->get('audio-file')); 
+		// $fileElement = $form->get('audio-file'); 
+		// echo $this->formFile($fileElement); 
+		// echo $this->formElementErrors($fileElement); 
+echo $this->formSubmit($form->get('submit')->setValue('Update')); 
+echo $this->form()->closeTag(); 
+?>
+<script type="text/javascript">
+	$(function() {
+		$("#city").citySelect({
+			nodata: "none",
+			required: false
+		});
+		$("select").addClass('selectpicker form-group form-control').width(120);
+	});
+</script>

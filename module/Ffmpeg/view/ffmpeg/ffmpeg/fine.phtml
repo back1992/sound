@@ -1,0 +1,17 @@
+<?php
+// module/Mp3/view/mp3/mp3/index.phtml:
+$title = 'Split mp3s log';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+	// echo "<pre>";
+	// var_dump($this->logArray);
+	// echo "</pre>";
+echo $this->partial('partial/audio.phtml', array(
+	'audioFile' => $this->audioFile)); 
+$attribs = array(
+	'class' => 'list-inline',
+	);
+echo $this->htmlList($this->logArray, true, $attribs);
+?>

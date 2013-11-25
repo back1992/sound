@@ -28,11 +28,11 @@ echo $this->formlabel($form->get('monthyear')->setAttributes(array(
 		</div>
 		<?php
 		echo $this->formRow($form->get('tag')); 
-		echo $this->formlabel($form->get('audio-file')); 
-		$fileElement = $form->get('audio-file'); 
-		echo $this->formFile($fileElement); 
-		echo $this->formElementErrors($fileElement); 
-		echo $this->formSubmit($form->get('submit')->setValue('Upload')); 
+		// echo $this->formlabel($form->get('audio-file')); 
+		// $fileElement = $form->get('audio-file'); 
+		// echo $this->formFile($fileElement); 
+		// echo $this->formElementErrors($fileElement); 
+		echo $this->formSubmit($form->get('submit')->setValue('Update')); 
 		echo $this->form()->closeTag(); 
 		?>
 		<script type="text/javascript">

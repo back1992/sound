@@ -1,0 +1,84 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+ini_set('display_errors', '1');
+
+$title = 'My Blogs';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+</p>
+<div id="contentarea">
+	<div id="innercontentarea">
+		<?php if(count($flashMessages)) : ?>
+			<ul>
+				<?php foreach ($flashMessages as $msg) : ?>
+					<li><?php echo $msg; ?></li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+		<table class="table table-striped table-hover table-bordered">
+			<thead>
+				<tr class="success">
+					<th width="*">Title</th>
+					<th width="*">Filename</th>
+					<th width="*">Size</th>
+					<th width="*">Fetch</th>
+					<th width="*">Splt</th>
+					<th width="*">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php while($object = $objects->getNext()): ?> 
+					<tr>
+						<td>
+							<?php echo $object->file['title'];?>
+						</td>
+						<td>
+						<a href="<?php echo $this->url('audio',  array('action' => 'processmp3','id'
+								=> $object->file['_id']->__toString()));?>"> 
+
+								<?php echo $object->file['audioname'];?>
+							</a>
+						</td>
+						<td >
+							<?php echo ceil($object->file['length'] /
+							1024).' KB';?>
+						</td>
+						<td>
+						<a href="<?php echo $this->url('audio',  array('action' => 'fetchaudio','id'
+								=> $object->file['_id']->__toString()));?>"> 
+								Fetch this Audio
+							</a>
+						</td>
+						<td>						
+						<a href="<?php echo $this->url('audio',  array('action' => 'splt','id'
+								=> $object->file['_id']->__toString()));?>"> 
+								Splt this Audio
+							</a>
+						</td>
+						<td>	
+						<a href="<?php echo $this->url('audio',  array('action' => 'delete','id'
+								=> $object->file['_id']->__toString()));?>"> 
+								Delete
+							</a>
+						</td>
+					</tr>
+				<?php endwhile;?>
+			</tbody>
+		</table>
+		<p>
+		<a href="<?php echo $this->url('audio',  array('action' => 'upload'));?>"> 
+				Upload another?
+			</a>
+		</p>	
+		<p>
+		<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"> 
+				Delete All
+			</a>
+		</p>
+	</div>
+
+
+</div>
+

@@ -1,1 +1,50 @@
-Action "index", controller "Ffmpeg", module "Ffmpeg".
+<?php
+// module/Album/view/album/album/index.phtml:
+$this->
+headLink()->appendStylesheet($this->basePath('./js/phpFileTree/styles/default/default.css'));
+$title = 'FFMpeg and Mp3splt  Scan';
+$this->headTitle($title);
+?>
+<h1>
+	<?php echo $this->escapeHtml($title); ?></h1>
+<div class="row">
+	<?php
+		echo $this->
+	partial('partial/filelist.phtml', array(
+			'files' => $this->files,
+			'dir' => $this->dir
+			)); 
+			?>
+	<div class="col-md-6">
+		<?php 
+		$form = $this->
+		form;
+		// $form->setAttribute('action', $this->url('ffmpeg', array('action' => 'convert')));
+		$form->prepare();
+		echo $this->form()->openTag($form);
+		echo $this->formHidden($form->get('id'));
+		// echo $this->formRow($form->get('title'),  array('class' => 'help-inline'));
+		echo $this->formRow($form->get('title'));
+		echo $this->formSubmit($form->get('submit')->setValue('Convert Mp3 to Ogg'));
+		echo $this->formSubmit($form->get('submit')->setValue('Split by Silence'));
+		echo $this->formSubmit($form->get('submit')->setValue('Edit the Audio'));
+		echo $this->formSubmit($form->get('submit')->setValue('Fine Tune'));
+		echo $this->formSubmit($form->get('submit')->setValue('Scan Dir'));
+		echo $this->form()->closeTag();
+		?>
+	</div>
+</div>
+<script type="text/javascript">
+	function updateTextInput(val) {
+		document.getElementById('inputValue').value=val; 
+	};
+	$("input").css({'margin-left':'10px'});
+	// $("input").css({'margin-left':'10px'}).wrap('<p class="form-group "></p>');
+
+	$('input[name="submit"]').hover( function(){
+		$(this).addClass('btn-info');
+	},
+	function(){
+		$(this).removeClass('btn-info');
+	});
+</script>

@@ -11,28 +11,19 @@ return array(
                 'type'
                 => 'segment',
                 'options' => array(
-    'route'    => '/audio',
+                    'route'
+                    => '/audio[/][:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'
+                        => '[a-zA-Z0-9_-]+',
+                        ),
                     'defaults' => array(
                         'controller' => 'Audio\Controller\Audio',
                         'action'
                         => 'index',
                         ),
                     ),
-                                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
                 ),
             ),
         ),

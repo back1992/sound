@@ -1,0 +1,25 @@
+<?php
+$title = 'FFMpeg and Mp3splt  Scan';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+// echo $this->serverUrl();
+$audioRes = $this->audioRes;
+// foreach ($audioRes as $audioFile) {
+echo "<div class='col-md-6'>";
+	for($i=0; $i<count($audioRes); $i++){
+		echo "<div>";
+echo 'No. '.($i+1);
+// echo $audioRes["$i"];
+	echo $this->partial('partial/audio.phtml', array(
+		// 'audioFile' => $audioFile)); 
+		'audioFile' => $audioRes[$i])); 
+	echo "</div>";
+}
+	echo "</div>";
+?>
+
+<div class="col-md-6">
+1111111
+</div>
