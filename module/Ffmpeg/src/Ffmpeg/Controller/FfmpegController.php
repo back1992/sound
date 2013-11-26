@@ -169,6 +169,7 @@ class FfmpegController extends AbstractActionController
 		// Consumes the configuration array
 		// $reader = new \Zend\Config\Reader\Json();
 		// $data   = $reader->fromFile('./config/autoload/config.json');
+		$mp3dir = Dandan::MP3DIR;
 		$form = new DirForm();
 		$request = $this->getRequest();
 		if ($request->isPost()) {

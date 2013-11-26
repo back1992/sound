@@ -88,6 +88,42 @@ return array(
 				'label' => 'System',
 				'route' => 'system',
 				) ,
+			array(
+				'label' => 'Tools',
+				'route' => 'tools',
+				'pages' => array(
+					array(
+						'label' => 'Index',
+						'route' => 'tools',
+						'controller' => 'tools',
+						'action' => 'index',
+						) ,
+					array(
+						'label' => 'PHPMpeg',
+						'route' => 'tools',
+						'controller' => 'tools',
+						'action' => 'pffmpeg',
+						) ,
+					array(
+						'label' => 'Format',
+						'route' => 'tools',
+						'controller' => 'tools',
+						'action' => 'format',
+						) ,
+					array(
+						'label' => 'Fetch',
+						'route' => 'tools',
+						'controller' => 'tools',
+						'action' => 'fetch',
+						) ,
+					array(
+						'label' => 'Update',
+						'route' => 'tools',
+						'controller' => 'tools',
+						'action' => 'update',
+						) ,
+					) ,
+				) ,
 			) ,
 ) ,
 'service_manager' => array(

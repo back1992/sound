@@ -7,6 +7,9 @@ class Dandan {
 	const RAWDIR = './public/audiodata/raw/';
 	const MP3DIR = './public/audiodata/mp3/';
 	const OGGDIR = './public/audiodata/ogg/';
+	const VDIR = './public/videodata/';
+
+
 	
 	public  static	function dirToArray($dir, $path = false) { 
 		$result = array(); 

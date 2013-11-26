@@ -9,7 +9,8 @@ return array(
     'modules' => array(
         'Application',
         'Audio',
-        'Ffmpeg'
+        'Ffmpeg',
+        'System'
         ),
     'module_listener_options' => array(
         'module_paths' => array(
