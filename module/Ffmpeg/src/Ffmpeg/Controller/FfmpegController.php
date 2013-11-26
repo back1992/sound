@@ -5,13 +5,13 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Ffmpeg\Form\DirForm;
 use Zend\Stdlib\Hydrator;
+use Audio\Myclass\Dandan;
 class FfmpegController extends AbstractActionController
 {
 	public function indexAction()
 	{
-		$config = $this->getServiceLocator()->get('Config');
+		$dir = Dandan::SDIR;
 		$form = new DirForm();
-		$dir = $config['settings']['audiodata'];
 		if (file_exists($dir)) {
 			$files = $this->dirToArray($dir);
 			krsort($files);
@@ -106,8 +106,7 @@ class FfmpegController extends AbstractActionController
 	public function convertAction()
 	{
 		ini_set('display_errors', '1');
-		$config = $this->getServiceLocator()->get('Config');
-		$dir = $config['settings']['audiodata'];
+		$dir = Dandan::SDIR;
 		// system('shell_exec('ffmpeg -i ./data/mp3/'. $audiofile . ' '.$path_parts['filename'].'.ogg');');
 		// var_dump($this->params);
 		$request = $this->getRequest();

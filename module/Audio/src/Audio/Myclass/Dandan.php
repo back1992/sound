@@ -4,7 +4,10 @@ namespace Audio\Myclass;
 
 class Dandan {
 	const SDIR = './public/audiodata/';
-	const RAWDIR = './public/audiodata/raw/'
+	const RAWDIR = './public/audiodata/raw/';
+	const MP3DIR = './public/audiodata/mp3/';
+	const OGGDIR = './public/audiodata/ogg/';
+	
 	public  static	function dirToArray($dir, $path = false) { 
 		$result = array(); 
 		$cdir = scandir($dir); 

@@ -9,7 +9,7 @@ use Audio\Form\AudioForm;
 use Audio\Form\UploadForm;
 use Audio\Form\UpdateForm;
 use Audio\Form\ViewAudioForm;
-use \Dandan;
+use Audio\Myclass\Dandan;
 class AudioController extends AbstractActionController
 {
 	public function indexAction()
@@ -31,10 +31,10 @@ class AudioController extends AbstractActionController
 			// Make certain to merge the files info!
 			$post = array_merge_recursive($request->getPost()->toArray() , $request->getFiles()->toArray());
 			$form->setData($post);
-			var_dump($post);
+			// var_dump($post);
 			if ($form->isValid()) {
 				$data = $form->getData();
-				var_dump($data);
+				// var_dump($data);
 				$filetype = $data['audio-file']['type'];
 				$title = $data['title'];
 				$monthyear = $post['monthyear'];
@@ -188,7 +188,7 @@ class AudioController extends AbstractActionController
 			'_id' => new MongoId($id)
 		));
 		$form = new uploadForm();
-		var_dump($object);
+		// var_dump($object);
 		$form->bind($object);
 		$form->setData($object->file);
 		$audiofiledir = './public/audiodata/raw/';
