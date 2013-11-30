@@ -87,6 +87,26 @@ return array(
 			array(
 				'label' => 'System',
 				'route' => 'system',
+				'pages' => array(
+					array(
+						'label' => 'phpinfo',
+						'route' => 'system',
+						'controller' => 'system',
+						'action' => 'phpinfo',
+						) ,
+					array(
+						'label' => 'PHPMpeg',
+						'route' => 'system',
+						'controller' => 'system',
+						'action' => 'pffmpeg',
+						) ,
+					array(
+						'label' => 'Format',
+						'route' => 'system',
+						'controller' => 'system',
+						'action' => 'format',
+						) ,
+					),
 				) ,
 			array(
 				'label' => 'Tools',
@@ -111,10 +131,10 @@ return array(
 						'action' => 'format',
 						) ,
 					array(
-						'label' => 'Fetch',
+						'label' => 'Convert',
 						'route' => 'tools',
 						'controller' => 'tools',
-						'action' => 'fetch',
+						'action' => 'convert',
 						) ,
 					array(
 						'label' => 'Update',

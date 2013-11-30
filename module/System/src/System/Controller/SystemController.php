@@ -12,31 +12,39 @@ class SystemController extends AbstractActionController
     {
         return new ViewModel();
     }
-public function formDbAdapterAction()
-{
-    $vm = new ViewModel();
-    $vm->setTemplate('form-dependencies/form/form-db-adapter.phtml');
 
-    $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-    $form      = new DbAdapterForm($dbAdapter);
+    public function formDbAdapterAction()
+    {
+        $vm = new ViewModel();
+            $vm->setTemplate('form-dependencies/form/form-db-adapter.phtml');
 
-    return $vm->setVariables(array(
-        'form' => $form
-    ));
-}
+            $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+            $form      = new DbAdapterForm($dbAdapter);
+
+            return $vm->setVariables(array(
+                'form' => $form
+            ));
+    }
 
     public function formTableAction()
     {
         $vm = new ViewModel();
-        $vm->setTemplate('form-dependencies/form/form-table.phtml');
+                $vm->setTemplate('form-dependencies/form/form-table.phtml');
 
-        $tableGateway = $this->getServiceLocator()->get('formdependencies-model-selecttable');
-        $form         = new TableForm($tableGateway);
+                $tableGateway = $this->getServiceLocator()->get('formdependencies-model-selecttable');
+                $form         = new TableForm($tableGateway);
 
-        return $vm->setVariables(array(
-            'form' => $form
-        ));
+                return $vm->setVariables(array(
+                    'form' => $form
+                ));
     }
+
+    public function phpinfoAction()
+    {
+        phpinfo();
+        return new ViewModel();
+    }
+
 
 }
 
