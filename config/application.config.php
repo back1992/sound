@@ -11,7 +11,8 @@ return array(
         'Audio',
         'Ffmpeg',
         'System',
-        'Tools'
+        'Tools',
+        'DluPhpSettings'
         ),
     'module_listener_options' => array(
         'module_paths' => array(

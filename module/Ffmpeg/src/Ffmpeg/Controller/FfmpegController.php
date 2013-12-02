@@ -30,7 +30,8 @@ class FfmpegController extends AbstractActionController
 
 				case 'Split by Silence':
 					$returnValue = $forwardPlugin->dispatch('Ffmpeg\Controller\Ffmpeg', array(
-						'action' => 'splt'
+						// 'action' => 'splt'
+						'action' => 'newsplt'
 					));
 					
 					return $returnValue;
@@ -241,6 +242,40 @@ class FfmpegController extends AbstractActionController
 	}
 	function rangeAction()
 	{
+	}
+	function newspltAction()
+	{
+		$mp3dir = Dandan::MP3DIR;
+		$form = new DirForm();
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			var_dump($request->getPost());
+			$audioFile = basename($request->getPost()->title);
+			// $fileInfo = pathinfo($audioFile);
+			$audioSDir = Dandan::RAWDIR;
+			$audioTDir = Dandan::SDIR  . basename($audioFile, '.mp3') . '/';
+			var_dump($audioFile);
+			var_dump($audioSDir);
+			var_dump($audioTDir);
+			$cmd_splt = " rm -rf $audioTDir* && mp3splt -s  $audioFile  -d $audioTDir  && cp ./mp3splt.log  $audioTDir";
+			var_dump($cmd_splt);
+			$spltlog = shell_exec($cmd_splt);
+			// var_dump($spltlog);
+			if (file_exists($audioTDir)) {
+				$files = $this->dirToArray($audioTDir);
+				krsort($files);
+			$resFile = str_replace('.mp3', '', str_replace('./public', '', $audioFile));
+			
+			return array(
+				'files' => $files,
+				'audioFile' => $resFile,
+				'dir' => $audioTDir,
+				'form' => $form
+			);
+			}
+		}
+		
+		return false;
 	}
 	public function viewAction()
 	{

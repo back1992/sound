@@ -49,4 +49,18 @@ return array(
         ),
     ),
     // Placeholder for console routes
+    //ffmepg config
+    'ffmpeg_config' => array(
+            'temp_directory'              => './data/tmp',
+            'ffmpeg'                      => '/usr/local/bin/ffmpeg',
+            'ffprobe'                     => '/usr/local/bin/ffprobe',
+            'yamdi'                       => '/usr/local/bin/yamdi',
+            'qtfaststart'                 => '/usr/local/bin/qt-faststart',
+            'gif_transcoder'              => 'php',
+            'convert'                     => '/usr/local/bin/convert',
+            'gifsicle'                    => '/usr/local/bin/gifsicle',
+            'php_exec_infinite_timelimit' => true,
+           ),
+
+
 );

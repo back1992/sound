@@ -771,6 +771,7 @@
             $has_index = false;
             $basename = basename($save_path);
             $save_dir = dirname($save_path);
+
             $save_dir = realpath($save_dir);
             if($save_dir === false || is_dir($save_dir) === false)
             {

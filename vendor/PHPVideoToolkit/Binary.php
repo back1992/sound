@@ -90,7 +90,7 @@
             {
                 foreach($path_elements as $dir)
                 {
-                    $file = $dir.DIRECTORY_SEPARATOR.$program.$suff;
+                    $file = DIRECTORY_SEPARATOR.$dir.DIRECTORY_SEPARATOR.$program.$suff;
                     if(@is_executable($file) === true)
                     {
                         return $file;
