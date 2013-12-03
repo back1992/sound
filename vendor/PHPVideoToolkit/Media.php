@@ -329,17 +329,17 @@
         public function extractSegment(Timecode $from_timecode=null, Timecode $to_timecode=null, $accurate=false)
         {
 //          check that a segment extract has not already been set
-            if(empty($this->_extract_segment) === false)
+/*            if(empty($this->_extract_segment) === false)
             {
                 throw new Exception('Extract segment options have already been set. You cannot call extractSegment more than once on a '.get_class($this).' object.');
-            }
+            }*/
             
 //          check that a split has already been set as if it has we can't extract a segment
 //          however we can extract a segment, then split it.
-            if(empty($this->_split_options) === false)
+/*            if(empty($this->_split_options) === false)
             {
                 throw new Exception('You cannot extract a segment once '.get_class($this).'::split has been called. You can however extract a segment, the call '.get_class($this).'::split.');
-            }
+            }*/
             
 //          check the timecodes against the duration
             $duration = $this->readDuration();
@@ -662,7 +662,8 @@
         public function save($save_path=null, Format $output_format=null, $overwrite=Media::OVERWRITE_FAIL, ProgressHandlerAbstract &$progress_handler=null)
         {
 //          pre process all of the common functionality and pre process the output format.
-            $this->_savePreProcess($output_format, $save_path, $overwrite, $progress_handler);
+            // $this->_savePreProcess($output_format, $save_path, $overwrite, $progress_handler);
+            $this->_savePreProcess($output_format, $save_path, true, $progress_handler);
             
 //          set the progress handler 
             if($progress_handler !== null)
@@ -804,6 +805,9 @@
             {
                 if(is_file($save_dir.DIRECTORY_SEPARATOR.$basename) === true && (empty($overwrite) === true || $overwrite === self::OVERWRITE_FAIL))
                 {
+                    var_dump($overwrite);
+                    var_dump(empty($overwrite));
+                    var_dump(self::OVERWRITE_FAIL);
                     throw new Exception('The output file already exists and overwriting is disabled.');
                 }
                 else if(is_file($save_dir.DIRECTORY_SEPARATOR.$basename) === true && $overwrite === self::OVERWRITE_EXISTING && is_writeable($save_dir.DIRECTORY_SEPARATOR.$basename) === false)
@@ -865,7 +869,8 @@
                 }
                 if(empty($this->_extract_segment['seek']) === false)
                 {
-                    $this->_process->addCommand('-ss', $this->_extract_segment['seek']->getTimecode('%hh:%mm:%ss.%ms', false));
+                    // $this->_process->addCommand('-ss', $this->_extract_segment['seek']->getTimecode('%hh:%mm:%ss.%ms', false));
+                    $this->_process->addCommand('-ss', $this->_extract_segment['seek']->getTimecode('%hh:%mm:%ss.%ms', true));
                 }
                 if(empty($this->_extract_segment['length']) === false)
                 {

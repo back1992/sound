@@ -131,7 +131,8 @@
          * @param mixed $argument
          * @return self
          */
-        public function addPreInputCommand($command, $argument=false, $allow_command_repetition=false)
+        // public function addPreInputCommand($command, $argument=false, $allow_command_repetition=false)
+        public function addPreInputCommand($command, $argument=false, $allow_command_repetition=true)
         {
             $this->_add($this->_pre_input_commands, $command, $argument, $allow_command_repetition);
             return $this;
@@ -146,7 +147,8 @@
          * @param mixed $argument
          * @return self
          */
-        public function addCommand($command, $argument=false, $allow_command_repetition=false)
+        // public function addCommand($command, $argument=false, $allow_command_repetition=false)
+        public function addCommand($command, $argument=false, $allow_command_repetition=true)
         {
             $this->_add($this->_post_input_commands, $command, $argument, $allow_command_repetition);
             return $this;
