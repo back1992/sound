@@ -1,0 +1,46 @@
+    <title>Audiee</title>
+    <meta name="description" content="Simple experimental web based audio editor.">
+    <meta name="author" content="Jan Myler">
+    <link rel="author" href="humans.txt">
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+	<?php
+	// $this->headLink()->prependStylesheet($this->basePath('./js/web-audio-editor/css/style.css'));
+	// $this->headLink()->prependStylesheet($this->basePath('./js/web-audio-editor/less/style.less'));
+	$this->headScript()->prependFile($this->basePath('./js/web-audio-editor/js/libs/less-1.2.2.js'));
+	?>
+    <!-- Use SimpLESS (Win/Linux/Mac) or LESS.app (Mac) to compile your .less files
+    to style.css, and replace the 2 lines above by this one: -->
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+<body>
+				<div class="pull-left editable" id="project-name"></div>
+				<div class="" id="playback-controls">
+					<input type="text" id="time-display" value="-:--:--.---">
+					<button class="btn btn-default" id="play" title="play"><i class="icon-play"></i></button>
+					<button class="btn btn-default" id="stop" title="stop" ><i class="icon-stop"></i></button>
+					<button class="btn btn-default" id="follow" title="toggle follow"><i class="icon-eye-open"></i><i class="icon-eye-close"></i></button>
+				</div>
+			<div class="app-name">Audiee</div>
+	<div class="menubar menubar-fixed" id="menu-view">
+		<ul class="nav nav-pills"></ul>
+	</div>
+	<div id="app-frame" class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12" id="editor-view">
+				<div class="inner">
+					<div id="time-line"></div>
+					<div id="tracks"></div>
+				</div> 
+			</div> <!-- /div#editor-view -->
+		</div> 
+	</div> <!-- /div#app-frame -->
+
+
+
+	<!-- JavaScript at the bottom for fast page loading -->
+	<?php
+	echo $this->headScript()->appendFile($this->basePath('./js/web-audio-editor/js/libs/require/require.js'));
+	?>
+</body>
+</html>

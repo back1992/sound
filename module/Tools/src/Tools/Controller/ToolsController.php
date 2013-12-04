@@ -88,4 +88,10 @@ public function logspltAction()
     \PHPVideoToolkit\Trace::vars($output->getOutput()->getMediaPath());
     return FALSE;
 }
+
+public function editAction(){
+       $viewModel = new ViewModel();
+        $viewModel->setTerminal(true);
+        return $viewModel;
+}
 }

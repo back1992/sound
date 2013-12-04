@@ -131,10 +131,10 @@ return array(
 						'action' => 'format',
 						) ,
 					array(
-						'label' => 'Convert',
+						'label' => 'Edit',
 						'route' => 'tools',
 						'controller' => 'tools',
-						'action' => 'convert',
+						'action' => 'edit',
 						) ,
 					array(
 						'label' => 'Log splt',
