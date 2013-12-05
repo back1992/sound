@@ -12,6 +12,7 @@
         "zendframework/zendframework": "2.2.*",
         "zendframework/zftool": "dev-master",
          "php-ffmpeg/php-ffmpeg": "0.3.x-dev@dev",
-        "dlu/dluphpsettings": "dev-master"
+        "dlu/dluphpsettings": "dev-master",
+        "zendframework/zendpdf": "dev-master"
     }
 }

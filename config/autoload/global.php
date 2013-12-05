@@ -119,22 +119,22 @@ return array(
 						'action' => 'index',
 						) ,
 					array(
-						'label' => 'PHPMpeg',
+						'label' => 'readdoc',
 						'route' => 'tools',
 						'controller' => 'tools',
-						'action' => 'pffmpeg',
+						'action' => 'readdoc',
 						) ,
 					array(
-						'label' => 'Format',
+						'label' => 'readpdf',
 						'route' => 'tools',
 						'controller' => 'tools',
-						'action' => 'format',
+						'action' => 'readpdf',
 						) ,
 					array(
-						'label' => 'Edit',
+						'label' => 'Convert',
 						'route' => 'tools',
 						'controller' => 'tools',
-						'action' => 'edit',
+						'action' => 'convert',
 						) ,
 					array(
 						'label' => 'Log splt',
