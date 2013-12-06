@@ -61,7 +61,11 @@ class Dandan {
 		rmdir($path);
 	}
 	function read_doc_file($filename) {
-		$content = shell_exec('/usr/bin/antiword -f '.$filename);
+		// $content = shell_exec('/usr/bin/antiword -f '.$filename);
+		$textfile = pathinfo($filename, PATHINFO_BASENAME).'.txt';
+		shell_exec("/usr/bin/abiword  --to=txt --to-name=$textfile $filename");
+		$content = file_get_contents($textfile);
+
 		return $content;
 		// return shell_exec('/usr/local/bin/antiword '.$filename);
 	}

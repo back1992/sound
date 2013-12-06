@@ -4,7 +4,7 @@ namespace Audio\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use MongoId;
-use Audio\Myclass\DBconnection;
+use Audio\Myclass\DBConnection;
 use Audio\Form\AudioForm;
 use Audio\Form\UploadForm;
 use Audio\Form\UpdateForm;
