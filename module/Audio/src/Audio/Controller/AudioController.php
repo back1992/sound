@@ -42,7 +42,7 @@ class AudioController extends AbstractActionController
 				$tag = $data['tag'];
 				$filename = $data['audio-file']['name'];
 				$mp3file = $tmpfilepath;
-				$gridFS->storeFile($mp3file, array(
+				$res = $gridFS->storeFile($mp3file, array(
 					'audioname' => $filename,
 					'filetype' => $filetype,
 					'state' => $post['state'],
@@ -51,7 +51,9 @@ class AudioController extends AbstractActionController
 					'title' => $title,
 					'monthyear' => $monthyear,
 				));
+				var_dump($res);
 				$flag = 1;
+				return false;
 				
 				return $this->redirect()->toRoute('audio', array(
 					'action' => 'audioindb'
@@ -191,9 +193,11 @@ class AudioController extends AbstractActionController
 		// var_dump($object);
 		$form->bind($object);
 		$form->setData($object->file);
-		$audiofiledir = './public/audiodata/raw/';
+		$audiofiledir = Dandan::RAWDIR;
 		// $audiofiledir = './public/audiodata/';
 		$audioname = $object->file['audioname'];
+		$audiofile = $audiofiledir . $audioname;
+		if(file_exists($audiofile)) unlink($audiofile);
 		$object->write($audiofiledir . $audioname);
 		$files = Dandan::dirToArray($audiofiledir);
 		krsort($files);

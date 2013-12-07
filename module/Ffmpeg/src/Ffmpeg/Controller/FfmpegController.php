@@ -176,7 +176,7 @@ class FfmpegController extends AbstractActionController
 			var_dump(mkdir($audioTDir));
 			var_dump(chmod($audioTDir, 0777));
 			// $cmd_splt = " rm -rf $audioTDir* && mp3splt -s -p min=4,off=0.6  $audioFile  -d $audioTDir  && cp ./mp3splt.log  $audioTDir";
-			$cmd_splt = " mp3splt -s -p min=4,off=0.6  $audioFile  -d $audioTDir ";
+			$cmd_splt = " mp3splt -s -p min=2.6,off=0.6  $audioFile  -d $audioTDir ";
 			var_dump($cmd_splt);
 			$spltlog = shell_exec($cmd_splt);
 			// var_dump($spltlog);
