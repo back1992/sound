@@ -31,6 +31,7 @@ echo $this->formlabel($form->get('monthyear')->setAttributes(array(
 		echo $this->formlabel($form->get('audio-file')); 
 		$fileElement = $form->get('audio-file'); 
 		echo $this->formFile($fileElement); 
+		echo $this->formFile($fileElement); 
 		echo $this->formElementErrors($fileElement); 
 		echo $this->formSubmit($form->get('submit')->setValue('Upload')); 
 		echo $this->form()->closeTag(); 

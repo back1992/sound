@@ -10,8 +10,23 @@ use Audio\Form\UploadForm;
 use Audio\Form\UpdateForm;
 use Audio\Form\ViewAudioForm;
 use Audio\Myclass\Dandan;
+
+
+use ZF2FileUploadExamples\Form;
+use ZF2FileUploadExamples\InputFilter;
+use Zend\Debug\Debug;
+use Zend\Session\Container;
 class AudioController extends AbstractActionController
 {
+	    /**
+     * @var Container
+     */
+    protected $sessionContainer;
+
+    public function __construct()
+    {
+        $this->sessionContainer = new Container('file_upload_examples');
+    }
 	public function indexAction()
 	{
 		
@@ -66,6 +81,38 @@ class AudioController extends AbstractActionController
 			'flag' => $flag,
 		);
 	}
+
+	public function collectionAction()
+    {
+        $form = new Form\CollectionUpload('file-form');
+
+        if ($this->getRequest()->isPost()) {
+            // Postback
+            $data = array_merge_recursive(
+                $this->getRequest()->getPost()->toArray(),
+                $this->getRequest()->getFiles()->toArray()
+            );
+
+            $form->setData($data);
+            if ($form->isValid()) {
+                //
+                // ...Save the form...
+                //
+                return $this->redirectToSuccessPage($form->getData());
+            }
+        }
+
+        return array('form' => $form);
+    }
+
+        public function successAction()
+    {
+        return array(
+            'formData' => $this->sessionContainer->formData,
+        );
+    }
+
+
 	public function updateAction()
 	{
 		ini_set('display_errors', '1');
@@ -433,4 +480,13 @@ class AudioController extends AbstractActionController
 			hexdec(substr($input, 4, 2))
 		);
 	}
+
+	  protected function redirectToSuccessPage($formData = null)
+    {
+        $this->sessionContainer->formData = $formData;
+        $response = $this->redirect()->toRoute('sample', array('action'=>'success'));
+        $response->setStatusCode(303);
+        return $response;
+    }
+
 }

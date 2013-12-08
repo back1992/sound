@@ -12,7 +12,8 @@ return array(
         'Ffmpeg',
         'System',
         'Tools',
-        'DluPhpSettings'
+        'DluPhpSettings',
+        'Sample'
         ),
     'module_listener_options' => array(
         'module_paths' => array(
