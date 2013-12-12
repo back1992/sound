@@ -143,10 +143,16 @@ return array(
 						'action' => 'savequestion',
 						) ,
 					array(
-						'label' => 'iframe',
+						'label' => 'total',
 						'route' => 'tools',
 						'controller' => 'tools',
-						'action' => 'iframe',
+						'action' => 'total',
+						) ,
+					array(
+						'label' => 'scantotal',
+						'route' => 'tools',
+						'controller' => 'tools',
+						'action' => 'scantotal',
 						) ,
 					) ,
 				) ,

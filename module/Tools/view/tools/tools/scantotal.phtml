@@ -1,0 +1,69 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+$title = 'My Blogs';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+</p>
+<div id="contentarea">
+	<div id="innercontentarea">
+		<table class="table table-striped table-hover table-bordered">
+			<thead>
+				<tr class="success">
+					<th width="*">No</th>
+					<th width="*">Title</th>
+					<th width="*">Path</th>
+					<th width="*">Mp3 Number</th>
+					<th width="*">Question Number</th>
+					<th width="*">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php $i = 1; ?>
+				<?php foreach ($objects as $object) { ?> 
+				<tr>
+					<td>
+						<?php echo 'No.'.$i;?>
+					</td>
+					<td>
+						<?php echo basename($object);?>
+					</td>
+					<td>
+						<?php echo $object;?>
+					</td>
+					<td>
+						<a href="<?php echo $this->url('tools',  array('action' => 'scanaudio', 'id' => basename($object)));?>" class="btn btn-warning" role="button"> 
+							<?php echo count(glob($object.DIRECTORY_SEPARATOR.'*.mp3'));?>
+						</a>
+					</td>
+					<td>
+					<a href="<?php echo $this->url('tools',  array('action' => 'scandoc', 'id' => basename($object),'quiz'=>'123456'));?>" class="btn btn-warning" role="button"> 
+							<?php echo $this->collection->count(array('quiz' => basename($object)));?> 
+						</a>
+					</td>
+					<td>
+						<a href="<?php echo $this->url('tools',  array('action' => 'edit', 'id' => basename($object)));?>" class="btn btn-warning" role="button"> 
+							Edit
+						</a>
+					</td>
+				</tr>
+				<?php $i++ ?>
+				<?php };?>
+			</tbody>
+		</table>
+		<p>
+			<a href="<?php echo $this->url('audio',  array('action' => 'upload'));?>"  class="btn btn-default" role="button"> 
+				Upload another?
+			</a>
+		</p>	
+		<p>
+			<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"  class="btn btn-danger" role="button"> 
+				Delete All
+			</a>
+		</p>
+	</div>
+
+
+</div>
+
