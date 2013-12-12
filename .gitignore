@@ -10,3 +10,6 @@ composer.lock
 vendor/bin
 *.mp3
 *.ogg
+/public/audiodata/
+/public/file/
+/public/output/
