@@ -13,7 +13,7 @@ return array(
         'System',
         'Tools',
         'DluPhpSettings',
-        'Sample'
+        'Snoopy'
         ),
     'module_listener_options' => array(
         'module_paths' => array(

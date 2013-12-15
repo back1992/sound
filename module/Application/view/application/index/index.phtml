@@ -1,6 +1,6 @@
 <div class="jumbotron">
-  <h1><?php echo sprintf($this->translate('Welcome to %s99做题采编系统%s'), '<span class="zf-green">', '</span>') ?></h1>
-    <p><a class="btn btn-success btn-lg" href="https://github.com/zendframework/zf2" target="_blank"><?php echo $this->translate('一切变得如此简单！') ?> &raquo;</a></p>
+  <h1><?php echo sprintf($this->translate('Welcome to %s蛋蛋做题采编系统%s'), '<span class="zf-green">', '</span>') ?></h1>
+    <p><a class="btn btn-success btn-lg" href="https://github.com/back1992/sound" target="_blank"><?php echo $this->translate('一切变得如此简单！') ?> &raquo;</a></p>
 </div>
 
 <div class="row">
@@ -13,7 +13,7 @@
             <div class="panel-body">
           <h2><?php echo $this->translate('历届考题') ?></h2>
     <p><?php echo sprintf($this->translate('各省市历届听力考试题目')); ?></p>
-    <p><a class="btn btn-success" href=<?php  echo $this->url('audio'); ?>  target="_blank"><?php echo $this->translate('考题') ?> &raquo;</a></p>
+    <p><a class="btn btn-success" href=<?php  echo $this->url('audio', array('action'=>'audioindb'));  ?>  target="_blank"><?php echo $this->translate('考题') ?> &raquo;</a></p>
     </div>
     </div>
     </div>
@@ -26,7 +26,7 @@
             <div class="panel-body">
     <h2><?php echo $this->translate('考题录入') ?></h2>
     <p><?php echo sprintf($this->translate('请老师录入考试题目'), '<a href="http://zf2-test/quiz/add">', '</a>') ?></p>
-    <p><a class="btn btn-success" href="http://zf2-test/quiz/add" target="_blank"><?php echo $this->translate('录入') ?> &raquo;</a></p>
+    <p><a class="btn btn-success"  href=<?php  echo $this->url('audio', array('action'=>'upload')); ?> target="_blank" ><?php echo $this->translate('录入') ?> &raquo;</a></p>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
             <div class="panel-body">
                    <h2><?php echo $this->translate('语音编辑') ?></h2>
    <p><?php echo sprintf($this->translate('编辑英语听力mp3文件'), '<a href="irc://irc.freenode.net/zftalk">', '</a>', '<a href="http://framework.zend.com/wiki/display/ZFDEV/Mailing+Lists">', '</a>') ?></p>
-   <p><a class="btn btn-success" href="http://zf2-test/quiz/edit" target="_blank"><?php echo $this->translate('编辑') ?> </a></p>
+   <p><a class="btn btn-success"  href=<?php  echo $this->url('ffmpeg', array('action'=>'index')); ?> target="_blank" ><?php echo $this->translate('编辑') ?> </a></p>
             </div>
         </div>
     </div>

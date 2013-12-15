@@ -1,0 +1,55 @@
+<?php // module/Album/view/audio/audio/index.phtml: $title='My Audio files' ; $this->
+ headTitle($title); echo '
+ <h3>
+  ' . $this->escapeHtml($title) . '
+ </h3>
+ '; $this->headScript()->appendFile($this->basePath('js/cityselect/jquery.cityselect.js'));
+ ?>
+ <?php $form->
+  prepare(); ?>
+  <?php echo $this->
+   form()->openTag($form); ?>
+   <?php echo $this->
+    formRow($form->get('title')); ?>
+    <?php echo $this->
+     formlabel($form->get('state')); ?>
+     <div id="city" class="form-inline form-group">
+      <?php echo $this->
+       formSelect($form->get('state')); ?>
+       <?php echo $this->
+        formSelect($form->get('city')); ?>
+     </div>
+     <?php echo $this->
+      formlabel($form->get('monthyear')->setAttributes(array( 'class' => 'form-group'
+      ))); ?>
+      <div id="datetimepicker1" class="form-inline form-group">
+       <?php //echo $this->
+        formDate($form->get('date')->setFormat('Y-m')); ?>
+        <?php echo $this->
+         formMonthSelect($form->get('monthyear')->setYearAttributes(array( 'class' => 'form-group'
+         ))); ?>
+      </div>
+      <?php echo $this->
+       formRow($form->get('tag')); ?>
+       <?php echo $this->
+        formlabel($form->get('audio-file')); ?>
+        <?php $fileElement=$ form->
+         get('audio-file'); ?>
+         <!-- <?php echo $this->formLabel($fileElement); ?> -->
+         <?php echo $this->
+          formFile($fileElement); ?>
+          <?php echo $this->
+           formElementErrors($fileElement); ?>
+           <?php echo $this->
+            formSubmit($form->get('submit')->setValue('Upload')); ?>
+            <?php echo $this->
+             form()->closeTag(); ?>
+             <script type="text/javascript">
+             												$(function() {
+												 $("#city").citySelect({
+												  nodata: "none",
+												  required: false
+												 });
+												 $("select").addClass('selectpicker form-group form-control').width(120);
+												});
+             </script>
