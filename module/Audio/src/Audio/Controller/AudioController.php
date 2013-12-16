@@ -9,6 +9,7 @@ use Audio\Form\AudioForm;
 use Audio\Form\UploadForm;
 use Audio\Form\UpdateForm;
 use Audio\Form\ViewAudioForm;
+use Ffmpeg\Form\DirForm;
 use Audio\Myclass\Dandan;
 class AudioController extends AbstractActionController
 {
@@ -191,7 +192,8 @@ class AudioController extends AbstractActionController
 		// var_dump($object);
 		$form->bind($object);
 		$form->setData($object->file);
-		$audiofiledir = './public/audiodata/raw/';
+		$audiofiledir = Dandan::RAWDIR;
+		if(!file_exists($audiofiledir)) mkdir($audiofiledir);
 		// $audiofiledir = './public/audiodata/';
 		$audioname = $object->file['audioname'];
 		$object->write($audiofiledir . $audioname);
@@ -208,7 +210,7 @@ class AudioController extends AbstractActionController
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 			$forwardPlugin = $this->forward();
-			$returnValue = $forwardPlugin->dispatch('Ffmpeg\Controller\Ffmpeg', array(
+			$returnValue = $forwardPlugin->dispatch('Audio\Controller\Audio', array(
 				'action' => 'splt'
 			));
 			
@@ -221,6 +223,40 @@ class AudioController extends AbstractActionController
 			'form' => $form,
 			'flashMessages' => $this->flashMessenger()->getMessages()
 		);
+	}
+	function spltAction()
+	{
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			// var_dump($request->getPost());
+			// $fileInfo = pathinfo($audioFile);
+			$title = $request->getPost()->audioname;
+			$audioFile = Dandan::RAWDIR.$title;
+			// $audioTDir = Dandan::SDIR  . basename($audioFile, '.mp3') . DIRECTORY_SEPARATOR;
+			$audioTDir = Dandan::RESDIR  .  pathinfo($title, PATHINFO_FILENAME) . DIRECTORY_SEPARATOR;
+			var_dump($audioFile);
+			var_dump($audioTDir);
+			// var_dump(Dandan::deleteDirectory($audioTDir));
+			// var_dump(chmod($audioTDir, '0777'));
+			// var_dump(Dandan::rrmdir($audioTDir));
+			if(file_exists($audioTDir)) Dandan::removeDir($audioTDir);	
+			if(!file_exists(Dandan::RESDIR)) mkdir(Dandan::RESDIR);
+			$resmp = Dandan::mp3splt($audioFile, $audioTDir);	
+			var_dump($resmp);
+			if (file_exists($audioTDir)) {
+				$files = Dandan::dirToArray($audioTDir);
+				krsort($files);
+				$resFile = str_replace('.mp3', '', str_replace('./public', '', $audioFile));
+				// return false;
+				return array(
+					'files' => $files,
+					'audioFile' => $resFile,
+					'dir' => $audioTDir,
+					);
+			}
+		}
+		
+		return false;
 	}
 	public function editAction()
 	{

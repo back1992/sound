@@ -1,0 +1,2 @@
+2013/12/14 11:07:38 [error] 12485#0: *1 "/srv/www/testsite.local/public_html/index.php" is forbidden (13: Permission denied), client: 127.0.0.1, server: testsite.local, request: "GET / HTTP/1.1", host: "testsite.local", referrer: "http://www.if-not-true-then-false.com/2011/install-nginx-php-fpm-on-fedora-centos-red-hat-rhel/"
+2013/12/14 11:07:49 [error] 12485#0: *1 open() "/srv/www/testsite.local/public_html/favicon.ico" failed (2: No such file or directory), client: 127.0.0.1, server: testsite.local, request: "GET /favicon.ico HTTP/1.1", host: "testsite.local"

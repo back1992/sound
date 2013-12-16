@@ -1,0 +1,4 @@
+127.0.0.1 - - [14/Dec/2013:11:07:38 +0800] "GET / HTTP/1.1" 403 570 "http://www.if-not-true-then-false.com/2011/install-nginx-php-fpm-on-fedora-centos-red-hat-rhel/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"
+127.0.0.1 - - [14/Dec/2013:11:07:49 +0800] "GET /favicon.ico HTTP/1.1" 404 570 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"
+127.0.0.1 - - [14/Dec/2013:11:08:17 +0800] "GET / HTTP/1.1" 200 94852 "http://www.if-not-true-then-false.com/2011/install-nginx-php-fpm-on-fedora-centos-red-hat-rhel/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"
+127.0.0.1 - - [14/Dec/2013:21:54:36 +0800] "GET / HTTP/1.1" 200 94622 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"

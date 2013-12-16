@@ -80,36 +80,38 @@ class SystemController extends AbstractActionController
         //fresh hosts data in db 
 /*        $hosts->freshHosts();
 $hosts->freshUrls();*/
-$fp = fopen('data.txt', 'w');
+$fp = fopen('./data/hosts', 'w');
 
 $myHosts = $hosts->getHosts('hosts');
 $myUrls = $hosts->getHosts('urls');
 $hostsArr = iterator_to_array($myHosts);
-fwrite($fp, "############################### \n");
-fwrite($fp, "###########---my hosts- ---######### \n");
-foreach ($hostsArr as $myhost) {
-  fwrite($fp, "$myhost[ip]         $myhost[url]  \n");
-}
-fwrite($fp, "\n\n\n###########---my wall- ---######### \n");
+// fwrite($fp, "############################### \n");
+// fwrite($fp, "###########---my hosts- ---######### \n");
+// foreach ($hostsArr as $myhost) {
+//   fwrite($fp, "$myhost[ip]         $myhost[url]  \n");
+// }
+// fwrite($fp, "\n\n\n###########---my wall- ---######### \n");
 $urlsArr = iterator_to_array($myUrls);
-foreach ($urlsArr as $url) {
-           # code...
-        // var_dump($url['url']);
-  $urltmp = $url['url'];
-  $cmd =  "nslookup $urltmp 8.8.8.8";
+// foreach ($urlsArr as $url) {
+//            # code...
+//         // var_dump($url['url']);
+//   $urltmp = $url['url'];
+//   $cmd =  "nslookup $urltmp 8.8.8.8";
 
-  $res = shell_exec($cmd);
-        // var_dump($res);
-  $pattern = "/Name:\s+[^\s]+\s+Address: (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/";
-  $resMatch = preg_match($pattern, $res, $match);
-        // var_dump($match[1]);
-        // array_push($url, array('ip' => $match[1]));
-        // $url['ip'] = $match[1];
-  fwrite($fp, "$match[1]         $urltmp  \n");
-  $matchIP[] = $match[1];
-}
-       // var_dump($urlsArr);
-fclose($fp);
+
+//   $res = shell_exec($cmd);
+//   sleep(1);
+//         // var_dump($res);
+//   $pattern = "/Name:\s+[^\s]+\s+Address: (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/";
+//   $resMatch = preg_match($pattern, $res, $match);
+//         // var_dump($match[1]);
+//         // array_push($url, array('ip' => $match[1]));
+//         // $url['ip'] = $match[1];
+//   fwrite($fp, "$match[1]         $urltmp  \n");
+//   $matchIP[] = $match[1];
+// }
+//        // var_dump($urlsArr);
+// fclose($fp);
        // $cmd_cp = "cp data.txt  /etc/hosts";
        // $rescp = exec($cmd_cp);
        // $rescp = system('echo "Joomla8" | sudo -u root -S "cp data.txt  /etc/hosts"');
@@ -121,7 +123,7 @@ fclose($fp);
 return array(
   'myHosts' => $hostsArr,
   'myUrls' => $urlsArr,
-  'matchIP' => $matchIP,
+  // 'matchIP' => $matchIP,
   );
 }
 
@@ -134,6 +136,30 @@ public function deletehostAction(){
   $res = $collection->remove(array('_id' => new MongoId($id)));
   // var_dump($res);
   return FALSE;
+}
+public function genhostAction(){
+ $hosts =  new DanHosts();
+ $fp = fopen('./data/hosts', 'w');
+ $myHosts = $hosts->getHosts('hosts');
+ $myUrls = $hosts->getHosts('urls');
+ $hostsArr = iterator_to_array($myHosts);
+ fwrite($fp, "############################### \n");
+ fwrite($fp, "###########---my hosts- ---######### \n");
+ foreach ($hostsArr as $myhost) {
+  fwrite($fp, "$myhost[ip]         $myhost[url]  \n");
+}
+fwrite($fp, "\n\n\n###########---my wall- ---######### \n");
+$urlsArr = iterator_to_array($myUrls);
+foreach ($urlsArr as $url) {
+  $urltmp = $url['url'];
+  $cmd =  "nslookup $urltmp 8.8.8.8";
+  $res = shell_exec($cmd);
+  sleep(1);
+  $pattern = "/Name:\s+[^\s]+\s+Address: (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/";
+  $resMatch = preg_match($pattern, $res, $match);
+  fwrite($fp, "$match[1]         $urltmp  \n");
+}
+fclose($fp);
 }
 
 }

@@ -64,7 +64,7 @@ $this->headTitle($title);
 						<?php echo 'No.'.$i;?>
 					</td>
 					<td>
-						<?php echo $matchIP[$i-1];?>
+						<?php //echo $matchIP[$i-1];?>
 					</td>
 					<td>
 						<?php echo $myUrl['url'];?>
@@ -82,10 +82,9 @@ $this->headTitle($title);
 				<?php } ?> 
 			</tbody>
 		</table>
+		<p id = "formhost"></p>
 		<p>
-			<a href="<?php echo $this->url('audio',  array('action' => 'upload'));?>"  class="btn btn-default" role="button"> 
-				Upload another?
-			</a>
+			<button type="button" class="btn btn-primary" onClick="uploadHost('<?php echo $myUrl['_id'];?>')">Upload another?</button>
 		</p>	
 		<p>
 			<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"  class="btn btn-danger" role="button"> 
@@ -98,7 +97,7 @@ $this->headTitle($title);
 </div>
 
 <script type="text/javascript">
-		function deleteHost(id){
+	function deleteHost(id){
 			// var url  =  id;
 			alert(id);
 			$.ajax({
@@ -107,17 +106,35 @@ $this->headTitle($title);
 					alert('Host deleted.');
 				}
 			});
-			 location.reload();
+			location.reload();
 			 // alert(url);
-		}
-		function mergeup(id){
-			$.ajax({
-				url: '/system/mergeup/'+id,
-				success: function() {
-					alert( id + '  File merged with upfile.');
-				}
-			});
-			 
-			  setTimeout("location.reload();", 1000);
-		}
-	</script>
+			}
+			function uploadHost(id){
+				$form = $("<form></form>");
+				$form.append('<input type="text" id="Inputurl" class="form-control" placeholder="input the url">');
+				$form.append(' <button type="submit" class="btn btn-primary" onClick="addHost('<?php echo $myUrl['_id'];?>')">Submit</button>');
+				$('#formhost').append($form);
+			}
+			function addHost(id){
+				$.ajax({
+					url: '/system/mergeup/'+id,
+					success: function() {
+						alert( id + '  File merged with upfile.');
+					}
+				});
+
+				setTimeout("location.reload();", 1000);
+			}
+			function mergeup(id){
+				$.ajax({
+					url: '/system/mergeup/'+id,
+					success: function() {
+						alert( id + '  File merged with upfile.');
+					}
+				});
+
+				setTimeout("location.reload();", 1000);
+			}
+		</script>
+
+
