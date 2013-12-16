@@ -106,6 +106,18 @@ return array(
 						'controller' => 'system',
 						'action' => 'format',
 						) ,
+					array(
+						'label' => 'hosts',
+						'route' => 'system',
+						'controller' => 'system',
+						'action' => 'hosts',
+						) ,
+					array(
+						'label' => 'urls',
+						'route' => 'system',
+						'controller' => 'system',
+						'action' => 'urls',
+						) ,
 					),
 				) ,
 			array(
@@ -152,6 +164,54 @@ return array(
 						'label' => 'scantotal',
 						'route' => 'tools',
 						'controller' => 'tools',
+						'action' => 'scantotal',
+						) ,
+					) ,
+				) ,
+			array(
+				'label' => 'Snoopy',
+				'route' => 'snoopy',
+				'pages' => array(
+					array(
+						'label' => 'Index',
+						'route' => 'snoopy',
+						'controller' => 'snoopy',
+						'action' => 'index',
+						) ,
+					array(
+						'label' => 'fetchlinks',
+						'route' => 'snoopy',
+						'controller' => 'snoopy',
+						'action' => 'fetchlinks',
+						) ,
+					array(
+						'label' => 'fetchtext',
+						'route' => 'snoopy',
+						'controller' => 'snoopy',
+						'action' => 'fetchtext',
+						) ,
+					array(
+						'label' => 'fetchlisten',
+						'route' => 'snoopy',
+						'controller' => 'snoopy',
+						'action' => 'fetchlisten',
+						) ,
+					array(
+						'label' => 'curl',
+						'route' => 'snoopy',
+						'controller' => 'snoopy',
+						'action' => 'curl',
+						) ,
+					array(
+						'label' => 'total',
+						'route' => 'snoopy',
+						'controller' => 'snoopy',
+						'action' => 'total',
+						) ,
+					array(
+						'label' => 'scantotal',
+						'route' => 'snoopy',
+						'controller' => 'snoopy',
 						'action' => 'scantotal',
 						) ,
 					) ,

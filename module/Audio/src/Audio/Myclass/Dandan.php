@@ -80,15 +80,34 @@ class Dandan {
 		// $begin = 'Listening Comprehension';
 		// $end = 	'Reading Comprehension';
 		// $content = self::slice($content, $begin, $end);
-
 		return $content;
 		// return shell_exec('/usr/local/bin/antiword '.$filename);
 	}
 	
 	function atread_doc_file($filename) {
-		$cmd = "/usr/local/bin/antiword $filename";
+		$cmd = "/usr/local/bin/antiword -m UTF-8.txt  $filename";
+		$content = shell_exec($cmd);
+		
+		return $content;
+	}
+	
+	function read_doc_file($filename) {
+		//use antiword
+		$cmd = "/usr/local/bin/antiword -m UTF-8.txt  $filename";
+		$content = shell_exec($cmd);
+		//use abword
+/*
+		$fs = TemporaryFilesystem::create();
+		$textfile = $fs->createEmptyFile(self::TMPDIR);
+		$cmd = "/usr/bin/abiword  --to=txt --to-name=$textfile $filename";
 		$res = shell_exec($cmd);
-		return $res;
+		$content = file_get_contents($textfile);
+		unlink($textfile);*/
+		//slice the listening
+		$begin = 'Listening Comprehension';
+		$end = 	'Reading Comprehension';
+		$content = self::slice($content, $begin, $end);
+		return $content;
 	}
 	
 	function read_pdf_file($filename) {
@@ -138,7 +157,7 @@ class Dandan {
 		$outtext = "";
 		foreach($lines as $thisline)
 		{
-			$tam = mb_strlen($thisline);
+			$tam = strlen($thisline);
 			if( !$tam )
 			{
 				continue;
@@ -184,10 +203,8 @@ class Dandan {
 		}
 		return $outtext;
 	} 
-
 	function flatten_array($mArray) {
 		$sArray = array();
-
 		foreach ($mArray as $row) {
 			if ( !(is_array($row)) ) {
 				if($sArray[] = $row){
@@ -198,7 +215,6 @@ class Dandan {
 		}
 		return $sArray;
 	}
-
 	function mp3splt($audioFile, $audioTDir, $min = '2.4', $off = '0.6') {
 		$cmd_splt = " mp3splt -s -p min=$min,off=$off  $audioFile  -d $audioTDir ";
 		// $spltlog = shell_exec($cmd_splt);
@@ -207,39 +223,45 @@ class Dandan {
 		} else {
 			echo "something wrong in $audioFile";
 		}
-
 	}
 	public function slice($string, $begin = null, $end = null){
 		if(stripos($string, $begin)) $string = stristr($string, $begin);
 		if(stripos($string, $end)) $string = stristr($string, $end, true);
 		return $string;
 	}
-
-	public function  savequestion($quizfile, $collection)
+	public function  savequestion($quizfile, $collection = null)
 	{
-
-    // $quizfile = "./data/cet4/00-10/03/cet4_200306.doc";
 		$quizname = pathinfo($quizfile, PATHINFO_FILENAME);
-		$subject = Dandan::abread_doc_file($quizfile);
-        // echo $content;
-		$pattern = '/(\d{1,2})\.\s+A\)([^)]*)\s+B\)([^)]*)\s+C\)([^)]*)\s+D\)([^.)]*)/';
+		$subject = self::read_doc_file($quizfile);
+		$pattern = '/(\d{1,2})\.\s+A\)([^)]*)\s+B\)([^)]*)\s+C\)([^)]*)\s+D\)([^\\n]*)/';
 preg_match_all($pattern, $subject, $match);
 // var_dump($match);
-
 for ($i=0; $i < count($match['0']) ; $i++) {
-
-    # code...
 	$select[$i]['no'] = $match['1'][$i];
 	$select[$i]['quiz'] = $quizname;
 	$select[$i]['A']= trim($match['2'][$i]);
 	$select[$i]['B']= trim($match['3'][$i]);
 	$select[$i]['C'] = trim($match['4'][$i]);
 	$select[$i]['D'] = trim($match['5'][$i]);
-	$collection->insert($select[$i]);
+	if($collection) $collection->insert($select[$i]);
 }
-        // return array('doc' => Dandan::parseWord("./public/file/2013.6CET4.doc"));
-// var_dump($select);
-    //  var_dump($collection);
-return true;
+return $select;
+}
+public function  readquestion($content, $collection = null)
+{
+	$pattern = '/(\d{1,2})\.\s*[A-D]\)([^)]*)\s*[A-D]\)([^)]*)\s*[A-D]\)([^)]*)\s*[A-D]\)([^\.]*)/';
+preg_match_all($pattern, $content, $match);
+// var_dump($match);
+for ($i=0; $i < count($match['0']) ; $i++) {
+	$select[$i]['no'] = $match['1'][$i];
+	// $select[$i]['quiz'] = $quizname;
+	$select[$i]['A']= trim($match['2'][$i]);
+	$select[$i]['B']= trim($match['3'][$i]);
+	$select[$i]['C'] = trim($match['4'][$i]);
+	$select[$i]['D'] = trim($match['5'][$i]);
+	if($collection) $collection->insert($select[$i]);
+}
+// return true;
+return $select;
 }
 }

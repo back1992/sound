@@ -1,0 +1,123 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+$title = 'My Blogs';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+</p>
+<div id="contentarea">
+	<div id="innercontentarea">
+		<table class="table table-striped table-hover table-bordered">
+			<thead>
+				<tr class="success">
+					<th width="*">No</th>
+					<th width="*">IP</th>
+					<th width="*">URL</th>
+					<th width="*">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php 
+				$i = 1; 
+				?>
+				<?php foreach ($myHosts as $myHost) { ?>
+				
+				<tr>
+					<td>
+						<?php echo 'No.'.$i;?>
+					</td>
+					<td>
+						<?php echo $myHost['ip'];?>
+					</td>
+					<td>
+						<?php echo $myHost['url'];?>
+					</td>
+					<td>
+						<a href="#" class="btn btn-info" role="button"> 
+							Splt
+						</a>
+						<a href="#" class="btn btn-warning" role="button"> 
+							Delete
+						</a>
+					</td>
+				</tr>
+				<?php $i++ ; ?>
+				<?php } ?> 
+			</tbody>
+			<thead>
+				<tr class="success">
+					<th width="*">No</th>
+					<th width="*">IP</th>
+					<th width="*">URL</th>
+					<th width="*">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php 
+				$i = 1; 
+				?>
+				<?php foreach ($myUrls as $myUrl) { ?>
+				
+				<tr>
+					<td>
+						<?php echo 'No.'.$i;?>
+					</td>
+					<td>
+						<?php echo $matchIP[$i-1];?>
+					</td>
+					<td>
+						<?php echo $myUrl['url'];?>
+					</td>
+					<td>
+						<a href="#" class="btn btn-info" role="button"> 
+							Splt
+						</a>
+						<a href="#" class="btn btn-warning" role="button" onClick="deleteHost('<?php echo $myUrl['_id'];?>')"> 
+							Delete
+						</a>
+					</td>
+				</tr>
+				<?php $i++ ; ?>
+				<?php } ?> 
+			</tbody>
+		</table>
+		<p>
+			<a href="<?php echo $this->url('audio',  array('action' => 'upload'));?>"  class="btn btn-default" role="button"> 
+				Upload another?
+			</a>
+		</p>	
+		<p>
+			<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"  class="btn btn-danger" role="button"> 
+				Delete All
+			</a>
+		</p>
+	</div>
+
+
+</div>
+
+<script type="text/javascript">
+		function deleteHost(id){
+			// var url  =  id;
+			alert(id);
+			$.ajax({
+				url: '/system/deletehost/'+id,
+				success: function() {
+					alert('Host deleted.');
+				}
+			});
+			 location.reload();
+			 // alert(url);
+		}
+		function mergeup(id){
+			$.ajax({
+				url: '/system/mergeup/'+id,
+				success: function() {
+					alert( id + '  File merged with upfile.');
+				}
+			});
+			 
+			  setTimeout("location.reload();", 1000);
+		}
+	</script>

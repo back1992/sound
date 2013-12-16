@@ -10,7 +10,9 @@ return array(
         'Application',
         'Audio',
         'Ffmpeg',
-        'System'
+        'System',
+        'Tools',
+        'DluPhpSettings'
         ),
     'module_listener_options' => array(
         'module_paths' => array(

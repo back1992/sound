@@ -22,7 +22,7 @@ $this->headTitle($title);
 			<tbody>
 				<?php $i = 1; ?>
 				<?php foreach ($objects as $object) { ?> 
-				<tr>
+				<tr id = "tr<?php echo $i ?>" class="trClass">
 					<td>
 						<?php echo 'No.'.$i;?>
 					</td>
@@ -38,7 +38,7 @@ $this->headTitle($title);
 						</a>
 					</td>
 					<td>
-					<a href="<?php echo $this->url('tools',  array('action' => 'scandoc', 'id' => basename($object),'quiz'=>'123456'));?>" class="btn btn-warning" role="button"> 
+						<a href="<?php echo $this->url('tools',  array('action' => 'scandoc', 'id' => basename($object)));?>" class="btn btn-warning" role="button"> 
 							<?php echo $this->collection->count(array('quiz' => basename($object)));?> 
 						</a>
 					</td>
@@ -52,18 +52,33 @@ $this->headTitle($title);
 				<?php };?>
 			</tbody>
 		</table>
-		<p>
-			<a href="<?php echo $this->url('audio',  array('action' => 'upload'));?>"  class="btn btn-default" role="button"> 
-				Upload another?
-			</a>
-		</p>	
-		<p>
-			<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"  class="btn btn-danger" role="button"> 
-				Delete All
-			</a>
-		</p>
 	</div>
 
 
 </div>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+/*$('#tr2').find('td').each (function() {
+  // do your cool stuff
+  alert(this.innerText);
+  console.log(this);
+});*/
+// alert($('#tr2 td:nth-child(3)').innerText);
+// console.log($('#tr2 td:nth-child(3)'));
+// alert($('#tr2').find('td:nth-child(3)').innerText);
+// alert($("#tr2 td").eq(3).innerText);
+// alert($("#tr2 td").eq(4).find('a').attr('class'));
+// alert($("#tr2 td").eq(3).text().trim()==$("#tr2 td").eq(4).text().trim());
+if($("#tr2 td").eq(3).text().trim()==$("#tr2 td").eq(4).text().trim()){
+	$("#tr2 td").eq(3).find('a').attr('class','btn btn-primary');
+	$("#tr2 td").eq(4).find('a').attr('class','btn btn-primary');
+	$("#tr2 td").eq(5).find('a').attr('class','btn btn-primary');
+}
+// $("#tr2 td").eq(4).css('red');
+// console.log($('#tr2').find('td:nth-child(3)'));
+// console.log($("#tr2 td").eq(4));
+// console.log($("#tr2 td").eq(3).find('a').attr('href'));
+
+	});
+	</script>
