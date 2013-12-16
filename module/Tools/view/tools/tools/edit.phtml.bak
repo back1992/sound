@@ -1,0 +1,137 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+$title = 'Read Questions';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+</p>
+<div id="contentarea">
+	<div id="innercontentarea">
+		<h4>Files Path : <?php echo $this->audioDir; ?></h4>
+		<table class="table table-striped table-hover table-bordered">
+			<thead>
+				<tr class="success">
+					<th width="*">No</th>
+					<th width="*"> A </th>
+					<th width="*"> B </th>
+					<th width="*"> C </th>
+					<th width="*"> D </th>
+					<th width="*">Answer</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php $i = 0; ?>
+				<?php while($object = $this->objects->getNext()): ?>
+					<tr>
+						<td>
+							<?php echo $object['no'];?>
+						</td>
+						<td>
+							<?php echo $object['A'];?>
+						</td>
+						<td>
+							<?php echo $object['B'];?>
+						</td>
+						<td>
+							<?php echo $object['C'];?>
+						</td>
+						<td >
+							<?php echo $object['D'];?>
+						</td>
+						<td>
+							<?php echo 'answer';?>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<?php echo pathinfo($mp3Files[$object['no']-1], PATHINFO_FILENAME); ?>
+						</td>
+						<td colspan="3">
+
+							<?php 
+							if($i<count($mp3Files)) {
+								echo $this->partial('partial/audio.phtml', array(
+									'mp3File' => $mp3Files[$object['no']-1],
+									'oggFile' => $oggFiles[$object['no']-1],
+									'id' => $i,
+									'class' => 'delete'
+									)); 
+
+							}
+							?> 
+						</td>
+						<td colspan="2">
+							<button  class="btn btn-warning" onClick="deleteFile('<?php echo pathinfo($mp3Files[$object['no']-1], PATHINFO_FILENAME); ?>')")> Delete </button>
+							<button  class="btn btn-warning" onClick="mergeup('<?php echo pathinfo($mp3Files[$object['no']-1], PATHINFO_FILENAME); ?>')")> Merge Up </button>
+						</td>
+
+					</tr>
+					<?php 
+					unset($mp3Files[$object['no']-1]);
+					unset($oggFiles[$object['no']-1]);
+					$i++; 
+					?>
+				<?php endwhile;?>
+				<?php if(count($mp3Files)){ ?>
+				<?php foreach ($mp3Files as $mp3File) { ?>
+				<tr>
+					<td>
+						<?php echo pathinfo($mp3File, PATHINFO_FILENAME); ?>
+					</td>
+					<td colspan="3">
+
+						<?php 
+						
+						echo $this->partial('partial/audio.phtml', array(
+							'mp3File' => $mp3File,
+							'oggFile' => $oggFile,
+									// 'id' => $i,
+							'class' => 'delete'
+							)); 
+							?> 
+						</td>
+						<td colspan="2">
+							<button  class="btn btn-warning" onClick="deleteFile('<?php echo pathinfo($mp3File, PATHINFO_FILENAME); ?>')")> Delete </button>
+							<button  class="btn btn-warning" onClick="mergeup('<?php echo pathinfo($mp3File, PATHINFO_FILENAME); ?>')")> Merge Up </button>
+						</td>
+
+					</tr>
+
+					<?php } ?>
+					<?php } ?>
+				</tbody>
+			</table>
+			<p>
+				<a href="<?php echo $this->url('audio',  array('action' => 'upload'));?>"  class="btn btn-default" role="button"> 
+					Upload another?
+				</a>
+			</p>	
+			<p>
+				<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"  class="btn btn-primary" role="button"> 
+					Delete All
+				</a>
+			</p>
+		</div>
+
+
+	</div>
+
+	<script type="text/javascript">
+		function deleteFile(id){
+			$.ajax({
+				url: '/tools/deletefile/'+id,
+				success: function() {
+					alert('File deleted.');
+				}
+			});
+		}
+		function mergeup(id){
+			$.ajax({
+				url: '/tools/mergeup/'+id,
+				success: function() {
+					alert( id + '  File merged with upfile.');
+				}
+			});
+		}
+	</script>

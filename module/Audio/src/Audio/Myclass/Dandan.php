@@ -11,7 +11,10 @@ class Dandan {
 	const VDIR = './public/videodata/';
 	const DOCDIR = './data/cet4/';
 	const TMPDIR = './data/tmp/';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0da3c0eaff1e482a4ac7200ba4e3772834dadf53
 	public  static	function dirToArray($dir, $path = false) { 
 		$dir = (substr($dir, -1) == '/')? $dir : $dir.DIRECTORY_SEPARATOR;
 		$result = array(); 
