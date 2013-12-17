@@ -29,7 +29,7 @@ class DanAudio {
 	public function mp32ogg($sourceFile, $targetFile = null, $options = '  -acodec libvorbis  '){
 		// $targetFile = ($targetFile) ? $targetFile: dirname($sourceFile). DIRECTORY_SEPARATOR. pathinfo($sourceFile, PATHINFO_FILENAME).'.ogg';
 		$cmd_conv = 'ffmpeg -i ' . $sourceFile . $options . $targetFile;
-				// var_dump($cmd_conv);
+				var_dump($cmd_conv);
 		shell_exec($cmd_conv);
 		return true;
 	}

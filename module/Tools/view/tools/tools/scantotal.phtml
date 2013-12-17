@@ -8,7 +8,7 @@ $this->headTitle($title);
 </p>
 <div id="contentarea">
 	<div id="innercontentarea">
-		<table class="table table-striped table-hover table-bordered">
+		<table id="total" class="table table-striped table-hover table-bordered">
 			<thead>
 				<tr class="success">
 					<th width="*">No</th>
@@ -33,17 +33,17 @@ $this->headTitle($title);
 						<?php echo $object;?>
 					</td>
 					<td>
-						<a href="<?php echo $this->url('tools',  array('action' => 'scanaudio', 'id' => basename($object)));?>" class="btn btn-warning" role="button"> 
+						<a href="<?php echo $this->url('tools',  array('action' => 'scanaudio', 'id' => basename($object)));?>" class="btn btn-info" role="button"> 
 							<?php echo count(glob($object.DIRECTORY_SEPARATOR.'*.mp3'));?>
 						</a>
 					</td>
 					<td>
-						<a href="<?php echo $this->url('tools',  array('action' => 'scandoc', 'id' => basename($object)));?>" class="btn btn-warning" role="button"> 
+						<a href="<?php echo $this->url('tools',  array('action' => 'scandoc', 'id' => basename($object)));?>" class="btn btn-info" role="button"> 
 							<?php echo $this->collection->count(array('quiz' => basename($object)));?> 
 						</a>
 					</td>
 					<td>
-						<a href="<?php echo $this->url('tools',  array('action' => 'edit', 'id' => basename($object)));?>" class="btn btn-warning" role="button"> 
+						<a href="<?php echo $this->url('tools',  array('action' => 'edit', 'id' => basename($object)));?>" class="btn btn-info" role="button"> 
 							Edit
 						</a>
 					</td>
@@ -59,6 +59,19 @@ $this->headTitle($title);
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('#total > tbody  > tr').each(function() {
+			// alert($(this).find('td').eq(3).text());
+			// alert($(this).find('td').eq(3).find('a').attr('href'));
+			if(($(this).find('td').eq(3).text().trim()==0) || ($(this).find('td').eq(4).text().trim()==0)){
+				$(this).find('td').eq(3).find('a').attr('class','btn btn-warning');
+				$(this).find('td').eq(4).find('a').attr('class','btn btn-warning');
+				$(this).find('td').eq(5).find('a').attr('class','btn btn-warning');
+			} else if($(this).find('td').eq(3).text().trim()==$(this).find('td').eq(4).text().trim()){
+				$(this).find('td').eq(3).find('a').attr('class','btn btn-success');
+				$(this).find('td').eq(4).find('a').attr('class','btn btn-success');
+				$(this).find('td').eq(5).find('a').attr('class','btn btn-success');
+			} 
+		});
 /*$('#tr2').find('td').each (function() {
   // do your cool stuff
   alert(this.innerText);
@@ -70,15 +83,17 @@ $this->headTitle($title);
 // alert($("#tr2 td").eq(3).innerText);
 // alert($("#tr2 td").eq(4).find('a').attr('class'));
 // alert($("#tr2 td").eq(3).text().trim()==$("#tr2 td").eq(4).text().trim());
-if($("#tr2 td").eq(3).text().trim()==$("#tr2 td").eq(4).text().trim()){
+/*if($("#tr2 td").eq(3).text().trim()==$("#tr2 td").eq(4).text().trim()){
 	$("#tr2 td").eq(3).find('a').attr('class','btn btn-primary');
 	$("#tr2 td").eq(4).find('a').attr('class','btn btn-primary');
 	$("#tr2 td").eq(5).find('a').attr('class','btn btn-primary');
-}
+}*/
 // $("#tr2 td").eq(4).css('red');
 // console.log($('#tr2').find('td:nth-child(3)'));
 // console.log($("#tr2 td").eq(4));
 // console.log($("#tr2 td").eq(3).find('a').attr('href'));
 
-	});
-	</script>
+});
+
+
+</script>

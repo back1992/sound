@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 use Ffmpeg\Form\DirForm;
 use Audio\Myclass\DanAudio;
 use Audio\Myclass\Dandan;
+use Audio\Myclass\DanDb;
 use Audio\Myclass\DBConnection;
 
 class ToolsController extends AbstractActionController
@@ -210,6 +211,47 @@ foreach ($targetArr as $value) {
 return false;
 }
 
+public function totalinsertAction()
+{
+    $mongo = DBConnection::instantiate();
+                //get a MongoGridFS instance
+    $collection = $mongo->getCollection('question');
+    $dir = Dandan::DOCDIR;
+    $request = $this->getRequest();
+    if ($request->isPost()) {    
+       $dir = $request->getPost()->title;
+   };
+   $files = Dandan::dirToArray($dir, 'TRUE');
+   $newFiles = Dandan::flatten_array($files);
+   $extArr = array('doc', 'mp3');
+   $targetArr = array();
+   for($i=0; $i<count($newFiles); $i++) {
+    if(in_array(pathinfo($newFiles[$i], PATHINFO_EXTENSION), $extArr)){
+        $targetArr[pathinfo($newFiles[$i], PATHINFO_FILENAME)][pathinfo($newFiles[$i], PATHINFO_EXTENSION)] = $newFiles[$i] ;
+    }
+    else {
+        unlink($newFiles[$i]);
+        unset($newFiles[$i]);
+    }
+}
+$mongo = DBConnection::instantiate();
+                //get a MongoGridFS instance
+$collection = $mongo->getCollection('question');
+if(count($newFiles) !== 2 * count($targetArr)) echo "something wrong ! ";
+            // var_dump($targetArr);
+// $cmd = "rm -rf ".Dandan::RESDIR;
+foreach ($targetArr as $value) {
+    $file = $value['mp3'];
+    $data['audioname'] = basename($value['mp3']);
+    $data['filetype'] = 'audio/mp3';
+    $data['title'] = '大学英语四级听力';
+    $data['monthyear']['month'] = substr($data['audioname'], -6, -4);
+    $data['monthyear']['year'] = substr($data['audioname'], -10, -6);
+    DanDb::insertFile($file, $data);
+}
+return false;
+}
+
 public function scantotalAction()
 {
     $mongo = DBConnection::instantiate();
@@ -229,16 +271,19 @@ public function scanaudioAction()
             // $audioDir = Dandan::SDIR.'fengtai/';
                         // $sFiles = readdir($audioDir);
                         // $sFiles = glob($audioDir."*.*");
-    $sFiles = glob($audioDir.'*.mp3');
+    $rawMp3File = Dandan::RAWDIR.$dir.'.mp3';
+    $rawOggFile = Dandan::RAWDIR.$dir.'.ogg';
+    DanAudio::mp32ogg($rawMp3File, $rawOggFile);
+    $mp3Files = glob($audioDir.'*.mp3');
+    $oggFiles = glob($audioDir.'*.ogg');
+    var_dump($mp3Files);
+    var_dump($oggFiles);
 
-    var_dump($sFiles);
-    for ($i=0; $i < count($sFiles) ; $i++) { 
-        $tFiles[$i] = dirname($sFiles[$i]). DIRECTORY_SEPARATOR. pathinfo($sFiles[$i], PATHINFO_FILENAME).'.ogg';
-        DanAudio::mp32ogg($sFiles[$i], $tFiles[$i]);
-    }
     return array(
-        'mp3Files' => str_replace('./public/', '/', $sFiles),
-        'oggFiles' => str_replace('./public/', '/', $tFiles),
+        'rawMp3File' => str_replace('./public/', '/', $rawMp3File),
+        'rawOggFile' => str_replace('./public/', '/', $rawOggFile),
+        'mp3Files' => str_replace('./public/', '/', $mp3Files),
+        'oggFiles' => str_replace('./public/', '/', $oggFiles),
         ); 
     return false;
 }

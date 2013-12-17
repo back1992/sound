@@ -1,0 +1,23 @@
+############################### 
+###########---my hosts- ---######### 
+127.0.0.1         localhost.localdomain localhost  
+127.0.1.1         localhost.localdomain localhost  
+127.0.0.1         sound.local  
+127.0.1.1         quiz.local  
+
+
+
+###########---my wall- ---######### 
+173.194.127.169         google.com  
+37.61.54.158         drive.google.com  
+74.125.235.192         appengine.google.com  
+74.125.235.201         apps.google.com  
+74.125.235.192         chrome.google.com  
+173.194.127.161         code.google.com  
+74.125.235.194         developers.google.com  
+74.125.235.194         ditu.google.com  
+159.106.121.75         encrypted.google.com  
+74.125.235.193         finance.google.com  
+74.125.128.95         googleapis.l.google.com  
+74.125.128.83         mail.google.com  
+173.194.127.168         news.google.com  

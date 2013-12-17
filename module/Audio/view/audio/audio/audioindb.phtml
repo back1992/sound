@@ -40,10 +40,10 @@ $this->headTitle($title);
 							<?php echo implode("/",$object->file['monthyear']);?>
 						</td>
 						<td>
-							<?php echo $object->file['state'];?>
+							<?php if(array_key_exists ( 'state' , $object->file )) echo $object->file['state'];?>  
 						</td>
 						<td>
-							<?php echo $object->file['city'];?>
+							<?php if(array_key_exists ( 'city' , $object->file ))echo $object->file['city'];?>
 						</td>
 						<td>
 							<?php echo $object->file['title'];?>
@@ -56,7 +56,7 @@ $this->headTitle($title);
 							1024).' KB';?>
 						</td>
 						<td>
-							<?php echo $object->file['tag'];?>
+							<?php if(array_key_exists ( 'tag' , $object->file ))echo $object->file['tag'];?>
 						</td>
 						<td>
 							<a href="<?php echo $this->url('audio',  array('action' => 'fetchaudio','id'
