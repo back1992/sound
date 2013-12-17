@@ -161,6 +161,12 @@ return array(
 						'action' => 'total',
 						) ,
 					array(
+						'label' => 'totalinsert',
+						'route' => 'tools',
+						'controller' => 'tools',
+						'action' => 'totalinsert',
+						) ,
+					array(
 						'label' => 'scantotal',
 						'route' => 'tools',
 						'controller' => 'tools',

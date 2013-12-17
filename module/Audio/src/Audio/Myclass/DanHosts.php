@@ -2,14 +2,19 @@
 namespace Audio\Myclass;
 class DanHosts {
 	public $hosts;    
+	public $urls;    
 
-	public function freshHosts()
+	public function freshHosts($hosts, $urls)
 	{
-		$this->hosts = $this->getHosts();
+		// $this->hosts
 		$mongo = DBConnection::instantiate();
 		$collection = $mongo->getCollection('hosts');
-		foreach ($this->hosts as $myHost) {
-			$collection->insert($myHost);
+		// foreach ($this->hosts as $myHost) {
+		// 	$collection->insert($myHost);
+		// }
+		for ($i=0; $i < count($hosts); $i++) { 
+			# code...
+			$collection->insert( array('IP' => $hosts[$i],  'URL' => $urls[$i]));
 		}
 		return true;
 	}

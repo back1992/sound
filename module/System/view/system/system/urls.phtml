@@ -1,0 +1,112 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+$title = 'My Blogs';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+</p>
+<div id="contentarea">
+	<div id="innercontentarea">
+		<table class="table table-striped table-hover table-bordered">
+			<thead>
+				<tr class="success">
+					<th width="*">No</th>
+					<th width="*">IP</th>
+					<th width="*">URL</th>
+					<th width="*">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php for ($i=0; $i < count($myHosts); $i++) {  ?>
+				
+				<tr>
+					<td>
+						<?php echo 'No.'.$i;?>
+					</td>
+					<td>
+						<?php echo $myHosts[$i];?>
+					</td>
+					<td>
+						<?php echo $myUrls[$i];?>
+					</td>
+					<td>
+<!-- 						<a href="#" class="btn btn-info" role="button"> 
+							Splt
+						</a> -->
+						<a href="#" class="btn btn-info" role="button"> 
+							Delete
+						</a>
+					</td>
+				</tr>
+				<?php } ?> 
+			</tbody>
+		</table>
+		<p id = "formhost"></p>
+		<p>
+			<button  id="fire" type="button" class="btn btn-primary" onClick="uploadHost('<?php echo $myUrl['_id'];?>')">Upload another?</button>
+		</p>	
+		<p>
+			<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"  class="btn btn-danger" role="button"> 
+				Delete All
+			</a>
+		</p>
+	</div>
+
+
+</div>
+
+<script type="text/javascript">
+	function deleteHost(id){
+			// var url  =  id;
+			alert(id);
+			$.ajax({
+				url: '/system/deletehost/'+id,
+				success: function() {
+					alert('Host deleted.');
+				}
+			});
+			location.reload();
+			 // alert(url);
+			}
+			function addHost(id){
+				alert(id);
+/*				$.ajax({
+					url: '/system/mergeup/'+id,
+					success: function() {
+						alert( id + '  File merged with upfile.');
+					}
+				});
+
+setTimeout("location.reload();", 1000);*/
+}
+function uploadHost(id){
+	$('<form>', {
+		"id": "getInvoiceImage",
+		"html": '<input type="text" id="componentInvoicId" name="componentInvoicId" value="' + '' + '" />',
+		"action": window.siteRoot + 'ComponentInvoice/GetInvoiceImage/'
+	}).appendTo('#formhost');
+}
+/*
+function uploadHost(id){
+	$form = $('<form class="form-inline" role="form"></form>');
+	$form.append('<input type="text" id="Inputurl" class="form-control" placeholder="input the url">');
+	var urltext = $('#Inputurl').text();
+	$form.append('<button type="submit" onClick="alert(this.siblings())">Submit</button>');
+	// $form.append(' <button type="submit" class="btn btn-warning pull-right" onClick="addHost($('#Inputurl').text())">Submit</button>');
+	$('#formhost').append($form);
+}
+*/
+function mergeup(id){
+	$.ajax({
+		url: '/system/mergeup/'+id,
+		success: function() {
+			alert( id + '  File merged with upfile.');
+		}
+	});
+
+	setTimeout("location.reload();", 1000);
+}
+</script>
+
+

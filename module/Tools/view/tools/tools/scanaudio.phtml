@@ -17,7 +17,8 @@ echo "<div class='col-md-6'>";
 		'oggFile' => $rawOggFile
 		)); 
 	echo "</div>";
-
+ if(count($mp3Files)>1) { 
+ 	var_dump(count($mp3Files));
 
 	for($i=0; $i<count($mp3Files); $i++){
 		echo "<div>";
@@ -30,9 +31,64 @@ echo 'No. '.($i+1);
 		)); 
 	echo "</div>";
 }
+}
 	echo "</div>";
 ?>
 
 <div class="col-md-6">
-1111111
+<?php
+$form = $this->form;
+// $form->setAttribute('action', $this->url('ffmpeg', array('action' => 'convert')));
+$form->prepare();
+$form->setAttribute('action', $this->url('tools',  array('action' => 'resplt')));
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+// echo $this->formRow($form->get('title'),  array('class' => 'help-inline'));
+echo $this->formRow($form->get('title'));
+echo $this->formRow($form->get('inputvalue')->setLabel('th input: ')->setName('th input')->setValue('-48'));
+echo $this->formRange($form->get('range')->setValue('th')->setAttributes(array(
+    'min' => - 96,
+    'max' => 0,
+    'step' => 2,
+)));
+echo '
+        <span class="help-block">
+            Threshold level (dB) to be considered silence. It is a float number between -96 and 0. Default is -48 dB, which is a value found by tests and should be good in most cases.
+        </span>
+        ';
+echo $this->formRow($form->get('inputvalue')->setLabel('shots input: ')->setName('shots input')->setValue('25'));
+echo $this->formRange($form->get('range')->setValue('shots')->setAttributes(array(
+    'min' => 0,
+    'max' => 100,
+    'step' => 2,
+)));
+echo '
+        <span class="help-block">
+            Positive integer of the minimum number of shots to be found as non silence after the silence. Default is 25. Decrease this value if you need to split files having closer silence points.
+        </span>
+        ';
+echo $this->formRow($form->get('inputvalue')->setLabel('min input: ')->setName('min input')->setValue('2.40'));
+echo $this->formRange($form->get('range')->setValue('min')->setAttributes(array(
+    'min' => 0.00,
+    'max' => 5.00,
+    'step' => 0.05,
+)));
+echo '
+        <span class="help-block">
+            Positive float of the minimum number of seconds to be considered as valid silence. All silences shorter than min are discarded. Default is 0. For the trim silence split, it is the minimum silence length to trigger a trimming; this amount of silence will be kept in the split file at the beginning and at the end.
+        </span>
+        ';
+// echo $this->formRow($form->get('artist'));
+echo $this->formSubmit($form->get('submit')->setValue('Resplit by Silence')->setAttributes(array(
+    'class' => 'btn btn-primary'
+)));
+echo $this->form()->closeTag();
+?>
 </div>
+    <script type="text/javascript">
+        function updateTextInput(self, val) {
+            // document.getElementById('inputValue').value=val; 
+            var inputName = self.getAttribute("value");
+            document.getElementsByName(inputName + " input")[0].value = val;    
+        }
+        </script>

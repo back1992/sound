@@ -12,9 +12,11 @@ class DanAudio {
 	const DOCDIR = './data/cet4/';
 	const TMPDIR = './data/tmp/';
 
-	function mp3splt($audioFile, $audioTDir, $min = '2.4', $off = '0.6') {
-		$cmd_splt = " mp3splt -s -p min=$min,off=$off  $audioFile  -d $audioTDir ";
-		// $spltlog = shell_exec($cmd_splt);
+
+	function mp3splt($audioFile, $audioTDir, $th='-48', $min = '2.4', $off = '0.6') {
+		$cmd_splt = " mp3splt -s -p th=$th,min=$min,off=$off  $audioFile  -d $audioTDir ";
+		// var_dump($cmd_splt);
+		$spltlog = shell_exec($cmd_splt);
 		if(shell_exec($cmd_splt)){
 			echo "well done in $audioFile";
 		} else {
@@ -29,8 +31,37 @@ class DanAudio {
 	public function mp32ogg($sourceFile, $targetFile = null, $options = '  -acodec libvorbis  '){
 		// $targetFile = ($targetFile) ? $targetFile: dirname($sourceFile). DIRECTORY_SEPARATOR. pathinfo($sourceFile, PATHINFO_FILENAME).'.ogg';
 		$cmd_conv = 'ffmpeg -i ' . $sourceFile . $options . $targetFile;
-				var_dump($cmd_conv);
+				// var_dump($cmd_conv);
 		shell_exec($cmd_conv);
+		return true;
+	}
+	public function mp32oggDir($sDir, $options = '  -acodec libvorbis  ')  {
+		$tDir = $sDir;
+		if (is_dir($sDir)) {
+			$sFiles = Dandan::dirToArray($sDir, true);
+			$cmd_rm = 'rm ' . $sDir . '/*.ogg';
+			shell_exec($cmd_rm);
+		}
+		else {
+			echo "$sDir must be a directory! ";
+		}
+			// $cmd_conv = 'ffmpeg -i '. $sourceFile .'  -acodec libvorbis  '. $targetFile;
+			// var_dump($cmd_conv);
+			// shell_exec($cmd_conv);
+			// var_dump($request->getPost());
+			// var_dump($sDir);
+			// var_dump($sFiles);
+
+		foreach ($sFiles as $sFile) {
+			$sFile_parts = pathinfo($sFile);
+			$sourceFile = $sFile;
+			$targetFile = $sFile_parts['dirname'] . '/' . $sFile_parts['filename'] . '.ogg';
+			$cmd_conv = 'ffmpeg -i ' . $sourceFile . '  -acodec libvorbis  ' . $targetFile;
+				// var_dump($cmd_conv);
+			shell_exec($cmd_conv);
+				// shell_exec('ffmpeg -i '. $sDir . '/'.$sFile .' '. $sDir. '/ogg/'.$sFile_parts['basename'].'.ogg' );
+
+		}
 		return true;
 	}
 	public function  savequestion($quizfile, $collection)

@@ -203,7 +203,7 @@ foreach ($targetArr as $value) {
     $targetDir = Dandan::RESDIR . pathinfo($value['doc'], PATHINFO_FILENAME) . DIRECTORY_SEPARATOR;
                 // var_dump($targetDir);
 
-    $resmp3 = Dandan::mp3splt($value['mp3'], $targetDir);
+    $resmp3 = DanAudio::mp3splt($value['mp3'], $targetDir);
     $resdoc = Dandan::savequestion($value['doc'], $collection);
     var_dump($resdoc);
     var_dump($resmp3);
@@ -248,6 +248,7 @@ foreach ($targetArr as $value) {
     $data['monthyear']['month'] = substr($data['audioname'], -6, -4);
     $data['monthyear']['year'] = substr($data['audioname'], -10, -6);
     DanDb::insertFile($file, $data);
+    Dandan::savequestion($value['doc'], $collection);
 }
 return false;
 }
@@ -265,25 +266,33 @@ public function scantotalAction()
 
 public function scanaudioAction()
 {
+    $form = new DirForm();
     $dir = $this->getEvent()->getRouteMatch()->getParam('id');
     $audioDir = Dandan::RESDIR.$dir.DIRECTORY_SEPARATOR;
-    var_dump($audioDir);
+
+
+    // var_dump($audioDir);
             // $audioDir = Dandan::SDIR.'fengtai/';
                         // $sFiles = readdir($audioDir);
                         // $sFiles = glob($audioDir."*.*");
     $rawMp3File = Dandan::RAWDIR.$dir.'.mp3';
     $rawOggFile = Dandan::RAWDIR.$dir.'.ogg';
+    if(!file_exists($rawMp3File))  DanDb::fetchAudio($rawMp3File);
     DanAudio::mp32ogg($rawMp3File, $rawOggFile);
     $mp3Files = glob($audioDir.'*.mp3');
     $oggFiles = glob($audioDir.'*.ogg');
-    var_dump($mp3Files);
-    var_dump($oggFiles);
-
+    // var_dump($mp3Files);
+    // var_dump($oggFiles);
+        $data = array(
+                'title' => $rawMp3File,
+                );
+$form->setData($data);
     return array(
         'rawMp3File' => str_replace('./public/', '/', $rawMp3File),
         'rawOggFile' => str_replace('./public/', '/', $rawOggFile),
         'mp3Files' => str_replace('./public/', '/', $mp3Files),
         'oggFiles' => str_replace('./public/', '/', $oggFiles),
+        'form' => $form
         ); 
     return false;
 }
@@ -316,6 +325,49 @@ public function scandocAction()
     return array('objects' =>$questions);
 }
 
+function respltAction()
+    {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            // var_dump($request->getPost());
+            // $fileInfo = pathinfo($audioFile);
+            $title = $request->getPost()->title;
+            $audioFile = $title;
+            // $audioTDir = Dandan::SDIR  . basename($audioFile, '.mp3') . DIRECTORY_SEPARATOR;
+            $audioTDir = Dandan::RESDIR  .  pathinfo($title, PATHINFO_FILENAME) . DIRECTORY_SEPARATOR;
+            // var_dump($audioFile);
+            // var_dump($audioTDir);
+            $th = $request->getPost()->th_input;
+            $min = $request->getPost()->min_input;
+            echo " th = $th , min = $min  <br />";
+            // var_dump(Dandan::deleteDirectory($audioTDir));
+            // var_dump(chmod($audioTDir, '0777'));
+            // var_dump(Dandan::rrmdir($audioTDir));
+            if(file_exists($audioTDir)) Dandan::removeDir($audioTDir);  
+            if(!file_exists(Dandan::RESDIR)) mkdir(Dandan::RESDIR);
+            DanAudio::mp3splt($audioFile, $audioTDir, $th, $min);   
+            DanAudio::mp32oggDir($audioTDir);   
+
+            // var_dump($resmp);
+            // return $this->redirect()->toRoute('tools', array(
+            //     'action' => 'scanaudio',
+            //     'id' => pathinfo($audioFile, PATHINFO_FILENAME),
+            // ));
+
+        // $this->flashMessenger()->addMessage("You have fetch audio file  $audioname into  <li class='pft-directory'>$audiofiledir</li>");
+            $forwardPlugin = $this->forward();
+            $returnValue = $forwardPlugin->dispatch('Tools\Controller\Tools', array(
+               'action' => 'scanaudio',
+                'id' => pathinfo($audioFile, PATHINFO_FILENAME),
+            ));
+            
+            return $returnValue;
+
+
+        }
+        
+        return false;
+    }
 public function editAction()
 {
     $quiz = $this->getEvent()->getRouteMatch()->getParam('id');

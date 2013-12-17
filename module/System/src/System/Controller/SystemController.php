@@ -50,29 +50,24 @@ class SystemController extends AbstractActionController
   public function urlsAction()
   {
     $hosts = '/etc/hosts';
-    $url = 'google.com';
-    $cmd =  "nslookup $url 8.8.8.8";
-    $res = shell_exec($cmd);
-    var_dump($res);
-    $pattern = "/Name:\s+[a-z\.]+\s+Address: (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/";
-    $resMatch = preg_match($pattern, $res, $match);
-    var_dump($resMatch);
-    var_dump($match);
-    $hoststring = "$match[1]    $url";
-    var_dump($hoststring);
-    $handle = @fopen($hosts, "r");
-    if ($handle) {
-      while (($buffer = fgets($handle, 4096)) !== false) {
-        echo $buffer.'<br />';
-                // echo $buffer;
-      }
-      if (!feof($handle)) {
-        echo "Error: unexpected fgets() fail\n";
-      }
-      fclose($handle);
-    }
-    return FALSE;
-    return new ViewModel();
+    $content = file_get_contents($hosts);
+    // echo $content;
+
+    $pattern = "/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+([^\s]+)/";
+    $resMatch = preg_match_all($pattern, $content, $match);
+
+    $myHosts = $match[1];
+    $myUrls = $match[2];
+
+    DanHosts::insertHosts($myHosts, $myUrls);
+    // var_dump($resMatch);
+    // var_dump($match);
+
+return array(
+  'myHosts' => $match[1],
+  'myUrls' => $match[2],
+  // 'matchIP' => $matchIP,
+  );
   }
   public function hostsAction()
   {

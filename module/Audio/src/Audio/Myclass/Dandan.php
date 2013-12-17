@@ -215,16 +215,7 @@ class Dandan {
 		}
 		return $sArray;
 	}
-	function mp3splt($audioFile, $audioTDir, $min = '2.4', $off = '0.6') {
-		$cmd_splt = " mp3splt -s -p min=$min,off=$off  $audioFile  -d $audioTDir ";
-		var_dump($cmd_splt);
-		// $spltlog = shell_exec($cmd_splt);
-		if(shell_exec($cmd_splt)){
-			echo "well done in $audioFile";
-		} else {
-			echo "something wrong in $audioFile";
-		}
-	}
+
 	public function slice($string, $begin = null, $end = null){
 		if(stripos($string, $begin)) $string = stristr($string, $begin);
 		if(stripos($string, $end)) $string = stristr($string, $end, true);
