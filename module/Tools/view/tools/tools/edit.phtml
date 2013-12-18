@@ -21,85 +21,52 @@ $this->headTitle($title);
 				</tr>
 			</thead>
 			<tbody>
-				<?php 
-				$i = 0; 
-				sort($audioName);
-
-				?>
-				<?php while($object = $this->objects->getNext()): ?>
+				<?php for ($i=0; $i < $num; $i++) {  ?>
 					<tr>
+					<?php if (array_key_exists($i, $questions)) { ?>
 						<td>
-							<?php echo $object['no'];?>
+							<?php echo $questions[$i]['no'];?>
 						</td>
 						<td>
-							<?php echo $object['A'];?>
+							<?php echo $questions[$i]['A'];?>
 						</td>
 						<td>
-							<?php echo $object['B'];?>
+							<?php echo $questions[$i]['B'];?>
 						</td>
 						<td>
-							<?php echo $object['C'];?>
+							<?php echo $questions[$i]['C'];?>
 						</td>
 						<td >
-							<?php echo $object['D'];?>
+							<?php echo $questions[$i]['D'];?>
 						</td>
 						<td>
 							<?php echo 'answer';?>
 						</td>
+						<?php }?>
 					</tr>
 					<tr>
-					<?php if (array_key_exists($object['no']-1, $audioName)) { ?>
+					<?php if (array_key_exists($i, $audioName)) { ?>
 						<td>
-							<?php echo pathinfo($audioName[$object['no']-1], PATHINFO_FILENAME); ?>
+							<?php echo pathinfo($audioName[$i], PATHINFO_FILENAME); ?>
 						</td>
 						<td colspan="3">
 
 							<?php 
-							if($i<count($audioName)) {
 								echo $this->partial('partial/audio.phtml', array(
-									'mp3File' => $audioName[$object['no']-1].'.mp3',
-									'oggFile' => $audioName[$object['no']-1].'.ogg',
+									'mp3File' => $audioName[$i].'.mp3',
+									'oggFile' => $audioName[$i].'.ogg',
 									'id' => $i,
 									'class' => 'delete'
 									)); 
 
-							}
 							?> 
 						</td>
 						<td colspan="2">
-							<button  class="btn btn-primary" onClick="deleteFile('<?php echo pathinfo($audioName[$object['no']-1], PATHINFO_FILENAME); ?>')")> Delete </button>
-							<button  class="btn btn-warning" onClick="mergeup('<?php echo pathinfo($audioName[$object['no']-1], PATHINFO_FILENAME); ?>')")> Merge Up </button>
+							<button  class="btn btn-primary" onClick="deleteFile('<?php echo pathinfo($audioName[$i], PATHINFO_FILENAME); ?>')")> Delete </button>
+							<button  class="btn btn-warning" onClick="mergeup('<?php echo pathinfo($audioName[$i], PATHINFO_FILENAME); ?>')")> Merge Up </button>
 						</td>
 						<?php } ?>
 					</tr>
-					<?php 
-					$i++; 
-					?>
-				<?php endwhile;?>
-				<?php for($j= $i; $j<count($audioName); $j++) { ?>
-				<tr>
-					<td>
-						<?php echo pathinfo($audioName[$j], PATHINFO_FILENAME); ?>
-					</td>
-					<td colspan="3">
-
-						<?php 
-						
-						echo $this->partial('partial/audio.phtml', array(
-							'mp3File' => $audioName[$j].'.mp3',
-							'oggFile' => $audioName[$j].'.ogg',
-									// 'id' => $i,
-							'class' => 'delete'
-							)); 
-							?> 
-						</td>
-						<td colspan="2">
-							<button  class="btn btn-primary" onClick="deleteFile('<?php echo pathinfo($audioName[$j], PATHINFO_FILENAME); ?>')")> Delete </button>
-							<button  class="btn btn-warning" onClick="mergeup('<?php echo pathinfo($audioName[$j], PATHINFO_FILENAME); ?>')")> Merge Up </button>
-						</td>
-
-					</tr>
-
 					<?php } ?>
 				</tbody>
 			</table>

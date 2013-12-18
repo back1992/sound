@@ -1,7 +1,5 @@
 <?php
-
 namespace Tools\Controller;
-
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Ffmpeg\Form\DirForm;
@@ -9,10 +7,8 @@ use Audio\Myclass\DanAudio;
 use Audio\Myclass\Dandan;
 use Audio\Myclass\DanDb;
 use Audio\Myclass\DBConnection;
-
 class ToolsController extends AbstractActionController
 {
-
     public function indexAction()
     {
         $dir = Dandan::DIR;
@@ -59,14 +55,12 @@ class ToolsController extends AbstractActionController
                 return false;
             }
         }
-
         return array(
             'files' => $files,
             'dir' => $dir,
             'form' => $form
             );
     }
-
     public function readdocAction()
     {
         $request = $this->getRequest();
@@ -79,7 +73,6 @@ class ToolsController extends AbstractActionController
         }
         return array('doc' => Dandan::read_doc_file("./data/cet4/00-10/03/cet4_200306.doc"));
     }
-
     public function readpdfAction()
     {
         $pdf2 = \ZendPdf\PdfDocument::load('./public/file/2003.6CET4.pdf');
@@ -87,7 +80,6 @@ class ToolsController extends AbstractActionController
                 // return array('doc' => Dandan::parseWord("./public/file/2013.6CET4.doc"));
         return false;
     }
-
     public function readquestionAction()
     {
         $request = $this->getRequest();
@@ -115,7 +107,6 @@ var_dump($select);
 return false;
         // return array('select' => $select);
 }
-
 public function savequestionAction()
 {
     $mongo = DBConnection::instantiate();
@@ -144,7 +135,6 @@ for ($i=0; $i < count($match['0']) ; $i++) {
 return false;
 return array('select' => $select);
 }
-
 public function logspltAction()
 {
     $module_conf = $this->getServiceLocator()->get('Config');
@@ -168,7 +158,6 @@ public function logspltAction()
     \PHPVideoToolkit\Trace::vars($output->getOutput()->getMediaPath());
     return FALSE;
 }
-
 public function totalAction()
 {
     $mongo = DBConnection::instantiate();
@@ -177,13 +166,13 @@ public function totalAction()
     $dir = Dandan::DOCDIR;
     $request = $this->getRequest();
     if ($request->isPost()) {    
-       $dir = $request->getPost()->title;
-   };
-   $files = Dandan::dirToArray($dir, 'TRUE');
-   $newFiles = Dandan::flatten_array($files);
-   $extArr = array('doc', 'mp3');
-   $targetArr = array();
-   for($i=0; $i<count($newFiles); $i++) {
+     $dir = $request->getPost()->title;
+ };
+ $files = Dandan::dirToArray($dir, 'TRUE');
+ $newFiles = Dandan::flatten_array($files);
+ $extArr = array('doc', 'mp3');
+ $targetArr = array();
+ for($i=0; $i<count($newFiles); $i++) {
     if(in_array(pathinfo($newFiles[$i], PATHINFO_EXTENSION), $extArr)){
         $targetArr[pathinfo($newFiles[$i], PATHINFO_FILENAME)][pathinfo($newFiles[$i], PATHINFO_EXTENSION)] = $newFiles[$i] ;
     }
@@ -202,7 +191,6 @@ foreach ($targetArr as $value) {
                 # code...
     $targetDir = Dandan::RESDIR . pathinfo($value['doc'], PATHINFO_FILENAME) . DIRECTORY_SEPARATOR;
                 // var_dump($targetDir);
-
     $resmp3 = DanAudio::mp3splt($value['mp3'], $targetDir);
     $resdoc = Dandan::savequestion($value['doc'], $collection);
     var_dump($resdoc);
@@ -210,7 +198,6 @@ foreach ($targetArr as $value) {
 }
 return false;
 }
-
 public function totalinsertAction()
 {
     $mongo = DBConnection::instantiate();
@@ -219,13 +206,13 @@ public function totalinsertAction()
     $dir = Dandan::DOCDIR;
     $request = $this->getRequest();
     if ($request->isPost()) {    
-       $dir = $request->getPost()->title;
-   };
-   $files = Dandan::dirToArray($dir, 'TRUE');
-   $newFiles = Dandan::flatten_array($files);
-   $extArr = array('doc', 'mp3');
-   $targetArr = array();
-   for($i=0; $i<count($newFiles); $i++) {
+     $dir = $request->getPost()->title;
+ };
+ $files = Dandan::dirToArray($dir, 'TRUE');
+ $newFiles = Dandan::flatten_array($files);
+ $extArr = array('doc', 'mp3');
+ $targetArr = array();
+ for($i=0; $i<count($newFiles); $i++) {
     if(in_array(pathinfo($newFiles[$i], PATHINFO_EXTENSION), $extArr)){
         $targetArr[pathinfo($newFiles[$i], PATHINFO_FILENAME)][pathinfo($newFiles[$i], PATHINFO_EXTENSION)] = $newFiles[$i] ;
     }
@@ -252,7 +239,6 @@ foreach ($targetArr as $value) {
 }
 return false;
 }
-
 public function scantotalAction()
 {
     $mongo = DBConnection::instantiate();
@@ -260,17 +246,13 @@ public function scantotalAction()
     $collection = $mongo->getCollection('question');
     $dirs = array_filter(glob(Dandan::RESDIR.'*'), 'is_dir');
         // print_r( $dirs);
-
     return array('objects' => $dirs, 'collection' => $collection);
 }
-
 public function scanaudioAction()
 {
     $form = new DirForm();
     $dir = $this->getEvent()->getRouteMatch()->getParam('id');
     $audioDir = Dandan::RESDIR.$dir.DIRECTORY_SEPARATOR;
-
-
     // var_dump($audioDir);
             // $audioDir = Dandan::SDIR.'fengtai/';
                         // $sFiles = readdir($audioDir);
@@ -283,10 +265,10 @@ public function scanaudioAction()
     $oggFiles = glob($audioDir.'*.ogg');
     // var_dump($mp3Files);
     // var_dump($oggFiles);
-        $data = array(
-                'title' => $rawMp3File,
-                );
-$form->setData($data);
+    $data = array(
+        'title' => $rawMp3File,
+        );
+    $form->setData($data);
     return array(
         'rawMp3File' => str_replace('./public/', '/', $rawMp3File),
         'rawOggFile' => str_replace('./public/', '/', $rawOggFile),
@@ -296,7 +278,6 @@ $form->setData($data);
         ); 
     return false;
 }
-
 public function scandocAction()
 {
     $quiz = $this->getEvent()->getRouteMatch()->getParam('id');
@@ -311,7 +292,6 @@ public function scandocAction()
             // echo pathinfo($name, PATHINFO_FILENAME)."<br />";
         if(basename($name, '.doc') == $quiz)  echo $doc = $name;
     }
-
         // echo Dandan::read_doc_file($doc);
     echo Dandan::read_doc_file($doc);
         // echo Dandan::parseWord($doc);
@@ -324,51 +304,73 @@ public function scandocAction()
     return false;
     return array('objects' =>$questions);
 }
-
 function respltAction()
-    {
-        $request = $this->getRequest();
-        if ($request->isPost()) {
+{
+    $request = $this->getRequest();
+    if ($request->isPost()) {
             // var_dump($request->getPost());
             // $fileInfo = pathinfo($audioFile);
-            $title = $request->getPost()->title;
-            $audioFile = $title;
+        $title = $request->getPost()->title;
+        $audioFile = $title;
             // $audioTDir = Dandan::SDIR  . basename($audioFile, '.mp3') . DIRECTORY_SEPARATOR;
-            $audioTDir = Dandan::RESDIR  .  pathinfo($title, PATHINFO_FILENAME) . DIRECTORY_SEPARATOR;
+        $audioTDir = Dandan::RESDIR  .  pathinfo($title, PATHINFO_FILENAME) . DIRECTORY_SEPARATOR;
             // var_dump($audioFile);
             // var_dump($audioTDir);
-            $th = $request->getPost()->th_input;
-            $min = $request->getPost()->min_input;
-            echo " th = $th , min = $min  <br />";
+        $th = $request->getPost()->th_input;
+        $min = $request->getPost()->min_input;
+        echo " th = $th , min = $min  <br />";
             // var_dump(Dandan::deleteDirectory($audioTDir));
             // var_dump(chmod($audioTDir, '0777'));
             // var_dump(Dandan::rrmdir($audioTDir));
-            if(file_exists($audioTDir)) Dandan::removeDir($audioTDir);  
-            if(!file_exists(Dandan::RESDIR)) mkdir(Dandan::RESDIR);
-            DanAudio::mp3splt($audioFile, $audioTDir, $th, $min);   
-            DanAudio::mp32oggDir($audioTDir);   
-
+        if(file_exists($audioTDir)) Dandan::removeDir($audioTDir);  
+        if(!file_exists(Dandan::RESDIR)) mkdir(Dandan::RESDIR);
+        DanAudio::mp3splt($audioFile, $audioTDir, $th, $min);   
+        DanAudio::mp32oggDir($audioTDir);   
             // var_dump($resmp);
             // return $this->redirect()->toRoute('tools', array(
             //     'action' => 'scanaudio',
             //     'id' => pathinfo($audioFile, PATHINFO_FILENAME),
             // ));
-
         // $this->flashMessenger()->addMessage("You have fetch audio file  $audioname into  <li class='pft-directory'>$audiofiledir</li>");
-            $forwardPlugin = $this->forward();
-            $returnValue = $forwardPlugin->dispatch('Tools\Controller\Tools', array(
-               'action' => 'scanaudio',
-                'id' => pathinfo($audioFile, PATHINFO_FILENAME),
-            ));
-            
-            return $returnValue;
-
-
-        }
-        
-        return false;
+        $forwardPlugin = $this->forward();
+        $returnValue = $forwardPlugin->dispatch('Tools\Controller\Tools', array(
+         'action' => 'scanaudio',
+         'id' => pathinfo($audioFile, PATHINFO_FILENAME),
+         ));
+        return $returnValue;
     }
+    return false;
+}
 public function editAction()
+{
+    $quiz = $this->getEvent()->getRouteMatch()->getParam('id');
+    $mongo = DBConnection::instantiate();
+                //get a MongoGridFS instance
+    $collection = $mongo->getCollection('question');
+    $res = $collection->ensureIndex(array("A" => 1, "B" => 1), array("unique" => 1, "dropDups" => 1));
+         // var_dump($res);
+    $questions = $collection->find(array('quiz' => $quiz));
+    $questionsArr = array_values(iterator_to_array($questions));
+            // return false;
+    $audioDir = Dandan::RESDIR.$quiz.DIRECTORY_SEPARATOR;
+    $mp3Files = glob($audioDir.'*.mp3');
+    for ($i=0; $i < count($mp3Files) ; $i++) {
+        $audioName[$i] =  dirname($mp3Files[$i]). DIRECTORY_SEPARATOR. pathinfo($mp3Files[$i], PATHINFO_FILENAME);
+        $oggFiles[$i] = $audioName[$i].'.ogg';
+        DanAudio::mp32ogg($mp3Files[$i], $oggFiles[$i]);
+        $audioName[$i] = str_replace('./public/', '/', $audioName[$i]);
+    }
+    $num = (count($mp3Files)>=count($questionsArr))?count($mp3Files):count($questionsArr);
+    // return false;
+    return array(
+        // 'objects' =>$questions,
+        'questions' =>$questionsArr,
+        'audioDir' => $audioDir,
+        'audioName' => $audioName,
+        'num' => $num,
+        );
+}
+public function edit2Action()
 {
     $quiz = $this->getEvent()->getRouteMatch()->getParam('id');
     $mongo = DBConnection::instantiate();
@@ -384,21 +386,20 @@ public function editAction()
                         // $sFiles = readdir($audioDir);
                         // $sFiles = glob($audioDir."*.*");
     $mp3Files = glob($audioDir.'*.mp3');
-
-         // var_dump($mp3Files);
+         var_dump($mp3Files);
     for ($i=0; $i < count($mp3Files) ; $i++) {
         $audioName[$i] =  dirname($mp3Files[$i]). DIRECTORY_SEPARATOR. pathinfo($mp3Files[$i], PATHINFO_FILENAME);
         $oggFiles[$i] = $audioName[$i].'.ogg';
         DanAudio::mp32ogg($mp3Files[$i], $oggFiles[$i]);
         $audioName[$i] = str_replace('./public/', '/', $audioName[$i]);
     }
+    var_dump($oggFiles);
     return array(
         'objects' =>$questions,
         'audioDir' => $audioDir,
         'audioName' => $audioName,
         );
 }
-
 public function deletefileAction()
 {
     $id= $this->getEvent()->getRouteMatch()->getParam('id');
@@ -410,28 +411,63 @@ public function deletefileAction()
     return false;
     return new ViewModel();
 }
-
 public function mergeupAction()
 {
     $id= $this->getEvent()->getRouteMatch()->getParam('id');
-    // $id= 'cet4_200301_silence_14';
-    $idup = substr($id, -2)  ;
-    do {
-        $idup--;
-        $file = DanAudio::RESDIR.substr($id, 0, 11).DIRECTORY_SEPARATOR.$id;
-        $fileup = substr(DanAudio::RESDIR.substr($id, 0, 11).DIRECTORY_SEPARATOR.$id, 0, -2). $idup;
-    } while (file_exists($fileup));
-    var_dump($file);
-    var_dump($fileup);
-    file_put_contents($fileup.'.mp3',    file_get_contents($fileup.'.mp3') .    file_get_contents($file.'.mp3'));
-    file_put_contents($fileup.'.ogg',    file_get_contents($fileup.'.ogg') .    file_get_contents($file.'.ogg'));
-
-    unlink($file.'.mp3');
-    unlink($file.'.ogg');
+    // $id= 'cet4_200406_silence_08';
+    $dir = DanAudio::RESDIR.substr($id, 0, 11).DIRECTORY_SEPARATOR;
+    $mp3Files = glob($dir.'*.mp3');
+    $oggFiles = glob($dir.'*.ogg');
+    // var_dump($mp3Files);
+    // var_dump($oggFiles);
+    // var_dump(array_keys($mp3Files, "$dir$id.mp3")[0]);
+    while (current($mp3Files) !== $dir.$id.'.mp3') next($mp3Files);
+    $curFile = pathinfo(current($mp3Files), PATHINFO_FILENAME);
+    $prevFile = pathinfo(prev($mp3Files), PATHINFO_FILENAME);
+    var_dump($curFile);
+    var_dump($prevFile);
+    // return false;   
+    // while (current($oggFiles) !== $dir.$id.'.ogg') next($oggFiles);
+    // while (key($mp3Files) !== array_keys($mp3Files, "$dir$id.mp3")[0]) next($mp3Files);
+    // var_dump(current($mp3Files));
+    // var_dump(prev($mp3Files));
+    file_put_contents($dir.'tmp.mp3',    file_get_contents($dir.$prevFile.'.mp3') .    file_get_contents($dir.$curFile.'.mp3'));
+    file_put_contents($dir.'tmp.ogg',    file_get_contents($dir.$prevFile.'.ogg') .    file_get_contents($dir.$curFile.'.ogg'));
+    var_dump(unlink($dir.$prevFile.'.mp3'));
+    var_dump(unlink($dir.$prevFile.'.ogg'));
+    var_dump(unlink($dir.$curFile.'.mp3'));
+    var_dump(unlink($dir.$curFile.'.ogg'));
+    // var_dump(unlink(current($mp3Files))); 
+    //     var_dump(unlink(prev($oggFiles)));
+    // var_dump(unlink(current($oggFiles)));
+    var_dump(rename($dir.'tmp.mp3', $dir.$id.'.mp3'));
+    var_dump(rename($dir.'tmp.ogg', $dir.$id.'.ogg'));
     return false;
     return new ViewModel();
 }
-
-
+public function mergeup2Action()
+{
+    // $id= $this->getEvent()->getRouteMatch()->getParam('id');
+    $id= 'cet4_200406_silence_05';
+    $idup = substr($id, -2)  ;
+    do {
+        $file = DanAudio::RESDIR.substr($id, 0, 11).DIRECTORY_SEPARATOR.$id;
+        $fileup = substr(DanAudio::RESDIR.substr($id, 0, 11).DIRECTORY_SEPARATOR.$id, 0, -2). str_pad($idup, 2, "0", STR_PAD_LEFT);
+        $idup--;
+        echo $idup;
+        var_dump(file_exists($fileup));
+    } while (file_exists($fileup));
+    var_dump($file);
+    var_dump($fileup);
+    file_put_contents($file.'.tmp.mp3',    file_get_contents($fileup.'.mp3') .    file_get_contents($file.'.mp3'));
+    file_put_contents($file.'.tmp.ogg',    file_get_contents($fileup.'.ogg') .    file_get_contents($file.'.ogg'));
+    // var_dump(unlink($file.'.mp3'));
+    // var_dump(unlink($file.'.ogg')); 
+        var_dump(unlink($fileup.'.mp3'));
+    var_dump(unlink($fileup.'.ogg'));
+    var_dump(rename($file.'.tmp.mp3', $file.'.mp3'));
+    var_dump(rename($file.'.tmp.ogg', $file.'.ogg'));
+    return false;
+    return new ViewModel();
 }
-
+}
