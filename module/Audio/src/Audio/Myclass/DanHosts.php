@@ -4,7 +4,7 @@ class DanHosts {
 	public $hosts;    
 	public $urls;    
 
-	public function freshHosts($hosts, $urls)
+	public function insertHosts($hosts, $urls)
 	{
 		// $this->hosts
 		$mongo = DBConnection::instantiate();

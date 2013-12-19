@@ -80,14 +80,7 @@ $this->headTitle($title);
 
 setTimeout("location.reload();", 1000);*/
 }
-function uploadHost(id){
-	$('<form>', {
-		"id": "getInvoiceImage",
-		"html": '<input type="text" id="componentInvoicId" name="componentInvoicId" value="' + '' + '" />',
-		"action": window.siteRoot + 'ComponentInvoice/GetInvoiceImage/'
-	}).appendTo('#formhost');
-}
-/*
+
 function uploadHost(id){
 	$form = $('<form class="form-inline" role="form"></form>');
 	$form.append('<input type="text" id="Inputurl" class="form-control" placeholder="input the url">');
@@ -96,7 +89,7 @@ function uploadHost(id){
 	// $form.append(' <button type="submit" class="btn btn-warning pull-right" onClick="addHost($('#Inputurl').text())">Submit</button>');
 	$('#formhost').append($form);
 }
-*/
+
 function mergeup(id){
 	$.ajax({
 		url: '/system/mergeup/'+id,
