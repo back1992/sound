@@ -237,7 +237,7 @@ for ($i=0; $i < count($match['0']) ; $i++) {
 	$select[$i]['D'] = trim($match['5'][$i]);
 	if($collection) $collection->insert($select[$i]);
 }
-return $select;
+return true;
 }
 public function  readquestion($content, $collection = null)
 {

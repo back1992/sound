@@ -266,11 +266,13 @@ class AudioController extends AbstractActionController
 		ini_set('display_errors', '1');
 		$mongo = DBConnection::instantiate();
 		$gridFS = $mongo->database->getGridFS();
+		$collection = $mongo->getCollection('question');
 		$id = $this->getEvent()->getRouteMatch()->getParam('id');
 		if ($id == 'all') {
 			// $gridFS->drop();
 			$gridFS->remove();
 			$gridFS->chunks->remove();
+			$collection->remove();
 		}
 		else {
 			$gridFS->remove(array(

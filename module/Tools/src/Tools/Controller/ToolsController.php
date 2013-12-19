@@ -235,6 +235,7 @@ foreach ($targetArr as $value) {
     $data['monthyear']['month'] = substr($data['audioname'], -6, -4);
     $data['monthyear']['year'] = substr($data['audioname'], -10, -6);
     DanDb::insertFile($file, $data);
+    // var_dump($value['doc']);
     Dandan::savequestion($value['doc'], $collection);
 }
 return false;
@@ -349,8 +350,11 @@ public function editAction()
     $collection = $mongo->getCollection('question');
     $res = $collection->ensureIndex(array("A" => 1, "B" => 1), array("unique" => 1, "dropDups" => 1));
          // var_dump($res);
+    // $questions = $collection->find(array('quiz' => $quiz))->sort(array('no' => 1, 'natural' => 1));
+    // $questions = $collection->find(array('quiz' => $quiz))->sort(array('no' => 1));
     $questions = $collection->find(array('quiz' => $quiz));
     $questionsArr = array_values(iterator_to_array($questions));
+    // array_multisort($questionsArr['no'], SORT_DESC, $questionsArr);
             // return false;
     $audioDir = Dandan::RESDIR.$quiz.DIRECTORY_SEPARATOR;
     $mp3Files = glob($audioDir.'*.mp3');
