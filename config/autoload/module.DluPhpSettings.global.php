@@ -16,7 +16,7 @@ return array(
     'phpSettings'   => array(
         'display_startup_errors'        => true,
         'display_errors'                => true,
-        'max_execution_time'            => 60,
+        'max_execution_time'            => 120,
         'date.timezone'                 => 'Asia/Shanghai',
         'mbstring.internal_encoding'    => 'UTF-8',
         'xdebug.max_nesting_level' => 2000,	

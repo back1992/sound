@@ -49,6 +49,9 @@ class SystemController extends AbstractActionController
   }
   public function urlsAction()
   {
+    $fileRes = '/etc/hosts';
+$hosts = './data/hosts';
+copy($fileRes, $hosts);
     $hosts = '/etc/hosts';
     $content = file_get_contents($hosts);
     // echo $content;
@@ -95,7 +98,10 @@ return array(
         //fresh hosts data in db 
 /*        $hosts->freshHosts();
 $hosts->freshUrls();*/
-$fp = fopen('/etc/hosts', 'w');
+$fileRes = '/etc/hosts';
+$fileTar = './data/hosts';
+copy($fileRes, $fileTar);
+$fp = fopen($fileTar, 'w');
 
 $myHosts = $hosts->getHosts('hosts');
 $hostsArr = iterator_to_array($myHosts);

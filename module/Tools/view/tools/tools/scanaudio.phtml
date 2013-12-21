@@ -56,7 +56,7 @@ echo '
             Threshold level (dB) to be considered silence. It is a float number between -96 and 0. Default is -48 dB, which is a value found by tests and should be good in most cases.
         </span>
         ';
-echo $this->formRow($form->get('inputvalue')->setLabel('shots input: ')->setName('shots input')->setValue('25'));
+echo $this->formRow($form->get('inputvalue')->setLabel('shots input: ')->setName('shots input')->setValue('21'));
 echo $this->formRange($form->get('range')->setValue('shots')->setAttributes(array(
     'min' => 0,
     'max' => 100,

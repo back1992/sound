@@ -283,27 +283,22 @@ public function scandocAction()
 {
     $quiz = $this->getEvent()->getRouteMatch()->getParam('id');
     $dir = DanAudio::DOCDIR;
-        // $Directory = new \RecursiveDirectoryIterator($dir);
-        // $Iterator = new \RecursiveIteratorIterator($Directory);
-        //  $files = iterator_to_array($Iterator,true); 
-        //  var_dump($quiz);
-        //  var_dump($files);
     $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::SELF_FIRST);
     foreach($objects as $name => $object){
             // echo pathinfo($name, PATHINFO_FILENAME)."<br />";
-        if(basename($name, '.doc') == $quiz)  echo $doc = $name;
+        if(basename($name, '.doc') == $quiz)  $doc = $name;
     }
-        // echo Dandan::read_doc_file($doc);
-    echo Dandan::read_doc_file($doc);
-        // echo Dandan::parseWord($doc);
-                    //  $audioFile = $title;
-                    // echo Dandan::read_doc_file($audioFile);
+    // echo nl2br(Dandan::read_doc_file($doc));
     $mongo = DBConnection::instantiate();
                 //get a MongoGridFS instance
     $collection = $mongo->getCollection('question');
     $questions = $collection->find(array('quiz' => $quiz));
-    return false;
-    return array('objects' =>$questions);
+    // return false;
+    return array(
+        'questions' =>$questions, 
+        'path' => $doc, 
+        'content' => nl2br(Dandan::read_doc_file($doc))
+        );
 }
 function respltAction()
 {
@@ -358,6 +353,7 @@ public function editAction()
             // return false;
     $audioDir = Dandan::RESDIR.$quiz.DIRECTORY_SEPARATOR;
     $mp3Files = glob($audioDir.'*.mp3');
+    $audioName = array();
     for ($i=0; $i < count($mp3Files) ; $i++) {
         $audioName[$i] =  dirname($mp3Files[$i]). DIRECTORY_SEPARATOR. pathinfo($mp3Files[$i], PATHINFO_FILENAME);
         $oggFiles[$i] = $audioName[$i].'.ogg';
@@ -372,36 +368,6 @@ public function editAction()
         'audioDir' => $audioDir,
         'audioName' => $audioName,
         'num' => $num,
-        );
-}
-public function edit2Action()
-{
-    $quiz = $this->getEvent()->getRouteMatch()->getParam('id');
-    $mongo = DBConnection::instantiate();
-                //get a MongoGridFS instance
-    $collection = $mongo->getCollection('question');
-    $res = $collection->ensureIndex(array("A" => 1, "B" => 1), array("unique" => 1, "dropDups" => 1));
-         // var_dump($res);
-    $questions = $collection->find(array('quiz' => $quiz));
-            // return false;
-    $audioDir = Dandan::RESDIR.$quiz.DIRECTORY_SEPARATOR;
-         // var_dump($audioDir);
-            // $audioDir = Dandan::SDIR.'fengtai/';
-                        // $sFiles = readdir($audioDir);
-                        // $sFiles = glob($audioDir."*.*");
-    $mp3Files = glob($audioDir.'*.mp3');
-         var_dump($mp3Files);
-    for ($i=0; $i < count($mp3Files) ; $i++) {
-        $audioName[$i] =  dirname($mp3Files[$i]). DIRECTORY_SEPARATOR. pathinfo($mp3Files[$i], PATHINFO_FILENAME);
-        $oggFiles[$i] = $audioName[$i].'.ogg';
-        DanAudio::mp32ogg($mp3Files[$i], $oggFiles[$i]);
-        $audioName[$i] = str_replace('./public/', '/', $audioName[$i]);
-    }
-    var_dump($oggFiles);
-    return array(
-        'objects' =>$questions,
-        'audioDir' => $audioDir,
-        'audioName' => $audioName,
         );
 }
 public function deletefileAction()

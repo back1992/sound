@@ -67,43 +67,10 @@ class Dandan {
     // Remove directory.
 		rmdir($path);
 	}
-	function abread_doc_file($filename) {
-		// $content = shell_exec('/usr/bin/antiword -f '.$filename);
-		// $textfile = pathinfo($filename, PATHINFO_BASENAME).'.txt';
-		$fs = TemporaryFilesystem::create();
-		$textfile = $fs->createEmptyFile(self::TMPDIR);
-		$cmd = "/usr/bin/abiword  --to=txt --to-name=$textfile $filename";
-		var_dump($cmd);
-		$res = shell_exec($cmd);
-		$content = file_get_contents($textfile);
-		unlink($textfile);
-		// $begin = 'Listening Comprehension';
-		// $end = 	'Reading Comprehension';
-		// $content = self::slice($content, $begin, $end);
-		return $content;
-		// return shell_exec('/usr/local/bin/antiword '.$filename);
-	}
-	
-	function atread_doc_file($filename) {
-		$cmd = "/usr/local/bin/antiword -m UTF-8.txt  $filename";
-		$content = shell_exec($cmd);
-		
-		return $content;
-	}
-	
 	function read_doc_file($filename) {
 		//use antiword
 		$cmd = "/usr/local/bin/antiword -m UTF-8.txt  $filename";
 		$content = shell_exec($cmd);
-		//use abword
-/*
-		$fs = TemporaryFilesystem::create();
-		$textfile = $fs->createEmptyFile(self::TMPDIR);
-		$cmd = "/usr/bin/abiword  --to=txt --to-name=$textfile $filename";
-		$res = shell_exec($cmd);
-		$content = file_get_contents($textfile);
-		unlink($textfile);*/
-		//slice the listening
 		$begin = 'Listening Comprehension';
 		$end = 	'Reading Comprehension';
 		$content = self::slice($content, $begin, $end);
@@ -225,7 +192,7 @@ class Dandan {
 	{
 		$quizname = pathinfo($quizfile, PATHINFO_FILENAME);
 		$subject = self::read_doc_file($quizfile);
-		$pattern = '/(\d{1,2})\.\s+A\)([^)]*)\s+B\)([^)]*)\s+C\)([^)]*)\s+D\)([^\\n]*)/';
+		$pattern = '/(\d{1,2})\.\s+[A-D]\)([^)]*)\s+[A-D]\)([^)]*)\s+[A-D]\)([^)]*)\s+[A-D]\)([^\n]*)/';
 preg_match_all($pattern, $subject, $match);
 // var_dump($match);
 for ($i=0; $i < count($match['0']) ; $i++) {
