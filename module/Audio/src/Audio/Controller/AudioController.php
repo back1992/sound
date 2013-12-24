@@ -266,12 +266,14 @@ class AudioController extends AbstractActionController
 	{
 		ini_set('display_errors', '1');
 		$mongo = DBConnection::instantiate();
+		$collection = $mongo->getCollection('question');
 		$gridFS = $mongo->database->getGridFS();
 		$id = $this->getEvent()->getRouteMatch()->getParam('id');
 		if ($id == 'all') {
 			// $gridFS->drop();
 			$gridFS->remove();
 			$gridFS->chunks->remove();
+			$collection->remove();
 			DanFun::rrmdir(Dandan::SDIR);
 		}
 		else {

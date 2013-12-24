@@ -1,25 +1,27 @@
 ############################### 
 ###########---my hosts- ---######### 
-127.0.0.1         localhost  
-127.0.1.1         dandan-ThinkPad-X220  
+127.0.0.1         localhost.localdomain  
+127.0.1.1         localhost.localdomain  
 127.0.0.1         sound.local  
+127.0.0.1         sound.backup.local  
 127.0.1.1         quiz.local  
-127.0.1.1         ticool.local  
+127.0.1.1         zf1.local  
 
 
 
 ###########---my wall- ---######### 
-173.194.127.194         google.com  
+173.194.127.72         google.com  
 59.24.3.173         drive.google.com  
-74.125.235.196         appengine.google.com  
-74.125.235.198         apps.google.com  
-74.125.235.196         chrome.google.com  
-173.194.127.2         code.google.com  
-74.125.235.198         developers.google.com  
-74.125.235.200         ditu.google.com  
-78.16.49.15         encrypted.google.com  
-74.125.235.195         finance.google.com  
+74.125.235.197         appengine.google.com  
+74.125.235.196         apps.google.com  
+74.125.235.194         chrome.google.com  
+173.194.127.67         code.google.com  
+74.125.235.197         developers.google.com  
+74.125.235.199         ditu.google.com  
+59.24.3.173         encrypted.google.com  
+74.125.235.201         finance.google.com  
 74.125.128.95         googleapis.l.google.com  
 8.8.8.8         google-public-dns-a.google.com  
 74.125.128.83         mail.google.com  
-91.189.92.201         archive.ubuntu.com  
+74.125.235.195         play.google.com  
+173.194.127.131         news.google.com  
