@@ -1,34 +1,25 @@
-127.0.0.1	localhost
-127.0.1.1	dandan-ThinkPad-X220
-
-# The following lines are desirable for IPv6 capable hosts
-::1     ip6-localhost ip6-loopback
-fe00::0 ip6-localnet
-ff00::0 ip6-mcastprefix
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
+############################### 
+###########---my hosts- ---######### 
+127.0.0.1         localhost  
+127.0.1.1         dandan-ThinkPad-X220  
+127.0.0.1         sound.local  
+127.0.1.1         quiz.local  
+127.0.1.1         ticool.local  
 
 
-127.0.0.1 sound.local
-127.0.1.1 quiz.local
-127.0.1.1 ticool.local
 
- 
-
-###########---my wall- ---#########
-173.194.127.160 google.com
-37.61.54.158 drive.google.com
-74.125.235.195 appengine.google.com
-74.125.235.200 apps.google.com
-74.125.235.200 chrome.google.com
-173.194.127.174 code.google.com
-74.125.235.195 developers.google.com
-74.125.235.206 ditu.google.com
-59.24.3.173 encrypted.google.com
-74.125.235.206 finance.google.com
-74.125.128.95 googleapis.l.google.com
-8.8.8.8 google-public-dns-a.google.com
-74.125.128.19 mail.google.com
-
-91.189.92.156  archive.ubuntu.com
-
+###########---my wall- ---######### 
+173.194.127.194         google.com  
+59.24.3.173         drive.google.com  
+74.125.235.196         appengine.google.com  
+74.125.235.198         apps.google.com  
+74.125.235.196         chrome.google.com  
+173.194.127.2         code.google.com  
+74.125.235.198         developers.google.com  
+74.125.235.200         ditu.google.com  
+78.16.49.15         encrypted.google.com  
+74.125.235.195         finance.google.com  
+74.125.128.95         googleapis.l.google.com  
+8.8.8.8         google-public-dns-a.google.com  
+74.125.128.83         mail.google.com  
+91.189.92.201         archive.ubuntu.com  

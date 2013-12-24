@@ -11,6 +11,14 @@ class DanDb {
 		$gridFS->storeFile($file, $data);
 		return true;
 	}
+	public function removeDoc($collection)
+	{
+		$mongo = DBConnection::instantiate();
+		//get a MongoGridFS instance
+		$collection = $mongo->getCollection($collection);
+		$collection = $collection->remove();
+		return true;
+	}
 	function fetchAudio($audioFile) {
 		$mongo = DBConnection::instantiate();
 		// $dbname = DBConnection::DBNAME;

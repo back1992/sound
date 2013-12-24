@@ -18,9 +18,9 @@ class DanAudio {
 		// var_dump($cmd_splt);
 		$spltlog = shell_exec($cmd_splt);
 		if(shell_exec($cmd_splt)){
-			echo "well done in $audioFile";
+			echo "well done in $audioFile ! <br />";
 		} else {
-			echo "something wrong in $audioFile";
+			echo "something wrong in $audioFile! <br /> ";
 		}
 	}
 	public function slice($string, $begin = null, $end = null){
@@ -67,7 +67,7 @@ class DanAudio {
 	public function  savequestion($quizfile, $collection)
 	{
 		$quizname = pathinfo($quizfile, PATHINFO_FILENAME);
-		$subject = Dandan::abread_doc_file($quizfile);
+		$subject = Dandan::read_doc_file($quizfile);
 		$pattern = '/(\d{1,2})\.\s+A\)([^)]*)\s+B\)([^)]*)\s+C\)([^)]*)\s+D\)([^.)]*)/';
 preg_match_all($pattern, $subject, $match);
 for ($i=0; $i < count($match['0']) ; $i++) {

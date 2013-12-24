@@ -53,8 +53,52 @@ $this->headTitle($title);
 		</table>
 	</div>
 
+
+<?php
+// within a view script
+$form = $this->form;
+$form->prepare();
+
+// Assuming the "contact/process" route exists...
+// $form->setAttribute('action', $this->url('tools'));
+
+// Set the method attribute for the form
+$form->setAttribute('method', 'post');
+
+// Get the form label plugin
+$formLabel = $this->plugin('formLabel');
+
+// Render the opening tag
+echo $this->form()->openTag($form);
+?>
+<div class="form-group col-xs-4">
+<?php
+    $name = $form->get('begin');
+    echo $formLabel->openTag() . $name->getOption('label');
+    echo $this->formInput($name);
+    echo $this->formElementErrors($name);
+    echo $formLabel->closeTag();
+?></div>
+
+<div class="form-group col-xs-4">
+<?php
+    $subject = $form->get('end');
+    echo $formLabel->openTag() . $subject->getOption('label');
+    echo $this->formInput($subject);
+    echo $this->formElementErrors($subject);
+    echo $formLabel->closeTag();
+?></div>
+<br />
+<div class="form-group col-xs-4">
+<?php echo $this->formElement($form->get('submit')) ?>
+</div>
+
+<?php echo $this->form()->closeTag() ?>
+<br />
+<div>
+
 	<h3>The Content in This Doc</h3>
 	<?php echo $this->content ; ?>
-
+</div>
 
 </div>

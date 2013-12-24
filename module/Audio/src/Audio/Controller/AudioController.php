@@ -11,7 +11,7 @@ use Audio\Form\UpdateForm;
 use Audio\Form\ViewAudioForm;
 use Ffmpeg\Form\DirForm;
 use Audio\Myclass\Dandan;
-use Audio\Myclass\DanAudio;
+use Audio\Myclass\DanFun;
 class AudioController extends AbstractActionController
 {
 	public function indexAction()
@@ -194,7 +194,7 @@ class AudioController extends AbstractActionController
 		$form->bind($object);
 		$form->setData($object->file);
 		$audiofiledir = Dandan::RAWDIR;
-		if(!file_exists($audiofiledir)) mkdir($audiofiledir, 0, true);
+		if(!file_exists($audiofiledir)) mkdir($audiofiledir);
 		// $audiofiledir = './public/audiodata/';
 		$audioname = $object->file['audioname'];
 		$object->write($audiofiledir . $audioname);
@@ -242,7 +242,7 @@ class AudioController extends AbstractActionController
 			// var_dump(Dandan::rrmdir($audioTDir));
 			if(file_exists($audioTDir)) Dandan::removeDir($audioTDir);	
 			if(!file_exists(Dandan::RESDIR)) mkdir(Dandan::RESDIR);
-			$resmp = DanAudio::mp3splt($audioFile, $audioTDir);	
+			$resmp = Dandan::mp3splt($audioFile, $audioTDir);	
 			var_dump($resmp);
 			if (file_exists($audioTDir)) {
 				$files = Dandan::dirToArray($audioTDir);
@@ -267,13 +267,12 @@ class AudioController extends AbstractActionController
 		ini_set('display_errors', '1');
 		$mongo = DBConnection::instantiate();
 		$gridFS = $mongo->database->getGridFS();
-		$collection = $mongo->getCollection('question');
 		$id = $this->getEvent()->getRouteMatch()->getParam('id');
 		if ($id == 'all') {
 			// $gridFS->drop();
 			$gridFS->remove();
 			$gridFS->chunks->remove();
-			$collection->remove();
+			DanFun::rrmdir(Dandan::SDIR);
 		}
 		else {
 			$gridFS->remove(array(

@@ -3,6 +3,7 @@ namespace Tools\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Ffmpeg\Form\DirForm;
+use Audio\Form\QuestionForm;
 use Audio\Myclass\DanAudio;
 use Audio\Myclass\Dandan;
 use Audio\Myclass\DanDb;
@@ -113,9 +114,12 @@ public function savequestionAction()
                 //get a MongoGridFS instance
     $collection = $mongo->getCollection('question');
     $quizfile = "./data/cet4/00-10/03/cet4_200306.doc";
+
     $quizname = pathinfo($quizfile, PATHINFO_FILENAME);
     $subject = Dandan::read_doc_file($quizfile);
-                // echo $content;
+    // $subject = file_get_contents($quizfile);
+                // echo $subject;
+    // $pattern = '/(\d{1,2})\.\s+A\)([^)]*)\s+B\)([^)]*)\s+C\)([^)]*)\s+D\)([^.)]*)/';
     $pattern = '/(\d{1,2})\.\s+A\)([^)]*)\s+B\)([^)]*)\s+C\)([^)]*)\s+D\)([^.)]*)/';
 preg_match_all($pattern, $subject, $match);
         // var_dump($match);
@@ -236,7 +240,13 @@ foreach ($targetArr as $value) {
     $data['monthyear']['year'] = substr($data['audioname'], -10, -6);
     DanDb::insertFile($file, $data);
     // var_dump($value['doc']);
-    Dandan::savequestion($value['doc'], $collection);
+    // Dandan::savequestion($value['doc'], $collection);
+    $targetDir = Dandan::RESDIR . pathinfo($value['doc'], PATHINFO_FILENAME) . DIRECTORY_SEPARATOR;
+
+    $resmp3 = DanAudio::mp3splt($value['mp3'], $targetDir);
+    $resdoc = Dandan::savequestion($value['doc'], $collection);
+    var_dump($resdoc);
+    var_dump($resmp3);
 }
 return false;
 }
@@ -281,23 +291,81 @@ public function scanaudioAction()
 }
 public function scandocAction()
 {
+    $form = new QuestionForm('question-form');
     $quiz = $this->getEvent()->getRouteMatch()->getParam('id');
+    var_dump($quiz);
     $dir = DanAudio::DOCDIR;
     $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::SELF_FIRST);
     foreach($objects as $name => $object){
             // echo pathinfo($name, PATHINFO_FILENAME)."<br />";
         if(basename($name, '.doc') == $quiz)  $doc = $name;
     }
-    // echo nl2br(Dandan::read_doc_file($doc));
+    // $content = nl2br(Dandan::read_doc($doc));
+    // $content = Dandan::read_doc($doc);
+    $content = nl2br(Dandan::read_doc_file($doc));
+     // echo $content;
     $mongo = DBConnection::instantiate();
                 //get a MongoGridFS instance
     $collection = $mongo->getCollection('question');
-    $questions = $collection->find(array('quiz' => $quiz));
+
     // return false;
+    $request = $this->getRequest();
+    if ($request->isPost()) {
+            // var_dump($request->getPost());
+        $begin = $request->getPost()->begin;
+        $end = $request->getPost()->end;
+            // echo "$begin --------$end";
+        // $content = Dandan::slice($content, $begin, $end);
+        $content = nl2br(Dandan::reReadDoc($doc));
+        echo $content;  
+        Dandan::readquestion($content, $collection, $quiz);
+
+    }
+    $questions = $collection->find(array('quiz' => $quiz));
     return array(
         'questions' =>$questions, 
         'path' => $doc, 
-        'content' => nl2br(Dandan::read_doc_file($doc))
+        'content' => $content,
+        'form' => $form
+        );
+}
+public function sepdocAction()
+{
+    $form = new QuestionForm('question-form');
+    // $quiz = $this->getEvent()->getRouteMatch()->getParam('id');
+    $quiz = "cet4_200612";
+    $dir = DanAudio::DOCDIR;
+    $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::SELF_FIRST);
+    foreach($objects as $name => $object){
+            // echo pathinfo($name, PATHINFO_FILENAME)."<br />";
+        if(basename($name, '.doc') == $quiz)  $doc = $name;
+    }
+    // $content = nl2br(Dandan::read_doc($doc));
+    // $content = Dandan::read_doc($doc);
+    $content = nl2br(Dandan::readWhole($doc));
+    echo $content;
+    $mongo = DBConnection::instantiate();
+                //get a MongoGridFS instance
+    $collection = $mongo->getCollection('question');
+
+    // return false;
+    $request = $this->getRequest();
+    if ($request->isPost()) {
+            // var_dump($request->getPost());
+        $begin = $request->getPost()->begin;
+        $end = $request->getPost()->end;
+            // echo "$begin --------$end";
+        $content = Dandan::slice($content, $begin, $end);
+            // echo $content;
+        Dandan::readquestion($content, $collection);
+
+    }
+    $questions = $collection->find(array('quiz' => $quiz));
+    return array(
+        'questions' =>$questions, 
+        'path' => $doc, 
+        'content' => $content,
+        'form' => $form
         );
 }
 function respltAction()
@@ -343,7 +411,7 @@ public function editAction()
     $mongo = DBConnection::instantiate();
                 //get a MongoGridFS instance
     $collection = $mongo->getCollection('question');
-    $res = $collection->ensureIndex(array("A" => 1, "B" => 1), array("unique" => 1, "dropDups" => 1));
+    $res = $collection->ensureIndex(array("A" => 1, "B" => 1, "quiz" => 1), array("unique" => 1, "dropDups" => 1));
          // var_dump($res);
     // $questions = $collection->find(array('quiz' => $quiz))->sort(array('no' => 1, 'natural' => 1));
     // $questions = $collection->find(array('quiz' => $quiz))->sort(array('no' => 1));
@@ -433,7 +501,7 @@ public function mergeup2Action()
     file_put_contents($file.'.tmp.ogg',    file_get_contents($fileup.'.ogg') .    file_get_contents($file.'.ogg'));
     // var_dump(unlink($file.'.mp3'));
     // var_dump(unlink($file.'.ogg')); 
-        var_dump(unlink($fileup.'.mp3'));
+    var_dump(unlink($fileup.'.mp3'));
     var_dump(unlink($fileup.'.ogg'));
     var_dump(rename($file.'.tmp.mp3', $file.'.mp3'));
     var_dump(rename($file.'.tmp.ogg', $file.'.ogg'));

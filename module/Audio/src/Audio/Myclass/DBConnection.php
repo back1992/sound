@@ -7,6 +7,7 @@ use MongoDate;
 class DBConnection
 {
     const HOST   = 'localhost';
+    // const HOST   = '127.0.0.1';
     const PORT   = 27017;
     const DBNAME = 'quiz';
     

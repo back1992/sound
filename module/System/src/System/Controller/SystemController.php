@@ -5,6 +5,7 @@ namespace System\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Audio\Myclass\DanHosts;
+use Audio\Myclass\DanDb;
 use Audio\Myclass\DBConnection;
 use MongoId;
 
@@ -16,32 +17,6 @@ class SystemController extends AbstractActionController
     return new ViewModel();
   }
 
-  public function formDbAdapterAction()
-  {
-    $vm = new ViewModel();
-    $vm->setTemplate('form-dependencies/form/form-db-adapter.phtml');
-
-    $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-    $form      = new DbAdapterForm($dbAdapter);
-
-    return $vm->setVariables(array(
-      'form' => $form
-      ));
-  }
-
-  public function formTableAction()
-  {
-    $vm = new ViewModel();
-    $vm->setTemplate('form-dependencies/form/form-table.phtml');
-
-    $tableGateway = $this->getServiceLocator()->get('formdependencies-model-selecttable');
-    $form         = new TableForm($tableGateway);
-
-    return $vm->setVariables(array(
-      'form' => $form
-      ));
-  }
-
   public function phpinfoAction()
   {
     phpinfo();
@@ -50,8 +25,8 @@ class SystemController extends AbstractActionController
   public function urlsAction()
   {
     $fileRes = '/etc/hosts';
-$hosts = './data/hosts';
-copy($fileRes, $hosts);
+    $hosts = './data/hosts';
+    copy($fileRes, $hosts);
     $hosts = '/etc/hosts';
     $content = file_get_contents($hosts);
     // echo $content;
@@ -61,36 +36,36 @@ copy($fileRes, $hosts);
 
     $myHosts = $match[1];
     $myUrls = $match[2];
-
+DanDb::removeDoc('hosts');
     DanHosts::insertHosts($myHosts, $myUrls);
     // var_dump($resMatch);
     // var_dump($match);
 
-return array(
-  'myHosts' => $match[1],
-  'myUrls' => $match[2],
+    return array(
+      'myHosts' => $match[1],
+      'myUrls' => $match[2],
   // 'matchIP' => $matchIP,
-  );
+      );
   }
   public function addhostAction()
   {
-      $myurl = $this->getEvent()->getRouteMatch()->getParam('id');
+    $myurl = $this->getEvent()->getRouteMatch()->getParam('id');
 
-  $cmd =  "nslookup $myurl 8.8.8.8";
-  $res = shell_exec($cmd);
-  sleep(1);
-  $pattern = "/Name:\s+[^\s]+\s+Address: (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/";
-  $resMatch = preg_match($pattern, $res, $match);
+    $cmd =  "nslookup $myurl 8.8.8.8";
+    $res = shell_exec($cmd);
+    sleep(1);
+    $pattern = "/Name:\s+[^\s]+\s+Address: (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/";
+    $resMatch = preg_match($pattern, $res, $match);
 
     DanHosts::insertHosts($match[1], $myUrl);
     // var_dump($resMatch);
     // var_dump($match);
 
-return array(
-  'myHosts' => $match[1],
-  'myUrls' => $match[2],
+    return array(
+      'myHosts' => $match[1],
+      'myUrls' => $match[2],
   // 'matchIP' => $matchIP,
-  );
+      );
   }
   public function hostsAction()
   {
@@ -102,11 +77,50 @@ $fileRes = '/etc/hosts';
 $fileTar = './data/hosts';
 copy($fileRes, $fileTar);
 $fp = fopen($fileTar, 'w');
+$content = file_get_contents($fileRes);
+$sep = "###########---my wall- ---#########";
+$mySelf = strstr($content, $sep, true);
+// echo $mySelf;
+$myWall = strstr($content, $sep);
+// echo $myWall;
+
+    $pattern = "/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+([^\s]+)/";
+    $resSelfMatch = preg_match_all($pattern, $mySelf, $selfMatch);
+    $resWallMatch = preg_match_all($pattern, $myWall, $wallMatch);
+    // var_dump($selfMatch);
+    // var_dump($wallMatch);
+
+fwrite($fp, "############################### \n");
+ fwrite($fp, "###########---my hosts- ---######### \n");
+ for ($i=0; $i < count($selfMatch[0]) ; $i++) { 
+   # code...
+  $selfip = $selfMatch[1][$i];
+  $selfUrl = $selfMatch[2][$i];
+
+  // fwrite($fp, "(string)$selfMatch[1][$i]         (string)$selfMatch[2][$i]  \n");
+  fwrite($fp, "$selfip         $selfUrl  \n");
+ }
+  fwrite($fp, "\n\n\n###########---my wall- ---######### \n");
+ for ($i=0; $i < count($wallMatch[0]) ; $i++) { 
+  $wallUrl = $wallMatch[2][$i];
+  $cmd =  "nslookup $wallUrl 8.8.8.8";
+  $res = shell_exec($cmd);
+  sleep(1);
+  $pattern = "/Name:\s+[^\s]+\s+Address: (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/";
+  $resMatch = preg_match($pattern, $res, $match);
+  $wallip = $match[1];
+  
+  fwrite($fp, "$wallip         $wallUrl  \n");
+}
+fclose($fp);
 
 $myHosts = $hosts->getHosts('hosts');
-$hostsArr = iterator_to_array($myHosts);
+// var_dump($myHosts);
+// $hostsArr = iterator_to_array($myHosts);
+// var_dump($hostsArr);
 return array(
-  'myHosts' => $hostsArr,
+  // 'myHosts' => $hostsArr,
+  'myHosts' => $myHosts,
   );
 }
 

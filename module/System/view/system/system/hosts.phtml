@@ -21,17 +21,18 @@ $this->headTitle($title);
 				<?php 
 				$i = 1; 
 				?>
-				<?php foreach ($myHosts as $myHost) { ?>
+				<?php while($myHost = $myHosts->getNext()): ?> 
+					<?php //var_dump($myHost); ?>
 				
 				<tr>
 					<td>
 						<?php echo 'No.'.$i;?>
 					</td>
 					<td>
-						<?php echo $myHost['ip'];?>
+						<?php echo $myHost['IP'] ;?>
 					</td>
 					<td>
-						<?php echo $myHost['url'];?>
+						<?php echo $myHost['URL'];?>
 					</td>
 					<td>
 <!-- 						<a href="#" class="btn btn-info" role="button"> 
@@ -43,43 +44,7 @@ $this->headTitle($title);
 					</td>
 				</tr>
 				<?php $i++ ; ?>
-				<?php } ?> 
-			</tbody>
-			<thead>
-				<tr class="success">
-					<th width="*">No</th>
-					<th width="*">IP</th>
-					<th width="*">URL</th>
-					<th width="*">Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php 
-				$i = 1; 
-				?>
-				<?php foreach ($myUrls as $myUrl) { ?>
-				
-				<tr>
-					<td>
-						<?php echo 'No.'.$i;?>
-					</td>
-					<td>
-						<?php //echo $matchIP[$i-1];?>
-					</td>
-					<td>
-						<?php echo $myUrl['url'];?>
-					</td>
-					<td>
-<!-- 						<a href="#" class="btn btn-info" role="button"> 
-							Splt
-						</a> -->
-						<a href="#" class="btn btn-info" role="button" onClick="deleteHost('<?php echo $myUrl['_id'];?>')"> 
-							Delete
-						</a>
-					</td>
-				</tr>
-				<?php $i++ ; ?>
-				<?php } ?> 
+				<?php endwhile;?>
 			</tbody>
 		</table>
 		<p id = "formhost"></p>

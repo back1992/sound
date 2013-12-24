@@ -107,16 +107,16 @@ return array(
 						'action' => 'format',
 						) ,
 					array(
-						'label' => 'hosts',
-						'route' => 'system',
-						'controller' => 'system',
-						'action' => 'hosts',
-						) ,
-					array(
 						'label' => 'urls',
 						'route' => 'system',
 						'controller' => 'system',
 						'action' => 'urls',
+						) ,
+					array(
+						'label' => 'hosts',
+						'route' => 'system',
+						'controller' => 'system',
+						'action' => 'hosts',
 						) ,
 					),
 				) ,
@@ -137,10 +137,10 @@ return array(
 						'action' => 'readdoc',
 						) ,
 					array(
-						'label' => 'readpdf',
+						'label' => 'sepdoc',
 						'route' => 'tools',
 						'controller' => 'tools',
-						'action' => 'readpdf',
+						'action' => 'sepdoc',
 						) ,
 					array(
 						'label' => 'readquestion',
@@ -173,7 +173,7 @@ return array(
 						'action' => 'scantotal',
 						) ,
 					) ,
-				) ,
+) ,
 			// array(
 			// 	'label' => 'Snoopy',
 			// 	'route' => 'snoopy',
@@ -222,7 +222,7 @@ return array(
 			// 			) ,
 			// 		) ,
 			// 	) ,
-			) ,
+) ,
 ) ,
 'service_manager' => array(
 	'factories' => array(
