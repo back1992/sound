@@ -23,7 +23,7 @@ $this->headTitle($title);
 			</thead>
 			<tbody>
 				<?php while($question = $questions->getNext()): ?> 
-				<tr id = "tr<?php echo $i ?>" class="trClass">
+				<tr id = "tr<?php echo $question['no'] ?>" class="trClass">
 					<td>
 						<?php echo $question['no'] ;?>
 					</td>
@@ -43,7 +43,7 @@ $this->headTitle($title);
 						<?php echo 'Answer';?>
 					</td>
 					<td>
-						<a href="<?php echo $this->url('tools',  array('action' => 'edit', 'id' => basename($question)));?>" class="btn btn-info" role="button"> 
+						<a href="<?php echo $this->url('tools',  array('action' => 'edit', 'id' => basename($this->path)));?>" class="btn btn-info" role="button"> 
 							Edit
 						</a>
 					</td>
@@ -96,9 +96,13 @@ echo $this->form()->openTag($form);
 <?php echo $this->form()->closeTag() ?>
 <br />
 <div>
-
-	<h3>The Content in This Doc</h3>
+	<h3>The Slice Content in This Doc</h3>
 	<?php echo $this->content ; ?>
+</div>
+<br />
+<div>
+	<h3>The Content in This Doc</h3>
+	<?php echo $this->contWhole ; ?>
 </div>
 
 </div>

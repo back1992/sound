@@ -11,6 +11,7 @@ use Audio\Form\UpdateForm;
 use Audio\Form\ViewAudioForm;
 use Ffmpeg\Form\DirForm;
 use Audio\Myclass\Dandan;
+use Audio\Myclass\DanAudio;
 use Audio\Myclass\DanFun;
 class AudioController extends AbstractActionController
 {
@@ -240,9 +241,9 @@ class AudioController extends AbstractActionController
 			// var_dump(Dandan::deleteDirectory($audioTDir));
 			// var_dump(chmod($audioTDir, '0777'));
 			// var_dump(Dandan::rrmdir($audioTDir));
-			if(file_exists($audioTDir)) Dandan::removeDir($audioTDir);	
+			if(file_exists($audioTDir)) DanAudio::removeDir($audioTDir);	
 			if(!file_exists(Dandan::RESDIR)) mkdir(Dandan::RESDIR);
-			$resmp = Dandan::mp3splt($audioFile, $audioTDir);	
+			$resmp = DanAudio::mp3splt($audioFile, $audioTDir);	
 			var_dump($resmp);
 			if (file_exists($audioTDir)) {
 				$files = Dandan::dirToArray($audioTDir);

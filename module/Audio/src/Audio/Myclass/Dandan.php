@@ -47,19 +47,7 @@ function deleteDirectory($dir) {
 	}
 	return rmdir($dir);
 }
-	 // When the directory is not empty:
-function rrmdir($dir) {
-	if (is_dir($dir)) {
-		$objects = scandir($dir);
-		foreach ($objects as $object) {
-			if ($object != "." && $object != "..") {
-				if (filetype($dir."/".$object) == "dir") rmdir($dir."/".$object); else unlink($dir."/".$object);
-			}
-		}
-		reset($objects);
-		rmdir($dir);
-	}
-}
+
 function removeDir($path) {
     // Normalise $path.
 	$path = rtrim($path, '/') . '/';
@@ -86,11 +74,13 @@ function read_file($filename) {
 		//use antiword
 	$cmd = "/usr/local/bin/antiword -m UTF-8.txt  $filename";
 	$content = htmlspecialchars(shell_exec($cmd));
-		// $begin = array('Listening Comprehension', 'Listing Comprehension');
-/*		$begin = 'Listening Comprehension';
-$end = 	'Reading Comprehension';*/
-// $content = self::slice($content, $begin, $end);
-return $content;
+	return $content;
+}
+function readWhole($filename) {
+		//use antiword
+	$cmd = "/usr/local/bin/antiword -m UTF-8.txt  $filename";
+	$content = htmlspecialchars(shell_exec($cmd));
+	return $content;
 }
 function reReadDoc($filename) {
 		//use antiword
@@ -242,8 +232,9 @@ public function  readquestion($content, $collection = null, $quizname)
 	// $pattern = '/(\d{1,2})\.\s*[A-D]\)([^)]*)\s*[A-D]\)([^)]*)\s*[A-D]\)([^)]*)\s*[A-D]\)([^\.]*)/';
 	$pattern = self::PATTERN;
 	preg_match_all($pattern, $content, $match);
-	var_dump($match['1']);
-	var_dump($collection);
+	// var_dump($match['1']);
+	// var_dump($collection);
+	$select = array();
 	
 	for ($i=0; $i < count($match['0']) ; $i++) {
 		$select[$i]['no'] = $match['1'][$i];
@@ -255,7 +246,13 @@ public function  readquestion($content, $collection = null, $quizname)
 		if($collection) $collection->insert($select[$i]);
 		// $collection->insert($select[$i]);
 	}
-// return true;
 	return $select;
+// return true;
+/*	if($select) {
+		return $select;
+	}else {
+		return false;
+	}*/
+
 }
 }

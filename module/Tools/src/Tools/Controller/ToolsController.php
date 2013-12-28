@@ -303,6 +303,7 @@ public function scandocAction()
     // $content = nl2br(Dandan::read_doc($doc));
     // $content = Dandan::read_doc($doc);
     $content = nl2br(Dandan::read_doc_file($doc));
+    $contWhole = nl2br(Dandan::readWhole($doc));
      // echo $content;
     $mongo = DBConnection::instantiate();
                 //get a MongoGridFS instance
@@ -315,10 +316,10 @@ public function scandocAction()
         $begin = $request->getPost()->begin;
         $end = $request->getPost()->end;
             // echo "$begin --------$end";
-        // $content = Dandan::slice($content, $begin, $end);
-        $content = nl2br(Dandan::reReadDoc($doc));
-        echo $content;  
-        Dandan::readquestion($content, $collection, $quiz);
+        $contSlice = Dandan::slice($contWhole, $begin, $end);
+        // $content = nl2br(Dandan::reReadDoc($doc));
+        echo $contSlice;  
+        Dandan::readquestion($contSlice, $collection, $quiz);
 
     }
     $questions = $collection->find(array('quiz' => $quiz));
@@ -326,6 +327,7 @@ public function scandocAction()
         'questions' =>$questions, 
         'path' => $doc, 
         'content' => $content,
+        'contWhole' => $contWhole,
         'form' => $form
         );
 }
