@@ -44,7 +44,7 @@ $this->headTitle($title);
 		</table>
 		<p id = "formhost"></p>
 		<p>
-			<button  id="fire" type="button" class="btn btn-primary" onClick="uploadHost('<?php echo $myUrl['_id'];?>')">Upload another?</button>
+			<button  id="fire" type="button" class="btn btn-primary" onClick="uploadHost()">Upload another?</button>
 		</p>	
 		<p>
 			<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"  class="btn btn-danger" role="button"> 

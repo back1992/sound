@@ -3,7 +3,29 @@ namespace Audio\Myclass;
 class DanHosts {
 	public $hosts;    
 	public $urls;    
-
+	public static $wall = array(
+		'google.com',
+		'google.com.hk',
+		'drive.google.com',
+		'appengine.google.com',
+		'apps.google.com',
+		'chrome.google.com',
+		'code.google.com',
+		'developers.google.com',
+		'ditu.google.com',
+		'encrypted.google.com',
+		'finance.google.com',
+		'googleapis.l.google.com',
+		'mail.google.com',
+		'play.google.com',
+		// 'news.google.com',
+		// 'docs.google.com',
+		// 'spreadsheets.google.com',
+		// '0.drive.google.com',
+		// 'accounts.google.com',  
+		// 'clients3.google.com',  
+		// 'upload.drive.google.com',
+		);
 	public function insertHosts($hosts, $urls)
 	{
 		// $this->hosts
@@ -28,53 +50,11 @@ class DanHosts {
 		}
 		return true;
 	}
-	// public function getUrls()
-	// {
-	// 	$this->urls = array(
-	// 		'google.com',
-	// 		'drive.google.com',
-	// 		'appengine.google.com',
-	// 		'apps.google.com',
-	// 		'chrome.google.com',
-	// 		'code.google.com',
-	// 		'developers.google.com',
-	// 		'ditu.google.com',
-	// 		'encrypted.google.com',
-	// 		'finance.google.com',
-	// 		'googleapis.l.google.com',
-	// 		'google-public-dns-a.google.com',
-	// 		'mail.google.com',
-	// 		'play.google.com',
-	// 		'news.google.com',
-	// 		);
-	// 	return $this->urls;
-	// }
 	public function getHosts($hosts)
 	{
 		$mongo = DBConnection::instantiate();
 		$collection = $mongo->getCollection($hosts);
 		$this->hosts = $collection->find();
 		return $this->hosts;
-	}
-	public function getUrls()
-	{
-		$this->urls = array(
-			'google.com',
-			'drive.google.com',
-			'appengine.google.com',
-			'apps.google.com',
-			'chrome.google.com',
-			'code.google.com',
-			'developers.google.com',
-			'ditu.google.com',
-			'encrypted.google.com',
-			'finance.google.com',
-			'googleapis.l.google.com',
-			'google-public-dns-a.google.com',
-			'mail.google.com',
-			'play.google.com',
-			'news.google.com',
-			);
-		return $this->urls;
 	}
 }

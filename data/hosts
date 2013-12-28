@@ -1,27 +1,30 @@
 ############################### 
 ###########---my hosts- ---######### 
-127.0.0.1         localhost.localdomain  
-127.0.1.1         localhost.localdomain  
-127.0.0.1         sound.local  
-127.0.0.1         sound.backup.local  
-127.0.1.1         quiz.local  
-127.0.1.1         zf1.local  
+127.0.0.1	localhost
+127.0.1.1	dandan-ThinkPad-X220
 
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
 
-
-###########---my wall- ---######### 
-173.194.127.72         google.com  
-59.24.3.173         drive.google.com  
-74.125.235.197         appengine.google.com  
-74.125.235.196         apps.google.com  
-74.125.235.194         chrome.google.com  
-173.194.127.67         code.google.com  
-74.125.235.197         developers.google.com  
-74.125.235.199         ditu.google.com  
-59.24.3.173         encrypted.google.com  
-74.125.235.201         finance.google.com  
+127.0.0.1 zf1.local
+127.0.0.1 sound.local
+ 
+   ###########---my wall- ---######### 
+74.125.128.101         google.com  
+74.125.128.94         google.com.hk  
+37.61.54.158         drive.google.com  
+74.125.235.192         appengine.google.com  
+74.125.235.192         apps.google.com  
+74.125.235.192         chrome.google.com  
+74.125.128.113         code.google.com  
+74.125.235.195         developers.google.com  
+74.125.235.196         ditu.google.com  
+37.61.54.158         encrypted.google.com  
+74.125.235.206         finance.google.com  
 74.125.128.95         googleapis.l.google.com  
-8.8.8.8         google-public-dns-a.google.com  
 74.125.128.83         mail.google.com  
-74.125.235.195         play.google.com  
-173.194.127.131         news.google.com  
+74.125.235.200         play.google.com  

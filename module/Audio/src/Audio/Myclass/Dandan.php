@@ -15,6 +15,7 @@ class Dandan {
 	// const PATTERN = '/(\d{1,2})\.?\s+[A-D]\)([^)]*)\s+[A-D]\)([^)]*)\s+[A-D]\)([^)]*)\s+[A-D]\)([^\n]*)/';
 	// const PATTERN = '/(\d{1,2})\.?\s*\(?[A-D]\)([^)]*)\s+\(?[A-D]\)([^)]*)\s+\(?[A-D]\)([^)]*)\s+\(?[A-D]\)([^\n]*)/';
 	const PATTERN = '/(\d{1,2})\.?\s*\(?[A-D]\)([^)]*)\s+\(?[A-D]\)([^)]*)\s+\(?[A-D]\)([^)]*)\s+\(?[A-D]\s?\)([^\n]*)/';
+const PATTERN_ANS = '/(\d{1,2})\.\s*([A-D])/';
 
 public  static	function dirToArray($dir, $path = false) { 
 	$dir = (substr($dir, -1) == '/')? $dir : $dir.DIRECTORY_SEPARATOR;
@@ -66,9 +67,12 @@ function read_doc_file($filename, $begin = 'Listening Comprehension', $end = 'Re
 		// $begin = array('Listening Comprehension', 'Listing Comprehension');
 	$begin = 'Listening Comprehension';
 	$end = 	'Reading Comprehension';
+	$answer = '参考答案：';
 // echo "$begin --------$end";
-	$content = self::slice($content, $begin, $end);
-	return $content;
+	$cont = array();
+	$cont['question'] = self::slice($content, $begin, $end);
+	$cont['answer'] = self::slice($content, $answer);
+	return $cont;
 }
 function read_file($filename) {
 		//use antiword
@@ -214,8 +218,11 @@ public function  savequestion($quizfile, $collection = null)
 	$subject = self::read_doc_file($quizfile);
 		// $pattern = '/(\d{1,2})\.?\s+[A-D]\)([^)]*)\s+[A-D]\)([^)]*)\s+[A-D]\)([^)]*)\s+[A-D]\)([^\n]*)/';
 	$pattern = self::PATTERN;
-	preg_match_all($pattern, $subject, $match);
-// var_dump($match);
+	$pattern_ans = self::PATTERN_ANS;
+	preg_match_all($pattern, $subject['question'], $match);
+	preg_match_all($pattern_ans, $subject['answer'], $match_ans);
+	var_dump($match_ans);
+	$answer = array_combine($match_ans[1], $match_ans[2]);
 	for ($i=0; $i < count($match['0']) ; $i++) {
 		$select[$i]['no'] = $match['1'][$i];
 		$select[$i]['quiz'] = $quizname;
@@ -223,6 +230,7 @@ public function  savequestion($quizfile, $collection = null)
 		$select[$i]['B']= trim($match['3'][$i]);
 		$select[$i]['C'] = trim($match['4'][$i]);
 		$select[$i]['D'] = trim($match['5'][$i]);
+		$select[$i]['answer'] = trim($answer[$match['1'][$i]]);
 		if($collection) $collection->insert($select[$i]);
 	}
 	return true;

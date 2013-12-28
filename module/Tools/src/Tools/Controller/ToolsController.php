@@ -301,8 +301,8 @@ public function scandocAction()
         if(basename($name, '.doc') == $quiz)  $doc = $name;
     }
     // $content = nl2br(Dandan::read_doc($doc));
-    // $content = Dandan::read_doc($doc);
-    $content = nl2br(Dandan::read_doc_file($doc));
+    $cont = Dandan::read_doc_file($doc);
+    $content = nl2br($cont['question']);
     $contWhole = nl2br(Dandan::readWhole($doc));
      // echo $content;
     $mongo = DBConnection::instantiate();

@@ -23,18 +23,18 @@ $this->headTitle($title);
 				?>
 				<?php while($myHost = $myHosts->getNext()): ?> 
 					<?php //var_dump($myHost); ?>
-				
-				<tr>
-					<td>
-						<?php echo 'No.'.$i;?>
-					</td>
-					<td>
-						<?php echo $myHost['IP'] ;?>
-					</td>
-					<td>
-						<?php echo $myHost['URL'];?>
-					</td>
-					<td>
+
+					<tr>
+						<td>
+							<?php echo 'No.'.$i;?>
+						</td>
+						<td>
+							<?php echo $myHost['IP'] ;?>
+						</td>
+						<td>
+							<?php echo $myHost['URL'];?>
+						</td>
+						<td>
 <!-- 						<a href="#" class="btn btn-info" role="button"> 
 							Splt
 						</a> -->
@@ -44,19 +44,26 @@ $this->headTitle($title);
 					</td>
 				</tr>
 				<?php $i++ ; ?>
-				<?php endwhile;?>
-			</tbody>
-		</table>
-		<p id = "formhost"></p>
-		<p>
-			<button  id="fire" type="button" class="btn btn-primary" onClick="uploadHost('<?php echo $myUrl['_id'];?>')">Upload another?</button>
-		</p>	
-		<p>
-			<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"  class="btn btn-danger" role="button"> 
-				Delete All
-			</a>
-		</p>
-	</div>
+			<?php endwhile;?>
+		</tbody>
+	</table>
+	<p id = "formhost"></p>
+	<?php
+	$form->prepare();
+	echo $this->form()->openTag($form); 
+	echo $this->formRow($form->get('title')); 
+	echo $this->formSubmit($form->get('submit')->setValue('Update')); 
+	echo $this->form()->closeTag(); 
+	?>
+	<p>
+		<button  id="fire" type="button" class="btn btn-primary" onClick="uploadHost('')">Upload another?</button>
+	</p>	
+	<p>
+		<a href="<?php echo $this->url('audio',  array('action' => 'delete','id' => 'all'));?>"  class="btn btn-danger" role="button"> 
+			Delete All
+		</a>
+	</p>
+</div>
 
 
 </div>
