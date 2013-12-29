@@ -242,7 +242,7 @@ class AudioController extends AbstractActionController
 			// var_dump(Dandan::deleteDirectory($audioTDir));
 			// var_dump(chmod($audioTDir, '0777'));
 			// var_dump(Dandan::rrmdir($audioTDir));
-			if(file_exists($audioTDir)) DanAudio::removeDir($audioTDir);	
+			if(file_exists($audioTDir)) DanFun::rrmdir($audioTDir);	
 			if(!file_exists(Dandan::RESDIR)) mkdir(Dandan::RESDIR);
 			$resmp = DanAudio::mp3splt($audioFile, $audioTDir);	
 			var_dump($resmp);
