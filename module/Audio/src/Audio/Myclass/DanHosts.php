@@ -21,10 +21,11 @@ class DanHosts {
 		// 'news.google.com',
 		// 'docs.google.com',
 		// 'spreadsheets.google.com',
-		// '0.drive.google.com',
-		// 'accounts.google.com',  
-		// 'clients3.google.com',  
-		// 'upload.drive.google.com',
+		'0.drive.google.com',
+		'accounts.google.com',  
+		'clients3.google.com',  
+		'upload.drive.google.com',
+		'github.com',
 		);
 	public function insertHosts($hosts, $urls)
 	{

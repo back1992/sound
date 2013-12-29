@@ -195,7 +195,8 @@ class AudioController extends AbstractActionController
 		$form->bind($object);
 		$form->setData($object->file);
 		$audiofiledir = Dandan::RAWDIR;
-		if(!file_exists($audiofiledir)) mkdir($audiofiledir);
+		var_dump($audiofiledir);
+		if(!file_exists($audiofiledir)) DanFun::mkdir_p($audiofiledir);
 		// $audiofiledir = './public/audiodata/';
 		$audioname = $object->file['audioname'];
 		$object->write($audiofiledir . $audioname);

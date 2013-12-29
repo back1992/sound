@@ -221,7 +221,7 @@ public function  savequestion($quizfile, $collection = null)
 	$pattern_ans = self::PATTERN_ANS;
 	preg_match_all($pattern, $subject['question'], $match);
 	preg_match_all($pattern_ans, $subject['answer'], $match_ans);
-	var_dump($match_ans);
+	// var_dump($match_ans);
 	$answer = array_combine($match_ans[1], $match_ans[2]);
 	for ($i=0; $i < count($match['0']) ; $i++) {
 		$select[$i]['no'] = $match['1'][$i];

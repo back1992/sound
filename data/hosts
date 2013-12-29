@@ -13,18 +13,23 @@ ff02::2 ip6-allrouters
 127.0.0.1 zf1.local
 127.0.0.1 sound.local
  
-   ###########---my wall- ---######### 
-74.125.128.101         google.com  
+       ###########---my wall- ---######### 
+74.125.128.100         google.com  
 74.125.128.94         google.com.hk  
-37.61.54.158         drive.google.com  
-74.125.235.192         appengine.google.com  
-74.125.235.192         apps.google.com  
-74.125.235.192         chrome.google.com  
-74.125.128.113         code.google.com  
-74.125.235.195         developers.google.com  
+59.24.3.173         drive.google.com  
+74.125.235.206         appengine.google.com  
+74.125.235.196         apps.google.com  
+74.125.235.206         chrome.google.com  
+74.125.128.100         code.google.com  
+74.125.235.206         developers.google.com  
 74.125.235.196         ditu.google.com  
 37.61.54.158         encrypted.google.com  
-74.125.235.206         finance.google.com  
+74.125.235.201         finance.google.com  
 74.125.128.95         googleapis.l.google.com  
 74.125.128.83         mail.google.com  
-74.125.235.200         play.google.com  
+74.125.235.206         play.google.com  
+37.61.54.158         0.drive.google.com  
+173.194.72.84         accounts.google.com  
+74.125.235.193         clients3.google.com  
+37.61.54.158         upload.drive.google.com  
+192.30.252.131         github.com  
