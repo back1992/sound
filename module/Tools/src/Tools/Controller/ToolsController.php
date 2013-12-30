@@ -293,7 +293,7 @@ public function scandocAction()
 {
     $form = new QuestionForm('question-form');
     $quiz = $this->getEvent()->getRouteMatch()->getParam('id');
-    var_dump($quiz);
+    // var_dump($quiz);
     $dir = DanAudio::DOCDIR;
     $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::SELF_FIRST);
     foreach($objects as $name => $object){

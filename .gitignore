@@ -13,3 +13,6 @@ vendor/bin
 /public/audiodata/
 /public/file/
 /public/output/
+/data/tmp
+/data/tmpuploads
+/data/cache

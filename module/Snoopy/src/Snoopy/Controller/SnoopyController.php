@@ -5,6 +5,7 @@ use Zend\View\Model\ViewModel;
 use Audio\Myclass\DanSnoopy;
 use Audio\Myclass\DanAudio;
 use Audio\Myclass\Dandan;
+use Audio\Myclass\DanCurl;
 use Audio\Myclass\Snoopy;
 class SnoopyController extends AbstractActionController
 {
@@ -82,5 +83,14 @@ class SnoopyController extends AbstractActionController
 		echo $output;
 		return false;
 		return array('listen' => $listen);
+	}
+	public function addquizAction() {
+        //set the $url and $refurl
+		$url = "http://localhost/ticool/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
+		$refurl = "http://localhost/ticool/administrator/index.php";
+//        $url = "http://highschool3.local/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
+//        $refurl = "	http://highschool3.local/administrator/index.php";
+		DanCurl::curl3($url, $refurl);
+		return False;
 	}
 }

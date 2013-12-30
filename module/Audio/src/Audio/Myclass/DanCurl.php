@@ -4,13 +4,13 @@ class DanCurl {
 
 	const USER = 'admin';
 	const PASSWD = 'Joomla8';
-	protected function _curl3($file_seri, $url, $refurl) {
+	public function curl3($url, $refurl) {
         //set the url login username and password
 //        $uname = "admin";
 		$uname = "back1992";
 		$upswd = "Joomla8";
         //set the cookie for login next
-		$cookie_jar = tempnam('./tmp', 'cookielin');
+		$cookie_jar = tempnam('./data/tmp', 'cookielin');
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -41,8 +41,15 @@ class DanCurl {
 
 
 
-		$crawl_str = file_get_contents($file_seri);
-		$crawl_arr = unserialize($crawl_str);
+/*		$crawl_str = file_get_contents($file_seri);
+		$crawl_arr = unserialize($crawl_str);*/
+		    $mongo = DBConnection::instantiate();
+                //get a MongoGridFS instance
+    $collection = $mongo->getCollection('question');
+
+    $quiz = 'cet4_200006';
+
+    $questions = $collection->find(array('quiz' => $quiz));
 
         //set the CONST of this quiz
 		$questionCategoryId = 1;
@@ -58,31 +65,32 @@ class DanCurl {
 		$task = 'question_add$save';
 		$quizId = 1;
 
-		foreach ($crawl_arr as $quiz_data) {
+		// foreach ($crawl_arr as $quiz_data) {
+			 while($quiz_data = $questions->getNext()) {
 			$postquestion = array();
 			$postquestion['zQuiz[QuestionCategoryId]'] = $questionCategoryId;
 			$postquestion['templateId'] = $templateId;
 			$postquestion['questionTypeId'] = $questionTypeId;
 			$postquestion['zQuiz[Score]'] = $score;
-			$postquestion['zQuiz[Question]'] = $quiz_data['title'];
+			$postquestion['zQuiz[Question]'] = $quiz_data['quiz'];
 //            $postquestion['zQuiz[Note]'] = $quiz_data['note'];
 //            $postquestion['chkSQRandomizeOrder'] = $chkSQRandomizeOrder;
 //            $postquestion['ddlSQView'] = $ddlSQView;
 
 			$postquestion['tbxAnswer_0'] = $quiz_data['A'];
 			$postquestion['hidQueId_0'] = '';
-			$postquestion['hidCorrect_0'] = ($quiz_data['ANS'] == 'A') ? TRUE : '';
+			$postquestion['hidCorrect_0'] = ($quiz_data['answer'] == 'A') ? TRUE : '';
 //            $postquestion['tbxScore_0'] = '';
 			$postquestion['tblQueContainer_hdnstatus_0'] = '';
 			$postquestion['rbCorrect'] = true;
 			$postquestion['tbxAnswer_1'] = $quiz_data['B'];
 			$postquestion['hidQueId_1'] = '';
-			$postquestion['hidCorrect_1'] = ($quiz_data['ANS'] == 'B') ? TRUE : '';
+			$postquestion['hidCorrect_1'] = ($quiz_data['answer'] == 'B') ? TRUE : '';
 //            $postquestion['tbxScore_1'] = '';
 			$postquestion['tblQueContainer_hdnstatus_1'] = '';
 			$postquestion['tbxAnswer_2'] = $quiz_data['C'];
 			$postquestion['hidQueId_2'] = '';
-			$postquestion['hidCorrect_2'] = ($quiz_data['ANS'] == 'C') ? TRUE : '';
+			$postquestion['hidCorrect_2'] = ($quiz_data['answer'] == 'C') ? TRUE : '';
 //            $postquestion['tbxScore_2'] = '';
 			$postquestion['tblQueContainer_hdnstatus_2'] = '';
 
