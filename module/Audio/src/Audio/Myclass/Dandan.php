@@ -224,7 +224,8 @@ public function  savequestion($quizfile, $collection = null)
 	// var_dump($match_ans);
 	$answer = array_combine($match_ans[1], $match_ans[2]);
 	for ($i=0; $i < count($match['0']) ; $i++) {
-		$select[$i]['no'] = $match['1'][$i];
+		// $select[$i]['no'] = $match['1'][$i];
+		$select[$i]['no'] = str_pad($match['1'][$i], 3, "0" , STR_PAD_LEFT);
 		$select[$i]['quiz'] = $quizname;
 		$select[$i]['A']= trim($match['2'][$i]);
 		$select[$i]['B']= trim($match['3'][$i]);

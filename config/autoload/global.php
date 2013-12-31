@@ -209,10 +209,10 @@ return array(
 						'action' => 'curl',
 						) ,
 					array(
-						'label' => 'addquiz',
+						'label' => 'addquizs',
 						'route' => 'snoopy',
 						'controller' => 'snoopy',
-						'action' => 'addquiz',
+						'action' => 'addquizs',
 						) ,
 					array(
 						'label' => 'addquiz2',

@@ -84,18 +84,19 @@ class SnoopyController extends AbstractActionController
 		return false;
 		return array('listen' => $listen);
 	}
-	public function addquizAction() {
+	public function addquizsAction() {
         //set the $url and $refurl
-		$url = "http://localhost/ticool/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
+		$url = "http://localhost/ticool/administrator/index.php?option=com_ariquizlite&task=quiz_add";
 		$refurl = "http://localhost/ticool/administrator/index.php";
 //        $url = "http://highschool3.local/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
 //        $refurl = "	http://highschool3.local/administrator/index.php";
-		DanCurl::curl3($url, $refurl);
+		DanCurl::addquizs($url, $refurl);
 		return False;
 	}
 	public function addquiz2Action() {
         //set the $url and $refurl
-		$url = "http://localhost/ticool/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
+		// $url = "http://localhost/ticool/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
+		$url = "http://localhost/ticool/administrator/index.php?option=com_ariquizlite&task=question_add";
 		$refurl = "http://localhost/ticool/administrator/index.php";
 //        $url = "http://highschool3.local/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
 //        $refurl = "	http://highschool3.local/administrator/index.php";
