@@ -42,76 +42,211 @@ class DanCurl {
 
 
 /*		$crawl_str = file_get_contents($file_seri);
-		$crawl_arr = unserialize($crawl_str);*/
-		    $mongo = DBConnection::instantiate();
+$crawl_arr = unserialize($crawl_str);*/
+$mongo = DBConnection::instantiate();
                 //get a MongoGridFS instance
-    $collection = $mongo->getCollection('question');
+$collection = $mongo->getCollection('question');
 
-    $quiz = 'cet4_200006';
+$quiz = 'cet4_200006';
 
-    $questions = $collection->find(array('quiz' => $quiz));
+$questions = $collection->find(array('quiz' => $quiz));
 
         //set the CONST of this quiz
-		$questionCategoryId = 1;
-		$templateId = 0;
-		$questionTypeId = 1;
-		$score = 1.5;
+$questionCategoryId = 1;
+$templateId = 0;
+$questionTypeId = 1;
+$score = 1.5;
 //        $chkSQRandomizeOrder = 0;
 //        $ddlSQView = 0;
-		$questionId = '';
+$questionId = '';
 //        $hidemainmenu = 1;
 //        $boxchecked = '';
-		$option = 'com_ariquizlite';
-		$task = 'question_add$save';
-		$quizId = 1;
+$option = 'com_ariquizlite';
+$task = 'question_add$save';
+$quizId = 1;
 
 		// foreach ($crawl_arr as $quiz_data) {
-			 while($quiz_data = $questions->getNext()) {
-			$postquestion = array();
-			$postquestion['zQuiz[QuestionCategoryId]'] = $questionCategoryId;
-			$postquestion['templateId'] = $templateId;
-			$postquestion['questionTypeId'] = $questionTypeId;
-			$postquestion['zQuiz[Score]'] = $score;
-			$postquestion['zQuiz[Question]'] = $quiz_data['quiz'];
+while($quiz_data = $questions->getNext()) {
+	$postquestion = array();
+	$postquestion['zQuiz[QuestionCategoryId]'] = $questionCategoryId;
+	$postquestion['templateId'] = $templateId;
+	$postquestion['questionTypeId'] = $questionTypeId;
+	$postquestion['zQuiz[Score]'] = $score;
+	$postquestion['zQuiz[Question]'] = $quiz_data['quiz'];
 //            $postquestion['zQuiz[Note]'] = $quiz_data['note'];
 //            $postquestion['chkSQRandomizeOrder'] = $chkSQRandomizeOrder;
 //            $postquestion['ddlSQView'] = $ddlSQView;
 
-			$postquestion['tbxAnswer_0'] = $quiz_data['A'];
-			$postquestion['hidQueId_0'] = '';
-			$postquestion['hidCorrect_0'] = ($quiz_data['answer'] == 'A') ? TRUE : '';
+	$postquestion['tbxAnswer_0'] = $quiz_data['A'];
+	$postquestion['hidQueId_0'] = '';
+	$postquestion['hidCorrect_0'] = ($quiz_data['answer'] == 'A') ? TRUE : '';
 //            $postquestion['tbxScore_0'] = '';
-			$postquestion['tblQueContainer_hdnstatus_0'] = '';
-			$postquestion['rbCorrect'] = true;
-			$postquestion['tbxAnswer_1'] = $quiz_data['B'];
-			$postquestion['hidQueId_1'] = '';
-			$postquestion['hidCorrect_1'] = ($quiz_data['answer'] == 'B') ? TRUE : '';
+	$postquestion['tblQueContainer_hdnstatus_0'] = '';
+	$postquestion['rbCorrect'] = true;
+
+	$postquestion['tbxAnswer_1'] = $quiz_data['B'];
+	$postquestion['hidQueId_1'] = '';
+	$postquestion['hidCorrect_1'] = ($quiz_data['answer'] == 'B') ? TRUE : '';
 //            $postquestion['tbxScore_1'] = '';
-			$postquestion['tblQueContainer_hdnstatus_1'] = '';
-			$postquestion['tbxAnswer_2'] = $quiz_data['C'];
-			$postquestion['hidQueId_2'] = '';
-			$postquestion['hidCorrect_2'] = ($quiz_data['answer'] == 'C') ? TRUE : '';
+	$postquestion['tblQueContainer_hdnstatus_1'] = '';
+
+	$postquestion['tbxAnswer_2'] = $quiz_data['C'];
+	$postquestion['hidQueId_2'] = '';
+	$postquestion['hidCorrect_2'] = ($quiz_data['answer'] == 'C') ? TRUE : '';
 //            $postquestion['tbxScore_2'] = '';
-			$postquestion['tblQueContainer_hdnstatus_2'] = '';
+	$postquestion['tblQueContainer_hdnstatus_2'] = '';
+
+	$postquestion['tbxAnswer_3'] = $quiz_data['D'];
+	$postquestion['hidQueId_3'] = '';
+	$postquestion['hidCorrect_3'] = ($quiz_data['answer'] == 'D') ? TRUE : '';
+//            $postquestion['tbxScore_3'] = '';
+	$postquestion['tblQueContainer_hdnstatus_3'] = '';
 
 
-			$postquestion['questionId'] = $questionId;
+	$postquestion['questionId'] = $questionId;
 //            $postquestion['hidemainmenu'] = $hidemainmenu;
 //            $postquestion['boxchecked'] = $boxchecked;
-			$postquestion['option'] = $option;
-			$postquestion['task'] = $task;
-			$postquestion['quizId'] = $quizId;
+	$postquestion['option'] = $option;
+	$postquestion['task'] = $task;
+	$postquestion['quizId'] = $quizId;
 
 
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_REFERER, $refurl);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $postquestion);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_REFERER, $refurl);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $postquestion);
 // $ret = curl_exec($ch);
-			if (curl_exec($ch) === false) {
-				echo 'Curl error: ' . curl_error($ch);
-			} else {
-				echo "报告首长！ 第" . $quiz_data['no'] . "号试题添加操作完成，没有任何错误</br>\n";
-			}
-		}
+	if (curl_exec($ch) === false) {
+		echo 'Curl error: ' . curl_error($ch);
+	} else {
+		echo "报告首长！ 第" . $quiz_data['no'] . "号试题添加操作完成，没有任何错误</br>\n";
 	}
+}
+}
+
+public function newcurl3($url, $refurl) {
+	// $url = "http://localhost/ticool/administrator/";
+	$cookie = "./data/tmpuploads/cookie".time().".txt";
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie);
+	curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie);
+	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)");
+	curl_setopt($ch, CURLOPT_URL, $url);
+	ob_start(); 
+	$page = curl_exec ($ch);
+	curl_close ($ch);
+	unset($ch);
+
+//get hidden inputs
+	preg_match_all("(<input type=\"hidden\" name=\"return\" value=\"(.*)\" />)siU", $page,                     $matches1);
+	preg_match_all("(<input type=\"hidden\" name=\"(.*)\" value=\"1\" />)iU", $page,     $matches2);
+	$return = trim($matches1[1][0]);
+	$key = trim($matches2[1][0]);
+
+	$param = 'username='.urlencode("admin")."&passwd=".urlencode("Joomla8")."&lang=&option=com_login&task=login&return=".urlencode($return)."&".urlencode($key)."=1";
+
+	$fp = fopen($cookie,"w");
+	fclose($fp);
+
+//login
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie);
+	curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie);
+	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)");
+	curl_setopt($ch, CURLOPT_TIMEOUT, 40);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, TRUE);
+	curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+	curl_setopt($ch, CURLOPT_POST, TRUE);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
+	ob_start();      
+	$page2 = curl_exec ($ch);
+
+//        echo $ret;
+
+
+
+/*		$crawl_str = file_get_contents($file_seri);
+$crawl_arr = unserialize($crawl_str);*/
+$mongo = DBConnection::instantiate();
+                //get a MongoGridFS instance
+$collection = $mongo->getCollection('question');
+
+$quiz = 'cet4_200006';
+
+$questions = $collection->find(array('quiz' => $quiz));
+
+        //set the CONST of this quiz
+$questionCategoryId = 1;
+$templateId = 0;
+$questionTypeId = 1;
+$score = 1.5;
+//        $chkSQRandomizeOrder = 0;
+//        $ddlSQView = 0;
+$questionId = '';
+//        $hidemainmenu = 1;
+//        $boxchecked = '';
+$option = 'com_ariquizlite';
+$task = 'question_add$save';
+$quizId = 1;
+
+		// foreach ($crawl_arr as $quiz_data) {
+while($quiz_data = $questions->getNext()) {
+	$postquestion = array();
+	$postquestion['zQuiz[QuestionCategoryId]'] = $questionCategoryId;
+	$postquestion['templateId'] = $templateId;
+	$postquestion['questionTypeId'] = $questionTypeId;
+	$postquestion['zQuiz[Score]'] = $score;
+	$postquestion['zQuiz[Question]'] = $quiz_data['quiz'];
+//            $postquestion['zQuiz[Note]'] = $quiz_data['note'];
+//            $postquestion['chkSQRandomizeOrder'] = $chkSQRandomizeOrder;
+//            $postquestion['ddlSQView'] = $ddlSQView;
+
+	$postquestion['tbxAnswer_0'] = $quiz_data['A'];
+	$postquestion['hidQueId_0'] = '';
+	$postquestion['hidCorrect_0'] = ($quiz_data['answer'] == 'A') ? TRUE : '';
+//            $postquestion['tbxScore_0'] = '';
+	$postquestion['tblQueContainer_hdnstatus_0'] = '';
+	$postquestion['rbCorrect'] = true;
+	$postquestion['tbxAnswer_1'] = $quiz_data['B'];
+	$postquestion['hidQueId_1'] = '';
+	$postquestion['hidCorrect_1'] = ($quiz_data['answer'] == 'B') ? TRUE : '';
+//            $postquestion['tbxScore_1'] = '';
+	$postquestion['tblQueContainer_hdnstatus_1'] = '';
+	$postquestion['tbxAnswer_2'] = $quiz_data['C'];
+	$postquestion['hidQueId_2'] = '';
+	$postquestion['hidCorrect_2'] = ($quiz_data['answer'] == 'C') ? TRUE : '';
+//            $postquestion['tbxScore_2'] = '';
+	$postquestion['tblQueContainer_hdnstatus_2'] = '';
+
+	$postquestion['tbxAnswer_3'] = $quiz_data['D'];
+	$postquestion['hidQueId_3'] = '';
+	$postquestion['hidCorrect_3'] = ($quiz_data['answer'] == 'D') ? TRUE : '';
+//            $postquestion['tbxScore_3'] = '';
+	$postquestion['tblQueContainer_hdnstatus_3'] = '';
+
+
+	$postquestion['questionId'] = $questionId;
+//            $postquestion['hidemainmenu'] = $hidemainmenu;
+//            $postquestion['boxchecked'] = $boxchecked;
+	$postquestion['option'] = $option;
+	$postquestion['task'] = $task;
+	$postquestion['quizId'] = $quizId;
+
+
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_REFERER, $refurl);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $postquestion);
+// $ret = curl_exec($ch);
+	if (curl_exec($ch) === false) {
+		echo 'Curl error: ' . curl_error($ch);
+	} else {
+		echo "报告首长！ 第" . $quiz_data['no'] . "号试题添加操作完成，没有任何错误</br>\n";
+	}
+}
+}
 }

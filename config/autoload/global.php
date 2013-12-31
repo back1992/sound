@@ -215,10 +215,10 @@ return array(
 						'action' => 'addquiz',
 						) ,
 					array(
-						'label' => 'scantotal',
+						'label' => 'addquiz2',
 						'route' => 'snoopy',
 						'controller' => 'snoopy',
-						'action' => 'scantotal',
+						'action' => 'addquiz2',
 						) ,
 					) ,
 				) ,

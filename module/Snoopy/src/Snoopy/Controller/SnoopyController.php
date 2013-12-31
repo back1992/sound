@@ -93,4 +93,13 @@ class SnoopyController extends AbstractActionController
 		DanCurl::curl3($url, $refurl);
 		return False;
 	}
+	public function addquiz2Action() {
+        //set the $url and $refurl
+		$url = "http://localhost/ticool/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
+		$refurl = "http://localhost/ticool/administrator/index.php";
+//        $url = "http://highschool3.local/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
+//        $refurl = "	http://highschool3.local/administrator/index.php";
+		DanCurl::newcurl3($url, $refurl);
+		return False;
+	}
 }
