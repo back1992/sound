@@ -74,7 +74,7 @@ $questions = $collection->find(array('quiz' => $quiz))->sort(array('no' => 1));
 $questionCategoryId = 1;
 $templateId = 0;
 $questionTypeId = 1;
-$score = 1.5;
+$score = 5;
 //        $chkSQRandomizeOrder = 0;
 //        $ddlSQView = 0;
 $questionId = '';
@@ -82,7 +82,7 @@ $questionId = '';
 //        $boxchecked = '';
 $option = 'com_ariquizlite';
 $task = 'question_add$save';
-$quizId = 1;
+$quizId = 28;
 
 		// foreach ($crawl_arr as $quiz_data) {
 while($quiz_data = $questions->getNext()) {
@@ -192,48 +192,54 @@ while($quiz_data = $questions->getNext()) {
 		ob_start();      
 		$page2 = curl_exec ($ch);
 
-       echo $page2;
+		echo $page2;
+		$mongo = DBConnection::instantiate();
+                //get a MongoGridFS instance
+		$collection = $mongo->getCollection('question');
 
-/*
-		// foreach ($crawl_arr as $quiz_data) {
-// while($quiz_data = $questions->getNext()) {
-$postquestion = array();
-$postquestion["AccessGroup[]"]="0";
-$postquestion["Category[]"]="1";
-$postquestion["act"]="";
-$postquestion["option"]="com_ariquizlite";
-$postquestion["quizId"]="";
-$postquestion["task"]="quiz_add$apply";
-$postquestion["zQuiz[Active]"]="1";
-$postquestion["zQuiz[AdminEmail]"]="back1992@gmail.com";
-$postquestion["zQuiz[AttemptCount]"]="0";
-$postquestion["zQuiz[CanSkip]"]="1";
-$postquestion["zQuiz[CssTemplateId]"]="3";
-$postquestion["zQuiz[Description]"]="cet4_200106";
-$postquestion["zQuiz[LagTime]"]="0";
-$postquestion["zQuiz[PassedScore]"]="60";
-$postquestion["zQuiz[QuestionCount]"]="20";
-$postquestion["zQuiz[QuestionTime]"]="300";
-$postquestion["zQuiz[QuizName]"]="cet4_200106";
-$postquestion["zQuiz[TotalTime]"]="3000";
-$postquestion["zTextTemplate[QuizAdminEmail]"]="1";
-$postquestion["zTextTemplate[QuizFailedEmail]"]="1";
-$postquestion["zTextTemplate[QuizFailedPrint]"]="1";
-$postquestion["zTextTemplate[QuizFailed]"]="1";
-$postquestion["zTextTemplate[QuizSuccessfulEmail]"]="1";
-$postquestion["zTextTemplate[QuizSuccessfulPrint]"]="1";
-$postquestion["zTextTemplate[QuizSuccessful]"]=1;
 
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_REFERER, $refurl);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $postquestion);
-	// next($audioNames_uni);
+		$quizs = $collection->distinct('quiz');
+		sort($quizs);
+		var_dump($quizs);
+
+		foreach ($quizs as $quiz) {
+// while($quiz = $quizs->getNext()) {
+			$postquestion = array();
+			$postquestion["AccessGroup[]"]="0";
+			$postquestion["Category[]"]="1";
+			$postquestion["act"]="";
+			$postquestion["option"]="com_ariquizlite";
+			$postquestion["quizId"]="";
+			$postquestion["task"]='quiz_add$apply';
+			$postquestion["zQuiz[Active]"]="1";
+			$postquestion["zQuiz[AdminEmail]"]="back1992@gmail.com";
+			$postquestion["zQuiz[AttemptCount]"]="0";
+			$postquestion["zQuiz[CanSkip]"]="1";
+			$postquestion["zQuiz[CssTemplateId]"]="3";
+			$postquestion["zQuiz[Description]"]=$quiz;
+			$postquestion["zQuiz[LagTime]"]="0";
+			$postquestion["zQuiz[PassedScore]"]="60";
+			$postquestion["zQuiz[QuestionCount]"]="20";
+			$postquestion["zQuiz[QuestionTime]"]="300";
+			$postquestion["zQuiz[QuizName]"]=$quiz;
+			$postquestion["zQuiz[TotalTime]"]="3000";
+			$postquestion["zTextTemplate[QuizAdminEmail]"]="1";
+			$postquestion["zTextTemplate[QuizFailedEmail]"]="1";
+			$postquestion["zTextTemplate[QuizFailedPrint]"]="1";
+			$postquestion["zTextTemplate[QuizFailed]"]="1";
+			$postquestion["zTextTemplate[QuizSuccessfulEmail]"]="1";
+			$postquestion["zTextTemplate[QuizSuccessfulPrint]"]="1";
+			$postquestion["zTextTemplate[QuizSuccessful]"]=1;
+
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_REFERER, $refurl);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $postquestion);
 // $ret = curl_exec($ch);
-if (curl_exec($ch) === false) {
-	echo 'Curl error: ' . curl_error($ch);
-} else {
-	echo "报告首长！ 第" . $quiz_data['no'] . "号试题添加操作完成，没有任何错误</br>\n";
-}*/
-// }
-}
+			if (curl_exec($ch) === false) {
+				echo 'Curl error: ' . curl_error($ch);
+			} else {
+				echo "报告首长！ 第号试题添加操作完成，没有任何错误</br>\n";
+			}
+		}
+	}
 }
