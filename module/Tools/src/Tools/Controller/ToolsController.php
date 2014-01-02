@@ -244,6 +244,7 @@ foreach ($targetArr as $value) {
     $targetDir = Dandan::RESDIR . pathinfo($value['doc'], PATHINFO_FILENAME) . DIRECTORY_SEPARATOR;
 
     $resmp3 = DanAudio::mp3splt($value['mp3'], $targetDir);
+    $resogg = DanAudio::mp32oggDir($targetDir);
     $resdoc = Dandan::savequestion($value['doc'], $collection);
     var_dump($resdoc);
     var_dump($resmp3);

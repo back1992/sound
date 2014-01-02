@@ -5,7 +5,7 @@ class DanCurl {
 	const USER = 'admin';
 	const PASSWD = 'Joomla8';
 
-	public function newcurl3($url, $refurl) {
+	public function newcurl3($url, $refurl, $quiz) {
 	// $url = "http://localhost/ticool/administrator/";
 		$cookie = "./data/tmpuploads/cookie".time().".txt";
 
@@ -82,7 +82,7 @@ $questionId = '';
 //        $boxchecked = '';
 $option = 'com_ariquizlite';
 $task = 'question_add$save';
-$quizId = 28;
+$quizId = 1;
 
 		// foreach ($crawl_arr as $quiz_data) {
 while($quiz_data = $questions->getNext()) {

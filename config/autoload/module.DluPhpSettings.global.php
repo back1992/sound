@@ -16,7 +16,7 @@ return array(
 	'phpSettings'   => array(
 		'display_startup_errors'        => true,
 		'display_errors'                => true,
-		'max_execution_time'            => 30000,
+		'max_execution_time'            => 50000,
 		"memory_limit"                  => 1048576000,
 		'date.timezone'                 => 'Asia/Shanghai',
 		'mbstring.internal_encoding'    => 'UTF-8',

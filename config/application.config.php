@@ -13,7 +13,9 @@ return array(
         'System',
         'Tools',
         'DluPhpSettings',
-        'Snoopy'
+        'Snoopy',
+        'ZendDeveloperTools',
+        'BjyProfiler',
         ),
     'module_listener_options' => array(
         'module_paths' => array(

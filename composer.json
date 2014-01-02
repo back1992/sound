@@ -13,6 +13,8 @@
         "zendframework/zftool": "dev-master",
          "php-ffmpeg/php-ffmpeg": "0.3.x-dev@dev",
         "dlu/dluphpsettings": "dev-master",
-        "zendframework/zendpdf": "dev-master"
+        "zendframework/zendpdf": "dev-master",
+        "zendframework/zend-developer-tools": "dev-master",
+        "bjyoungblood/bjy-profiler": "dev-master"
     }
 }

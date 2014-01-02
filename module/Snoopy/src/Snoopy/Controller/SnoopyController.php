@@ -6,7 +6,10 @@ use Audio\Myclass\DanSnoopy;
 use Audio\Myclass\DanAudio;
 use Audio\Myclass\Dandan;
 use Audio\Myclass\DanCurl;
+use Audio\Myclass\DanMysql;
 use Audio\Myclass\Snoopy;
+use BjyProfiler\Db\Profiler\Profiler;
+use BjyProfiler\Db\Adapter\ProfilingAdapter;
 class SnoopyController extends AbstractActionController
 {
 	public function indexAction()
@@ -41,12 +44,17 @@ class SnoopyController extends AbstractActionController
 	}
 	public function fetchlinksAction(){
 		// $url = "http://www.cet4v.com/Ch3_Kind3_zttl.asp";
-		$url = "http://www.tingclass.net/show-5406-3632-1.html";
+		$quiz = "cet4_200101";
 		// $res = DanSnoopy::fetchlinks($url);
 		// var_dump($res);
-		$snoopy = new Snoopy;
-		$res = $snoopy->fetchlinks($url);
+		$res = DanMysql::fetchQuizId($quiz);
+		$sl = $this->getServiceLocator();
+		// $sl = new ProfilingAdapter();
+		$profiler = $sl->get('Zend\Db\Adapter\Adapter')->getProfiler();
+		$queryProfiles = $profiler->getQueryProfiles();
 		var_dump($res);	
+		var_dump($profiler);	
+		var_dump($queryProfiles);	
 		return false;
 	}
 	public function fetchtextAction(){
@@ -93,14 +101,12 @@ class SnoopyController extends AbstractActionController
 		DanCurl::addquizs($url, $refurl);
 		return False;
 	}
-	public function addquiz2Action() {
+	public function addquestionsAction() {
+		$quiz = $this->getEvent()->getRouteMatch()->getParam('id');
         //set the $url and $refurl
-		// $url = "http://localhost/ticool/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
 		$url = "http://localhost/ticool/administrator/index.php?option=com_ariquizlite&task=question_add";
 		$refurl = "http://localhost/ticool/administrator/index.php";
-//        $url = "http://highschool3.local/administrator/index.php?option=com_ariquizlite&task=question_add&quizId=1";
-//        $refurl = "	http://highschool3.local/administrator/index.php";
-		DanCurl::newcurl3($url, $refurl);
+		DanCurl::newcurl3($url, $refurl, $quiz);
 		return False;
 	}
 }

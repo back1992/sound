@@ -16,6 +16,7 @@ class DanAudio {
 	function mp3splt($audioFile, $audioTDir, $th='-48', $min = '2.4', $off = '0.6') {
 		$cmd_splt = " mp3splt -s -p th=$th,min=$min,off=$off  $audioFile  -d $audioTDir ";
 		// var_dump($cmd_splt);
+		var_dump(chmod($audioTDir, 0777));
 		$spltlog = shell_exec($cmd_splt);
 		if(shell_exec($cmd_splt)){
 			echo "well done in $audioFile ! <br />";
