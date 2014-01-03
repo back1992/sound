@@ -2,23 +2,23 @@
 namespace Audio\Myclass;
 // use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Sql;
+use Zend\Db\Adapter\Driver\ResultInterface;
+use Zend\Db\ResultSet\ResultSet;
 class DanMysql {
 	public function fetchQuizId($quiz) {
 		$adapter = new \Zend\Db\Adapter\Adapter(array(
 			'driver' => 'Mysqli',
 			'database' => 'ticool',
 			'username' => 'root',
-			'password' => 'Joomla8'
+			'password' => 'Joomla8',
+			'options' => array('buffer_results' => true)
 			));
-		// $quizId = $adapter->query('SELECT `QuizId` FROM `jos_ariquiz`  WHERE `QuizName` = ?', array($quiz));
 
-		$sql = new Sql($adapter);
-		$select = $sql->select();
-		$select->from('jos_ariquiz');
-		$select->where(array('QuizName' => $quiz));
+		$resultSet = $adapter->query('SELECT `QuizId` FROM `jos_ariquiz`   WHERE `QuizName` = ?', array($quiz));
 
-		$statement = $sql->prepareStatementForSqlObject($select);
-		$quizId = $statement->execute();
+		$rowData= $resultSet->current()->getArrayCopy();
+		// var_dump($rowData);
+		$quizId = $rowData['QuizId'];
 		return $quizId;
 	}
 }

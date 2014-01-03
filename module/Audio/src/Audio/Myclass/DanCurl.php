@@ -58,7 +58,7 @@ $mongo = DBConnection::instantiate();
                 //get a MongoGridFS instance
 $collection = $mongo->getCollection('question');
 
-$quiz = 'cet4_200006';
+// $quiz = 'cet4_200006';
 $audioDir = Dandan::RESDIR.$quiz.DIRECTORY_SEPARATOR;
 $audioFiles = Dandan::dirToArray($audioDir);
 $audioNames = array();
@@ -82,7 +82,7 @@ $questionId = '';
 //        $boxchecked = '';
 $option = 'com_ariquizlite';
 $task = 'question_add$save';
-$quizId = 1;
+$quizId = DanMysql::fetchQuizId($quiz);
 
 		// foreach ($crawl_arr as $quiz_data) {
 while($quiz_data = $questions->getNext()) {
@@ -92,10 +92,10 @@ while($quiz_data = $questions->getNext()) {
 	$postquestion['questionTypeId'] = $questionTypeId;
 	$postquestion['zQuiz[Score]'] = $score;
 	// $postquestion['zQuiz[Question]'] = $quiz_data['quiz'];
-	$postquestion['zQuiz[Question]'] = "<p>".$quiz_data['no']."</p><p>
+	$postquestion['zQuiz[Question]'] = "<p>No. ".$quiz_data['no']."</p><p>
 	<audio controls='' autoplay='true'>
-		<source src='images/result/cet4_200006/".current($audioNames_uni).".mp3' type='audio/mpeg'>
-			<source src='images/result/cet4_200006/".current($audioNames_uni).".ogg' type='audio/ogg'>
+		<source src='images/result/".$quiz."/".current($audioNames_uni).".mp3' type='audio/mpeg'>
+			<source src='images/result/".$quiz."/".current($audioNames_uni).".ogg' type='audio/ogg'>
 			</audio></p>";
 
 // /ticool/images/result/cet4_200006/cet4_200006_silence_02.ogg

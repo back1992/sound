@@ -1,35 +1,31 @@
 ############################### 
 ###########---my hosts- ---######### 
-127.0.0.1	localhost
-127.0.1.1	dandan-ThinkPad-X220
+127.0.0.1         localhost.localdomain localhost  
+127.0.1.1         localhost.localdomain localhost  
+127.0.0.1         sound.local  
+127.0.0.1         sound.backup.local  
+127.0.1.1         quiz.local  
+127.0.1.1         zf1.local  
 
-# The following lines are desirable for IPv6 capable hosts
-::1     ip6-localhost ip6-loopback
-fe00::0 ip6-localnet
-ff00::0 ip6-mcastprefix
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
 
-127.0.0.1 zf1.local
-127.0.0.1 sound.local
- 
-       ###########---my wall- ---######### 
-74.125.128.100         google.com  
-74.125.128.94         google.com.hk  
+
+ ###########---my wall- ---######### 
+173.194.127.41         google.com  
+173.194.127.24         google.com.hk  
 59.24.3.173         drive.google.com  
-74.125.235.206         appengine.google.com  
-74.125.235.196         apps.google.com  
-74.125.235.206         chrome.google.com  
-74.125.128.100         code.google.com  
-74.125.235.206         developers.google.com  
-74.125.235.196         ditu.google.com  
-37.61.54.158         encrypted.google.com  
-74.125.235.201         finance.google.com  
+74.125.235.195         appengine.google.com  
+74.125.235.193         apps.google.com  
+74.125.235.198         chrome.google.com  
+173.194.127.64         code.google.com  
+74.125.235.194         developers.google.com  
+74.125.235.198         ditu.google.com  
+159.106.121.75         encrypted.google.com  
+74.125.235.197         finance.google.com  
 74.125.128.95         googleapis.l.google.com  
 74.125.128.83         mail.google.com  
-74.125.235.206         play.google.com  
+74.125.235.197         play.google.com  
 37.61.54.158         0.drive.google.com  
 173.194.72.84         accounts.google.com  
-74.125.235.193         clients3.google.com  
-37.61.54.158         upload.drive.google.com  
-192.30.252.131         github.com  
+74.125.235.194         clients3.google.com  
+59.24.3.173         upload.drive.google.com  
+192.30.252.128         github.com  

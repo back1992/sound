@@ -57,12 +57,10 @@ class SnoopyController extends AbstractActionController
 		var_dump($queryProfiles);	
 		return false;
 	}
-	public function fetchtextAction(){
+	public function fetchquizidAction(){
 		// $url = "http://www.cet4v.com/exam/10975.asp";
-		$url = "http://www.tingclass.net/show-5406-3632-1.html";
-		var_dump(DanSnoopy::fetchlinks($url));
-		$res = DanSnoopy::fetchtext($url);
-		print $res;
+		$res = DanMysql::fetchQuizId('cet4_200101');
+		var_dump($res);
 		return false;
 	}
 	public function fetchlistenAction(){

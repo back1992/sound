@@ -191,10 +191,10 @@ return array(
 						'action' => 'fetchlinks',
 						) ,
 					array(
-						'label' => 'fetchtext',
+						'label' => 'fetchquizid',
 						'route' => 'snoopy',
 						'controller' => 'snoopy',
-						'action' => 'fetchtext',
+						'action' => 'fetchquizid',
 						) ,
 					array(
 						'label' => 'fetchlisten',
