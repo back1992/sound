@@ -1,0 +1,41 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+$title = 'My Links';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<table class="table">
+	<tr>
+		<th>Title</th>
+		<th>Action</th>
+	</tr>
+	<?php foreach ($this->links as $key => $link) : // <-- change here! ?>
+		<tr>
+			<td id="<?php echo $key; ?>"><?php echo $link;?></td>
+			<td>
+				<a href="<?php echo $link;?>" class = "btn btn-default" role = "button" target="_blank">open</a>
+				<a href="<?php echo $this->url('snoopy',array('action' => 'fetchcontent', 'id' => $key));?>" class = "btn btn-primary" role = "button">edit</a>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+<a href="<?php echo $this->url('snoopy',
+	array('action' => 'edit'));?>" class = "btn btn-primary" role = "button">Edit</a>
+<a href="<?php echo $this->url('snoopy',
+	array('action' => 'delete'));?>" class = "btn btn-default" role = "button">Delete</a>
+
+<script type="text/javascript">
+	var cid = $(this).attr('id');
+	alert(cid);
+	$.ajax({
+		url: '/snoopy/deletelink/'+cid,
+		success: function() {
+			alert('link deleted.');
+		}
+	});
+	location.reload();
+})
+
+function browser(key)
+</script>

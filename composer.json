@@ -15,6 +15,12 @@
         "dlu/dluphpsettings": "dev-master",
         "zendframework/zendpdf": "dev-master",
         "zendframework/zend-developer-tools": "dev-master",
-        "bjyoungblood/bjy-profiler": "dev-master"
+        "bjyoungblood/bjy-profiler": "dev-master",
+        "doctrine/mongodb-odm": "1.0.0-BETA9",
+        "doctrine/doctrine-mongo-odm-module": "dev-master",
+        "doctrine/mongodb-odm-softdelete": "dev-master",
+        "phly/phly-mongo": "dev-master",
+        "knplabs/knp-paginator-bundle": "dev-master",
+        "pruno/ZF2-MongoDB-VirtualCollections": "dev-master"
     }
 }

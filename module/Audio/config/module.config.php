@@ -1,10 +1,13 @@
 <?php
+/**
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @link      http://github.com/zendframework/ZendSkeletonAudio for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
+
 return array(
-    'controllers' => array(
-        'invokables' => array(
-            'Audio\Controller\Audio' => 'Audio\Controller\AudioController',
-            ),
-        ),
     'router' => array(
         'routes' => array(
             'audio' => array(
@@ -27,18 +30,23 @@ return array(
                 ),
             ),
         ),
+    'controllers' => array(
+        'invokables' => array(
+            'Audio\Controller\Audio' => 'Audio\Controller\AudioController'
+        ),
+    ),
     'view_manager' => array(
+        'display_not_found_reason' => true,
+        'display_exceptions'       => true,
+        'doctype'                  => 'HTML5',
+        'not_found_template'       => 'error/404',
+        'exception_template'       => 'error/index',
         'template_map' => array(
-            'layout/layouttwb-demo' => __DIR__ . '/../view/layout/layouttwb-demo.phtml',
-            ),
+            'audio/index/index' => __DIR__ . '/../view/audio/index/index.phtml',
+        ),
         'template_path_stack' => array(
-            'audio' => __DIR__ . '/../view',
-            ),
+            __DIR__ . '/../view',
         ),
-    'service_manager'   => array(
-        'factories'         => array(
-            'dlu_twb_demo_navigation'       => 'DluTwBootstrapDemo\Navigation\Service\DluTwbDemoNavigationFactory',
-            ),
-        ),
-    );
-
+    ),
+    // Placeholder for console routes
+);

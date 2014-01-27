@@ -7,15 +7,15 @@
  */
 return array(
     'modules' => array(
-        'Application',
-        'Audio',
-        'Ffmpeg',
-        'System',
-        'Tools',
+        'DoctrineModule',
+         'DoctrineMongoODMModule',
         'DluPhpSettings',
-        'Snoopy',
         'ZendDeveloperTools',
         'BjyProfiler',
+        'Application',
+        'Snoopy',
+        'Audio',
+        'Quiz'
         ),
     'module_listener_options' => array(
         'module_paths' => array(

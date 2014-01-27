@@ -8,11 +8,11 @@
 return array(
     'modules' => array(
         'Application',
-        'Audio',
-        'Ffmpeg',
-        'System',
-        'Tools',
-        'DluPhpSettings'
+        'Snoopy',
+        'DluPhpSettings',
+        'ZendDeveloperTools',
+        'BjyProfiler',
+        'Audio'
         ),
     'module_listener_options' => array(
         'module_paths' => array(

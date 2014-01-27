@@ -1,0 +1,17 @@
+<?php
+// module/Album/view/album/album/add.phtml:
+$title = 'Add new links';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('snoopy', array('action' => 'fetchlinks')));
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('url'));
+echo $this->formRow($form->get('start')->setValue('<div id="share_con">'));
+echo $this->formRow($form->get('end')->setValue('<div id="dezhi" class="mt10">'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
